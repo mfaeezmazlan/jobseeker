@@ -19,7 +19,7 @@
             <!-- #section:basics/navbar.layout.brand -->
             <a href="#" class="navbar-brand">
                 <small>
-                    <i class="fa fa-leaf"></i>
+                    <i class="fa fa-copyright"></i>
                     JobSeeker
                 </small>
             </a>
@@ -56,7 +56,7 @@
                                 <li>
                                     <a href="#">
                                         <i class="btn btn-xs btn-primary fa fa-user"></i>
-                                        Bob just signed up as an editor ...
+                                        Ahmad just signed up as an editor ...
                                     </a>
                                 </li>
                                 <li>
@@ -105,11 +105,11 @@
                             <ul class="dropdown-menu dropdown-navbar">
                                 <li>
                                     <a href="#" class="clearfix">
-                                        <img src="#" class="msg-photo" alt="Bob's Avatar" />
+                                        <img src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" class="msg-photo" alt="Ahmad's Avatar" />
                                         <span class="msg-body">
                                             <span class="msg-title">
-                                                <span class="blue">Bob:</span>
-                                                Nullam quis risus eget urna mollis ornare ...
+                                                <span class="blue">Ahmad:</span>
+                                                Apa khabar sahabtku ...
                                             </span>
                                             <span class="msg-time">
                                                 <i class="ace-icon fa fa-clock-o"></i>
@@ -120,11 +120,11 @@
                                 </li>
                                 <li>
                                     <a href="#" class="clearfix">
-                                        <img src="#" class="msg-photo" alt="Kate's Avatar" />
+                                        <img src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" class="msg-photo" alt="Kadijah's Avatar" />
                                         <span class="msg-body">
                                             <span class="msg-title">
-                                                <span class="blue">Kate:</span>
-                                                Ciao sociis natoque eget urna mollis ornare ...
+                                                <span class="blue">Kadijah:</span>
+                                                Hai, assignment semalam dah siap ke?
                                             </span>
                                             <span class="msg-time">
                                                 <i class="ace-icon fa fa-clock-o"></i>
@@ -135,11 +135,11 @@
                                 </li>
                                 <li>
                                     <a href="#" class="clearfix">
-                                        <img src="#" class="msg-photo" alt="Fred's Avatar" />
+                                        <img src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" class="msg-photo" alt="Farid's Avatar" />
                                         <span class="msg-body">
                                             <span class="msg-title">
-                                                <span class="blue">Fred:</span>
-                                                Vestibulum id penatibus et auctor  ...
+                                                <span class="blue">Farid:</span>
+                                                Makan jom
                                             </span>
                                             <span class="msg-time">
                                                 <i class="ace-icon fa fa-clock-o"></i>
@@ -161,10 +161,9 @@
                 <!-- #section:basics/navbar.user_menu -->
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="#" alt="user photo" />
+                        <img class="nav-user-photo" src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" alt="user photo" />
                         <span class="user-info">
-                            <small>Welcome,</small>
-                            User
+                            <small>Welcome,</small>User
                         </span>
                         <i class="ace-icon fa fa-caret-down"></i>
                     </a>

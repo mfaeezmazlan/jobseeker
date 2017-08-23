@@ -93,8 +93,8 @@ AppAsset::register($this);
                     <!-- #section:basics/footer -->
                     <div class="footer-content">
                         <span class="bigger-120">
-                            <span class="blue bolder">Ace</span>
-                            Application &copy; 2013-2014
+                            <span class="blue bolder">Job</span>
+                            Seeker &copy; <?= date('Y') ?>
                         </span>
                         &nbsp; &nbsp;
                         <span class="action-buttons">
