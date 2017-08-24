@@ -182,10 +182,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#">
-                                <i class="ace-icon fa fa-power-off"></i>
-                                Logout
-                            </a>
+                            <?= yii\helpers\Html::a('<i class="ace-icon fa fa-power-off"></i>Logout', ['site/logout']) ?>
                         </li>
                     </ul>
                 </li>
