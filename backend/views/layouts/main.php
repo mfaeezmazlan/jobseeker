@@ -130,7 +130,7 @@ AppAsset::register($this);
                 </a>
             </div><!-- /.main-container -->
             <?php
-        }else {
+        } else {
             echo $content;
         }
         ?>

@@ -36,12 +36,12 @@ use yii\helpers\Html;
 
 
 
-    <ul class="nav nav-list">
-        <li class="active">
+    <ul class="nav nav-list" id="nav_main">
+        <li class="" id="nav_1">
             <?= Html::a("<i class='menu-icon fa fa-tachometer'></i><span class='menu-text'> Dashboard </span>", ['site/index']) ?>
             <b class="arrow"></b>
         </li>
-        <li class="">
+        <li class="" id="nav_2">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-cogs"></i>
                 <span class="menu-text">
@@ -51,7 +51,7 @@ use yii\helpers\Html;
             </a>
             <b class="arrow"></b>
             <ul class="submenu">
-                <li class="">
+                <li class="" id="nav_2_1">
                     <?= Html::a("<span class='menu-text'> Manage User </span>", ['user/index']) ?>
                     <b class="arrow"></b>
                 </li>
