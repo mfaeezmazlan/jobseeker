@@ -115,6 +115,8 @@ class Address extends \yii\db\ActiveRecord {
             $arr[] = $this->street_1;
         if ($this->street_2)
             $arr[] = $this->street_2;
+        if ($this->postcode)
+            $arr[] = $this->postcode;
         if ($this->addressCity)
             $arr[] = $this->addressCity->name;
         if ($this->addressState)
