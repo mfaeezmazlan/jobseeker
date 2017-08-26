@@ -40,7 +40,7 @@ class User extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['username', 'email'], 'required'],
+            [['username', 'email', 'password'], 'required'],
             [['status', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['username', 'password', 'password_hash', 'password_reset_token', 'email', 'auth_key'], 'string', 'max' => 255],
@@ -81,8 +81,8 @@ class User extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUserProfiles() {
-        return $this->hasMany(UserProfile::className(), ['user_id' => 'id']);
+    public function getUserProfile() {
+        return $this->hasOne(\common\models\UserProfile::className(), ['user_id' => 'id']);
     }
 
 }

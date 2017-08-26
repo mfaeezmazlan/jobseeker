@@ -82,22 +82,7 @@ AppAsset::register($this);
                         </div>
                         <!-- /section:basics/content.breadcrumbs -->
                         <div class="page-content">
-                            <div class="page-header">
-                                <h1>
-                                    Dashboard
-                                    <small>
-                                        <i class="ace-icon fa fa-angle-double-right"></i>
-                                        overview &amp; stats
-                                    </small>
-                                </h1>
-                            </div><!-- /.page-header -->
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <!-- PAGE CONTENT BEGINS -->
-                                    <?= $content ?>
-                                    <!-- PAGE CONTENT ENDS -->
-                                </div><!-- /.col -->
-                            </div><!-- /.row -->
+                            <?= $content ?>
                         </div><!-- /.page-content -->
                     </div>
                 </div><!-- /.main-content -->

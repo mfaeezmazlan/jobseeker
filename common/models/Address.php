@@ -27,21 +27,19 @@ use Yii;
  * @property CompanyProfile[] $companyProfiles
  * @property UserProfile[] $userProfiles
  */
-class Address extends \yii\db\ActiveRecord
-{
+class Address extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%address}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['type', 'country', 'street_1'], 'required'],
             [['type', 'country', 'state', 'district', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
@@ -55,8 +53,7 @@ class Address extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
             'type' => Yii::t('app', 'Type'),
@@ -80,16 +77,52 @@ class Address extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCompanyProfiles()
-    {
+    public function getAddressCountry() {
+        return $this->hasOne(Countries::className(), ['id' => 'country']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAddressState() {
+        return $this->hasOne(States::className(), ['id' => 'state']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAddressCity() {
+        return $this->hasOne(Cities::className(), ['id' => 'city']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCompanyProfiles() {
         return $this->hasMany(CompanyProfile::className(), ['address_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUserProfiles()
-    {
+    public function getUserProfiles() {
         return $this->hasMany(UserProfile::className(), ['address_id' => 'id']);
     }
+
+    public function getFullAddress() {
+        $arr = array();
+        if ($this->street_1)
+            $arr[] = $this->street_1;
+        if ($this->street_2)
+            $arr[] = $this->street_2;
+        if ($this->addressCity)
+            $arr[] = $this->addressCity->name;
+        if ($this->addressState)
+            $arr[] = $this->addressState->name;
+
+        $arr[] = $this->addressCountry->name;
+
+        return implode(',<br>', $arr);
+    }
+
 }

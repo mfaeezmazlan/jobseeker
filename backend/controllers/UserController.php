@@ -4,7 +4,9 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\User;
+use common\models\UserProfile;
 use backend\models\UserSearch;
+use common\models\Address;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -48,8 +50,13 @@ class UserController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
+        $model = $this->findModel($id);
+        $modelAddress = $model->userProfile->address;
+        $modelUserProfile = $model->userProfile;
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+                    'model' => $model,
+                    'modelUserProfile' => $modelUserProfile,
+                    'modelAddress' => $modelAddress,
         ]);
     }
 
@@ -60,12 +67,24 @@ class UserController extends Controller {
      */
     public function actionCreate() {
         $model = new User();
+        $modelAddress = new Address();
+        $modelUserProfile = new UserProfile();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $modelAddress->type = 1;
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $modelAddress->validate() && $modelUserProfile->validate()) {
+
+            $model->password_hash = $model->password = Yii::$app->security->generatePasswordHash($model->password);
+            $model->auth_key = Yii::$app->security->generateRandomString();
+
+            if ($modelUserProfile->first_name == '' || isNull($modelUserProfile->first_name))
+                $modelUserProfile->first_name = $model->username;
+            if ($model->save())
+                return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                         'model' => $model,
+                        'modelUserProfile' => $modelUserProfile,
+                        'modelAddress' => $modelAddress,
             ]);
         }
     }
@@ -78,12 +97,16 @@ class UserController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
+        $modelAddress = $model->userProfile->address;
+        $modelUserProfile = $model->userProfile;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                         'model' => $model,
+                        'modelUserProfile' => $modelUserProfile,
+                        'modelAddress' => $modelAddress,
             ]);
         }
     }

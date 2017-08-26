@@ -12549,6 +12549,10 @@ td .lbl:only-child {
 .login-box .toolbar > div:first-child + div > a {
     margin-right: 11px;
 }
+div.required label:after {
+    content: " *";
+    color: red;
+}
 .forgot-box .toolbar {
     background: #C16050;
     border-top: 2px solid #976559;
