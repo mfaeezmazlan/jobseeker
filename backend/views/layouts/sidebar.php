@@ -52,11 +52,11 @@ use yii\helpers\Html;
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="" id="nav_2_1">
-                    <?= Html::a("<span class='menu-text'> View My Profile </span>", ['user/index']) ?>
+                    <?= Html::a("<span class='menu-text'> View My Profile </span>", ['user-profile/view']) ?>
                     <b class="arrow"></b>
                 </li>
                 <li class="" id="nav_2_1">
-                    <?= Html::a("<span class='menu-text'> Edit My Profile </span>", ['user/index']) ?>
+                    <?= Html::a("<span class='menu-text'> Edit My Profile </span>", ['user/update']) ?>
                     <b class="arrow"></b>
                 </li>
             </ul>
