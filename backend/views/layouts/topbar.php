@@ -163,7 +163,7 @@
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <img class="nav-user-photo" src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" alt="user photo" />
                         <span class="user-info">
-                            <small>Welcome,</small>User
+                            <small>Welcome,</small><?= Yii::$app->user->identity->userProfile->first_name ?>
                         </span>
                         <i class="ace-icon fa fa-caret-down"></i>
                     </a>

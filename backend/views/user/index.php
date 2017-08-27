@@ -11,24 +11,31 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
-
+<div class="page-header">
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
+</div><!-- /.page-header -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="user-index">
+            <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?php Pjax::begin(); ?>    <?=
-    GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'username',
-            'email',
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]);
-    ?>
-    <?php Pjax::end(); ?></div>
+            <p>
+                <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
+            <?php Pjax::begin(); ?>    <?=
+            GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'username',
+                    'email',
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+            ]);
+            ?>
+            <?php Pjax::end(); ?>
+        </div>
+
+    </div><!-- /.col -->
+</div><!-- /.row -->

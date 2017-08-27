@@ -12,7 +12,6 @@ class AppAsset extends AssetBundle {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-//        'css/site.css',
         "_theme/assets/css/font-awesome.css",
         "_theme/assets/css/ace-fonts.css",
         "_theme/assets/css/ace.css",
