@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <span class="red">Job</span>
                             <span class="white" id="id-text2">Seeker</span>
                         </h1>
-                        <h4 class="blue" id="id-company-text">&copy; Some Name</h4>
+                        <h4 class="blue" id="id-company-text">&copy; AMH Reality Enterprise</h4>
                     </div>
                     <div class="space-6"></div>
                     <div class="position-relative">
