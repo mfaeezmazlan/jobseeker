@@ -43,6 +43,30 @@ use yii\helpers\Html;
         </li>
         <li class="" id="nav_2">
             <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-user"></i>
+                <span class="menu-text">
+                    Profile
+                </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                <li class="" id="nav_2_1">
+                    <?= Html::a("<span class='menu-text'> View My Profile </span>", ['user/index']) ?>
+                    <b class="arrow"></b>
+                </li>
+                <li class="" id="nav_2_1">
+                    <?= Html::a("<span class='menu-text'> Edit My Profile </span>", ['user/index']) ?>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+        <li class="" id="nav_3">
+            <?= Html::a("<i class='menu-icon fa fa-search-plus'></i><span class='menu-text'> Talent Search </span>", ['site/index']) ?>
+            <b class="arrow"></b>
+        </li>
+        <li class="" id="nav_4">
+            <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-cogs"></i>
                 <span class="menu-text">
                     System
@@ -51,7 +75,7 @@ use yii\helpers\Html;
             </a>
             <b class="arrow"></b>
             <ul class="submenu">
-                <li class="" id="nav_2_1">
+                <li class="" id="nav_4_1">
                     <?= Html::a("<span class='menu-text'> Manage User </span>", ['user/index']) ?>
                     <b class="arrow"></b>
                 </li>
