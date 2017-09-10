@@ -20,7 +20,7 @@
             <a href="#" class="navbar-brand">
                 <small>
                     <i class="fa fa-copyright"></i>
-                    JobSeeker
+                    AMH Reality Enterprise
                 </small>
             </a>
             <!-- /section:basics/navbar.layout.brand -->
