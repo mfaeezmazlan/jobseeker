@@ -10,6 +10,7 @@ use common\models\Address;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -21,6 +22,16 @@ class UserController extends Controller {
      */
     public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'create', 'update', 'delete'],
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -71,6 +82,7 @@ class UserController extends Controller {
         $modelUserProfile = new UserProfile();
 
         $modelAddress->type = 1;
+        $oldPassword = $model->password_hash;
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $modelAddress->validate() && $modelUserProfile->validate()) {
 
             $model->password_hash = $model->password = Yii::$app->security->generatePasswordHash($model->password);
@@ -100,7 +112,10 @@ class UserController extends Controller {
         $modelAddress = $model->userProfile->address;
         $modelUserProfile = $model->userProfile;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->password_hash = $model->password = Yii::$app->security->generatePasswordHash($model->password);
+            $model->auth_key = Yii::$app->security->generateRandomString();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

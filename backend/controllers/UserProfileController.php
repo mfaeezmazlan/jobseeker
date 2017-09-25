@@ -8,19 +8,28 @@ use backend\models\UserProfileSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * UserProfileController implements the CRUD actions for UserProfile model.
  */
-class UserProfileController extends Controller
-{
+class UserProfileController extends Controller {
 
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['my-profile'],
+                        'roles' => ['company'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -34,8 +43,7 @@ class UserProfileController extends Controller
      * Lists all UserProfile models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new UserProfileSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -50,8 +58,7 @@ class UserProfileController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);
@@ -62,8 +69,7 @@ class UserProfileController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new UserProfile();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -81,8 +87,7 @@ class UserProfileController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -100,11 +105,16 @@ class UserProfileController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionMyProfile() {
+        return $this->render('profile', [
+                    'model' => $this->findModel(Yii::$app->user->identity->id),
+        ]);
     }
 
     /**
@@ -114,20 +124,12 @@ class UserProfileController extends Controller
      * @return UserProfile the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = UserProfile::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionMyProfile()
-    {
-        return $this->render('view', [
-                    'model' => $this->findModel(Yii::$app->user->identity->id),
-        ]);
     }
 
 }

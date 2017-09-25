@@ -60,12 +60,14 @@ class JobListController extends Controller {
      */
     public function actionCreate() {
         $model = new JobList();
+        $modelJobSkills = new \common\models\JobListSkills();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                         'model' => $model,
+                        'modelJobSkills' => $modelJobSkills,
             ]);
         }
     }

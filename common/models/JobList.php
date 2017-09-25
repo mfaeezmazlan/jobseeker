@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property integer $company_id
- * @property string $title
+ * @property string $field
  * @property string $position
  * @property string $description
  * @property string $is_deleted
@@ -23,26 +23,24 @@ use Yii;
  * @property CompanyProfile $company
  * @property JobListSkills[] $jobListSkills
  */
-class JobList extends \yii\db\ActiveRecord
-{
+class JobList extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%job_list}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['company_id', 'title', 'position'], 'required'],
+            [['company_id', 'field', 'position'], 'required'],
             [['company_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['title', 'position'], 'string', 'max' => 100],
+            [['field', 'position'], 'string', 'max' => 100],
             [['description'], 'string', 'max' => 1024],
             [['is_deleted'], 'string', 'max' => 1],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyProfile::className(), 'targetAttribute' => ['company_id' => 'id']],
@@ -52,12 +50,11 @@ class JobList extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
-            'company_id' => Yii::t('app', 'Company ID'),
-            'title' => Yii::t('app', 'Title'),
+            'company_id' => Yii::t('app', 'Company'),
+            'field' => Yii::t('app', 'Field'),
             'position' => Yii::t('app', 'Position'),
             'description' => Yii::t('app', 'Description'),
             'is_deleted' => Yii::t('app', 'Is Deleted'),
@@ -73,16 +70,15 @@ class JobList extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCompany()
-    {
+    public function getCompany() {
         return $this->hasOne(CompanyProfile::className(), ['id' => 'company_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getJobListSkills()
-    {
+    public function getJobListSkills() {
         return $this->hasMany(JobListSkills::className(), ['job_list_id' => 'id']);
     }
+
 }

@@ -18,7 +18,7 @@ class JobListSearch extends JobList {
     public function rules() {
         return [
             [['id', 'company_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['title', 'position', 'description', 'is_deleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['field', 'position', 'description', 'is_deleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -66,7 +66,7 @@ class JobListSearch extends JobList {
             'deleted_by' => $this->deleted_by,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
+        $query->andFilterWhere(['like', 'field', $this->field])
                 ->andFilterWhere(['like', 'position', $this->position])
                 ->andFilterWhere(['like', 'description', $this->description])
                 ->andFilterWhere(['like', 'is_deleted', $this->is_deleted]);
