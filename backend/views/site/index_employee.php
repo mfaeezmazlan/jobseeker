@@ -59,8 +59,8 @@ $this->title = 'Latest job announcement';
                                         </div>
                                         <div>
                                             <a href="#" class="btn btn-block btn-inverse">
-                                                <i class="ace-icon fa fa-shopping-cart bigger-110"></i>
-                                                <span>Buy</span>
+                                                <i class="ace-icon fa fa-check-circle bigger-110"></i>
+                                                <span>Apply</span>
                                             </a>
                                         </div>
                                     </div>
@@ -69,46 +69,46 @@ $this->title = 'Latest job announcement';
                             <div class="col-xs-6 col-sm-3 pricing-box">
                                 <div class="widget-box widget-color-orange">
                                     <div class="widget-header">
-                                        <h5 class="widget-title bigger lighter">Starter Package</h5>
+                                        <h5 class="widget-title bigger lighter">Electrical Engineer</h5>
                                     </div>
                                     <div class="widget-body">
                                         <div class="widget-main">
                                             <ul class="list-unstyled spaced2">
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    50 GB Disk Space
+                                                    Bachelor in Electrical Engineering
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    1 TB Bandwidth
+                                                    Fresh graduate are very welcome
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    1000 Email Accounts
+                                                    AutoCad & Electrical Drafting
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    100 MySQL Databases
+                                                    Willingly to learn new things
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    $25 Ad Credit
+                                                    Medical Expenses
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    Free Domain
+                                                    Travelling Expenses
                                                 </li>
                                             </ul>
                                             <hr />
                                             <div class="price">
-                                                $10
+                                                RM2500 ~ RM3000
                                                 <small>/month</small>
                                             </div>
                                         </div>
                                         <div>
                                             <a href="#" class="btn btn-block btn-warning">
-                                                <i class="ace-icon fa fa-shopping-cart bigger-110"></i>
-                                                <span>Buy</span>
+                                                <i class="ace-icon fa fa-check-circle bigger-110"></i>
+                                                <span>Apply</span>
                                             </a>
                                         </div>
                                     </div>
@@ -117,46 +117,46 @@ $this->title = 'Latest job announcement';
                             <div class="col-xs-6 col-sm-3 pricing-box">
                                 <div class="widget-box widget-color-blue">
                                     <div class="widget-header">
-                                        <h5 class="widget-title bigger lighter">Business Package</h5>
+                                        <h5 class="widget-title bigger lighter">Accountant</h5>
                                     </div>
                                     <div class="widget-body">
                                         <div class="widget-main">
                                             <ul class="list-unstyled spaced2">
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    200 GB Disk Space
+                                                    Bachelor in Accounting
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    Unlimited Bandwidth
+                                                    Fresh graduate are very welcome
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    1000 Email Accounts
+                                                    Love calculating expenses
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    200 MySQL Databases
+                                                    Love business progression
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    $25 Ad Credit
+                                                    Medical Expenses
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    Free Domain
+                                                    Travelling Expenses
                                                 </li>
                                             </ul>
                                             <hr />
                                             <div class="price">
-                                                $15
+                                                RM2600
                                                 <small>/month</small>
                                             </div>
                                         </div>
                                         <div>
                                             <a href="#" class="btn btn-block btn-primary">
-                                                <i class="ace-icon fa fa-shopping-cart bigger-110"></i>
-                                                <span>Buy</span>
+                                                <i class="ace-icon fa fa-check-circle bigger-110"></i>
+                                                <span>Apply</span>
                                             </a>
                                         </div>
                                     </div>
@@ -165,46 +165,46 @@ $this->title = 'Latest job announcement';
                             <div class="col-xs-6 col-sm-3 pricing-box">
                                 <div class="widget-box widget-color-green">
                                     <div class="widget-header">
-                                        <h5 class="widget-title bigger lighter">Ultimate Package</h5>
+                                        <h5 class="widget-title bigger lighter">Mechanical Engineer</h5>
                                     </div>
                                     <div class="widget-body">
                                         <div class="widget-main">
                                             <ul class="list-unstyled spaced2">
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    Unlimited Space
+                                                    Bachelor in Mechanical Engineering
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    Unlimited Bandwidth
+                                                    Fresh graduate are very welcome
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    Unlimited Email Accounts
+                                                    AutoCad & Mechanical Drafting
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    Unlimited MySQL Databases
+                                                    Willingly to learn new things
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    $50 Ad Credit
+                                                    Medical Expenses
                                                 </li>
                                                 <li>
                                                     <i class="ace-icon fa fa-check green"></i>
-                                                    2 Free Domains
+                                                    Travelling Expenses
                                                 </li>
                                             </ul>
                                             <hr />
                                             <div class="price">
-                                                $25
+                                                RM2700
                                                 <small>/month</small>
                                             </div>
                                         </div>
                                         <div>
                                             <a href="#" class="btn btn-block btn-success">
-                                                <i class="ace-icon fa fa-shopping-cart bigger-110"></i>
-                                                <span>Buy</span>
+                                                <i class="ace-icon fa fa-check-circle bigger-110"></i>
+                                                <span>Apply</span>
                                             </a>
                                         </div>
                                     </div>
