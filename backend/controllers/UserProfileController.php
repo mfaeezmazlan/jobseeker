@@ -26,7 +26,7 @@ class UserProfileController extends Controller {
                     [
                         'allow' => true,
                         'actions' => ['my-profile'],
-                        'roles' => ['company'],
+                        'roles' => ['employee'],
                     ],
                 ],
             ],

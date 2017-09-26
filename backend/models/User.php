@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $username
  * @property string $password
+ * @property string $repeat_password
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
@@ -28,6 +29,8 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord {
 
+    public $repeat_password;
+
     /**
      * @inheritdoc
      */
@@ -41,6 +44,10 @@ class User extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['username', 'email', 'password'], 'required'],
+            [['email'], 'email'],
+            [['email'], 'unique'],
+            [['username', 'email', 'password', 'repeat_password'], 'required', 'on' => 'register'],
+            [['repeat_password'], 'compare', 'compareAttribute' => 'password', 'message' => 'Password did not match', 'on' => 'register'],
             [['status', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['username', 'password', 'password_hash', 'password_reset_token', 'email', 'auth_key'], 'string', 'max' => 255],
@@ -56,6 +63,7 @@ class User extends \yii\db\ActiveRecord {
             'id' => Yii::t('app', 'ID'),
             'username' => Yii::t('app', 'Username'),
             'password' => Yii::t('app', 'Password'),
+            'repeat_password' => Yii::t('app', 'Repeat Password'),
             'password_hash' => Yii::t('app', 'Password Hash'),
             'password_reset_token' => Yii::t('app', 'Password Reset Token'),
             'email' => Yii::t('app', 'Email'),

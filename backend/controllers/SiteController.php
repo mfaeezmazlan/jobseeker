@@ -72,11 +72,26 @@ class SiteController extends Controller {
         }
 
         $model = new LoginForm();
+        $modelUser = new \backend\models\User();
+        $modelUser->scenario = 'register';
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
+        } else if ($modelUser->load(Yii::$app->request->post()) && $modelUser->validate()) {
+
+            $modelUser->status = 10;
+            $modelUser->password_hash = $modelUser->repeat_password = $modelUser->password = Yii::$app->security->generatePasswordHash($modelUser->password);
+            $modelUser->auth_key = Yii::$app->security->generateRandomString();
+            if ($modelUser->save()) {
+                $modelAuth = new \common\models\AuthAssignment();
+                $modelAuth->user_id = $modelUser->id;
+                $modelAuth->item_name = 'employee';
+                $modelAuth->save();
+            }
+            return $this->goHome();
         } else {
             return $this->render('login', [
                         'model' => $model,
+                        'modelUser' => $modelUser,
             ]);
         }
     }

@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+
+$assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
 ?>
 <div id="sidebar" class="sidebar responsive">
     <script type="text/javascript">
@@ -41,26 +43,31 @@ use yii\helpers\Html;
             <?= Html::a("<i class='menu-icon fa fa-tachometer'></i><span class='menu-text'> Dashboard </span>", ['site/index']) ?>
             <b class="arrow"></b>
         </li>
+        
+        <?php if ($assignmentRole->item_name == 'admin' || $assignmentRole->item_name == 'company'): ?>
         <li class="" id="nav_3">
             <?= Html::a("<i class='menu-icon fa fa-search-plus'></i><span class='menu-text'> Talent Search </span>", ['site/index']) ?>
             <b class="arrow"></b>
         </li>
-        <li class="" id="nav_4">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-cogs"></i>
-                <span class="menu-text">
-                    System
-                </span>
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-                <li class="" id="nav_4_1">
-                    <?= Html::a("<span class='menu-text'> Manage User </span>", ['user/index']) ?>
-                    <b class="arrow"></b>
-                </li>
-            </ul>
-        </li>
+        <?php endif; ?>
+        <?php if ($assignmentRole->item_name == 'admin'): ?>
+            <li class="" id="nav_4">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-cogs"></i>
+                    <span class="menu-text">
+                        System
+                    </span>
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+                <b class="arrow"></b>
+                <ul class="submenu">
+                    <li class="" id="nav_4_1">
+                        <?= Html::a("<span class='menu-text'> Manage User </span>", ['user/index']) ?>
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+        <?php endif; ?>
     </ul><!-- /.nav-list -->
     <!-- #section:basics/sidebar.layout.minimize -->
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
