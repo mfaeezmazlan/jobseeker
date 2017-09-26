@@ -58,7 +58,17 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        return $this->render('index');
+        $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one()->item_name;
+
+        switch ($assignmentRole) {
+            case 'employee':
+                return $this->render('index_employee');
+            case 'company':
+                return $this->render('index_company');
+            case 'admin':
+            default:
+                return $this->render('index');
+        }
     }
 
     /**
