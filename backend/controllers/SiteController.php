@@ -63,12 +63,49 @@ class SiteController extends Controller {
         switch ($assignmentRole) {
             case 'employee':
                 $modelJobList = \common\models\JobList::find()->orderBy(['created_at' => SORT_DESC])->limit(4)->all();
-                return $this->render('index_employee',['modelJobList' => $modelJobList]);
+                return $this->render('index_employee', ['modelJobList' => $modelJobList]);
             case 'company':
-                return $this->render('index_company');
+                $companyModel = \common\models\CompanyProfile::find()->where(['user_id' => Yii::$app->user->id])->one();
+                $totalPendingApplication = count(\common\models\JobApplication::find()
+                                ->innerJoin('job_list a', 'a.id=job_application.job_list_id')
+                                ->where(['a.company_id' => $companyModel->id,'status' => 0])->all());
+                $totalJobList = count(\common\models\JobList::find()->where(['company_id' => $companyModel->id])->all());
+
+                $totalUser = count(\common\models\AuthAssignment::find()->where(['item_name' => 'employee'])->all());
+                $totalUserCompany = count(\common\models\AuthAssignment::find()->where(['item_name' => 'company'])->all());
+                $totalUserAdmin = count(\common\models\AuthAssignment::find()->where(['item_name' => 'admin'])->all());
+                return $this->render('index_company', [
+                            'totalUser' => $totalUser,
+                            'totalUserCompany' => $totalUserCompany,
+                            'totalUserAdmin' => $totalUserAdmin,
+                            'totalPendingApplication' => $totalPendingApplication,
+                            'totalJobList' => $totalJobList,
+                ]);
             case 'admin':
             default:
-                return $this->render('index');
+                $totalUser = count(\common\models\AuthAssignment::find()->where(['item_name' => 'employee'])->all());
+                $totalUserCompany = count(\common\models\AuthAssignment::find()->where(['item_name' => 'company'])->all());
+                $totalUserAdmin = count(\common\models\AuthAssignment::find()->where(['item_name' => 'admin'])->all());
+                $totalPendingApplication = count(\common\models\JobApplication::find()->where(['status' => 0])->all());
+                $totalJobList = count(\common\models\JobList::find()->all());
+
+                // Get DB Usage
+                $sql = "SELECT table_schema, SUM((data_length+index_length)/1024/1024) AS MB FROM information_schema.tables WHERE table_schema='jobseeker' GROUP BY 1";
+                $connection = Yii::$app->getDb();
+                $command = $connection->createCommand($sql);
+                $result = $command->queryAll();
+                $totalMySqlUsage = number_format($result[0]['MB'], 3, '.', '');
+                $totalFreeDiskSpace = number_format((disk_free_space("C:") / 1024 / 1024 / 1024), 3, '.', '');
+
+                return $this->render('index', [
+                            'totalUser' => $totalUser,
+                            'totalUserCompany' => $totalUserCompany,
+                            'totalUserAdmin' => $totalUserAdmin,
+                            'totalPendingApplication' => $totalPendingApplication,
+                            'totalJobList' => $totalJobList,
+                            'totalMySqlUsage' => $totalMySqlUsage,
+                            'totalFreeDiskSpace' => $totalFreeDiskSpace,
+                ]);
         }
     }
 

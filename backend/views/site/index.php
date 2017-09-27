@@ -1,41 +1,86 @@
 <?php
+
 use yii\helpers\Html;
 use miloschuman\highcharts\Highcharts;
 
 /* @var $this yii\web\View */
-
 $this->title = 'AMH Reality Enterprise';
 ?>
 <div class="page-header">
     <h1><?= Html::encode($this->title) ?></h1>
 </div><!-- /.page-header -->
 <div class="row">
-    <div class="col-xs-12">
-        <div class="site-index">
-            <div class="body-content">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-xs-12">
-                        <?php
-                        echo Highcharts::widget([
-                            'options' => [
-                            'title' => ['text' => 'Total User'],
-                            'xAxis' => [
-                            'categories' => ['Apples', 'Bananas', 'Oranges']
-                            ],
-                            'yAxis' => [
-                            'title' => ['text' => 'Fruit eaten']
-                            ],
-                            'series' => [
-                            ['name' => 'Jane', 'data' => [1, 0, 4, 3, 2, 1, 9, 3]],
-                            ['name' => 'John', 'data' => [5, 7, 3, 6, 5, 2, 1, 3]]
-                            ],
-                            'credits' => false,
-                            ]
-                            ]);
-                            ?>
-                        </div>
-                    </div>
-                </div>
+    <div class="space-8"></div>
+    <div class="col-xs-12 col-md-6 col-lg-6 infobox-container">
+        <h4>System Summary <i class="fa fa-cog fa-spin blue"></i></h4>
+        <!-- #section:pages/dashboard.infobox -->
+        <div class="infobox infobox-green">
+            <div class="infobox-icon">
+                <i class="ace-icon fa fa-users"></i>
+            </div>
+            <div class="infobox-data">
+                <span class="infobox-data-number"><?= $totalUser ?> Total</span>
+                <div class="infobox-content">of Registered Users</div>
+            </div>
+        </div>
+        <div class="infobox infobox-blue">
+            <div class="infobox-icon">
+                <i class="ace-icon fa fa-tasks"></i>
+            </div>
+            <div class="infobox-data">
+                <span class="infobox-data-number"><?= $totalJobList ?> Jobs</span>
+                <div class="infobox-content">Offer</div>
+            </div>
+        </div>
+        <div class="infobox infobox-pink">
+            <div class="infobox-icon">
+                <i class="ace-icon fa fa-envelope"></i>
+            </div>
+            <div class="infobox-data">
+                <span class="infobox-data-number"><?= $totalPendingApplication ?> Pending</span>
+                <div class="infobox-content">Application</div>
+            </div>
+        </div>
+        <div class="infobox infobox-red">
+            <div class="infobox-icon">
+                <i class="ace-icon fa fa-database"></i>
+            </div>
+            <div class="infobox-data">
+                <span class="infobox-data-number"><?= $totalMySqlUsage ?>MB</span>
+                <div class="infobox-content">MySQL Disk Usage</div>
+            </div>
+        </div>
+        <div class="infobox infobox-orange2">
+            <!-- #section:pages/dashboard.infobox.sparkline -->
+            <div class="infobox-icon">
+                <i class="ace-icon fa fa-hdd-o"></i>
+            </div>
+            <!-- /section:pages/dashboard.infobox.sparkline -->
+            <div class="infobox-data">
+                <span class="infobox-data-number"><?= $totalFreeDiskSpace ?>GB</span>
+                <div class="infobox-content">Free Hard Disk Space</div>
             </div>
         </div>
     </div>
+    <div class="vspace-12-sm"></div>
+    <div class="col-xs-12 col-md-6 col-lg-6">
+        <?php
+        echo Highcharts::widget([
+            'options' => [
+                'chart' => ['type'=>'bar'],
+                'title' => ['text' => 'Total User'],
+                'xAxis' => [
+                    'categories' => ['Admin', 'Company', 'Employee']
+                ],
+                'yAxis' => [
+                    'title' => ['text' => 'Number of users']
+                ],
+                'series' => [
+                    ['name' => 'Total', 'data' => [$totalUserAdmin, $totalUserCompany, $totalUser]],
+                ],
+                'credits' => false,
+            ]
+        ]);
+        ?>
+    </div>
+</div>

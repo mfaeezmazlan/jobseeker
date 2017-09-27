@@ -81,25 +81,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="space-4"></div>
                                     </fieldset>
                                     <?php ActiveForm::end(); ?>
-
-                                    <div class="social-or-login center">
-                                        <span class="bigger-110">Or Login Using</span>
-                                    </div>
-
-                                    <div class="space-6"></div>
-                                    <div class="social-login center">
-                                        <a class="btn btn-primary">
-                                            <i class="ace-icon fa fa-facebook"></i>
-                                        </a>
-
-                                        <a class="btn btn-info">
-                                            <i class="ace-icon fa fa-twitter"></i>
-                                        </a>
-
-                                        <a class="btn btn-danger">
-                                            <i class="ace-icon fa fa-google-plus"></i>
-                                        </a>
-                                    </div>
                                 </div><!-- /.widget-main -->
 
                                 <div class="toolbar clearfix">
@@ -213,20 +194,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div><!-- /.widget-body -->
                         </div><!-- /.signup-box -->
                     </div><!-- /.position-relative -->
-                    <div class="navbar-fixed-top align-right">
-                        <br />
-                        &nbsp;
-                        <a id="btn-login-dark" href="#">Dark</a>
-                        &nbsp;
-                        <span class="blue">/</span>
-                        &nbsp;
-                        <a id="btn-login-blur" href="#">Blur</a>
-                        &nbsp;
-                        <span class="blue">/</span>
-                        &nbsp;
-                        <a id="btn-login-light" href="#">Light</a>
-                        &nbsp; &nbsp; &nbsp;
-                    </div>
                 </div>
             </div><!-- /.col -->
         </div><!-- /.row -->
