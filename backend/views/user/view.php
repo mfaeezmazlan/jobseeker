@@ -35,12 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $model,
                 'attributes' => [
                     'username',
-                    'password',
-                    'password_hash',
                     'password_reset_token',
                     'email:email',
                     'auth_key',
-                    'status',
                     [
                         'attribute' => 'Address',
                         'format' => 'raw',

@@ -11,23 +11,26 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="page-header">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>
+        <?= Html::encode($this->title) ?>
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            Create new user for this system
+        </small>
+    </h1>
 </div><!-- /.page-header -->
 
 <div class="row">
     <div class="col-xs-12">
         <div class="user-create">
-
-
             <?=
             $this->render('_form', [
                 'model' => $model,
                 'modelUserProfile' => $modelUserProfile,
                 'modelAddress' => $modelAddress,
+                'modelAuth' => $modelAuth,
             ])
             ?>
-
         </div>
-
     </div><!-- /.col -->
 </div><!-- /.row -->

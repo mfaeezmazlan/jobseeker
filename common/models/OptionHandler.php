@@ -8,6 +8,7 @@ class OptionHandler {
 
     public static function populate($params = []) {
         $data['yes-no'] = [1 => Yii::t('app', 'Yes'), 0 => Yii::t('app', 'No')];
+        $data['roles'] = ['admin' => 'Admin', 'company' => 'Company', 'employee' => 'Employee'];
 
         return $data;
     }

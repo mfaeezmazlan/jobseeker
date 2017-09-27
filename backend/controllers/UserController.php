@@ -4,9 +4,10 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\User;
-use common\models\UserProfile;
 use backend\models\UserSearch;
 use common\models\Address;
+use common\models\UserProfile;
+use common\models\AuthAssignment;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,7 +28,7 @@ class UserController extends Controller {
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'create', 'update', 'delete', 'view'],
                         'roles' => ['admin'],
                     ],
                 ],
@@ -80,23 +81,31 @@ class UserController extends Controller {
         $model = new User();
         $modelAddress = new Address();
         $modelUserProfile = new UserProfile();
+        $modelAuth = new AuthAssignment();
 
         $modelAddress->type = 1;
         $oldPassword = $model->password_hash;
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $modelAddress->validate() && $modelUserProfile->validate()) {
-
+        if ($model->load(Yii::$app->request->post()) && $modelAddress->load(Yii::$app->request->post()) && $modelUserProfile->load(Yii::$app->request->post()) && $modelAuth->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->status = 10;
             $model->password_hash = $model->password = Yii::$app->security->generatePasswordHash($model->password);
             $model->auth_key = Yii::$app->security->generateRandomString();
 
-            if ($modelUserProfile->first_name == '' || isNull($modelUserProfile->first_name))
-                $modelUserProfile->first_name = $model->username;
-            if ($model->save())
+            if ($model->save()) {
+                $modelAddress->type = 1;
+                $modelAddress->save();
+                $modelUserProfile->user_id = $modelAuth->user_id = $model->id;
+                $modelUserProfile->address_id = $modelAddress->id;
+                $modelUserProfile->profile_pic_id = 0;
+                $modelUserProfile->save();
+                $modelAuth->save(false);
                 return $this->redirect(['view', 'id' => $model->id]);
+            }
         } else {
             return $this->render('create', [
                         'model' => $model,
                         'modelUserProfile' => $modelUserProfile,
                         'modelAddress' => $modelAddress,
+                        'modelAuth' => $modelAuth,
             ]);
         }
     }
@@ -111,6 +120,7 @@ class UserController extends Controller {
         $model = $this->findModel($id);
         $modelAddress = $model->userProfile->address;
         $modelUserProfile = $model->userProfile;
+        $modelAuth = AuthAssignment::find()->where(['user_id' => $model->id])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->password_hash = $model->password = Yii::$app->security->generatePasswordHash($model->password);
@@ -122,6 +132,7 @@ class UserController extends Controller {
                         'model' => $model,
                         'modelUserProfile' => $modelUserProfile,
                         'modelAddress' => $modelAddress,
+                        'modelAuth' => $modelAuth,
             ]);
         }
     }

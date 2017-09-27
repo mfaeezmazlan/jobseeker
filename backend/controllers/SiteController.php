@@ -22,7 +22,7 @@ class SiteController extends Controller {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'get-country'],
+                        'actions' => ['login', 'error', 'get-country', 'get-state'],
                         'allow' => true,
                     ],
                     [
@@ -124,6 +124,26 @@ class SiteController extends Controller {
         $output['results'] = [];
 
         $query = \common\models\Countries::find()->orderBy(['name' => SORT_ASC]);
+        if (!is_null($search)) {
+            $query->where(['like', 'name', '%' . $search . '%', false]);
+        }
+
+        $output['total'] = $query->count('id');
+        $results = $query->limit($perPage)->offset(($page - 1) * $perPage)->all();
+        foreach ($results as $result) {
+            $output['results'][] = ['id' => $result->id, 'text' => $result->name];
+        }
+
+        return $output;
+    }
+    
+    public function actionGetState($search = null, $page = 1) {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $perPage = 20;
+        $output['results'] = [];
+
+        $query = \common\models\States::find()->orderBy(['name' => SORT_ASC]);
         if (!is_null($search)) {
             $query->where(['like', 'name', '%' . $search . '%', false]);
         }

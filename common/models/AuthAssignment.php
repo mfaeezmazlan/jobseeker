@@ -32,7 +32,7 @@ class AuthAssignment extends \yii\db\ActiveRecord
             [['item_name', 'user_id'], 'required'],
             [['created_at'], 'integer'],
             [['item_name', 'user_id'], 'string', 'max' => 64],
-            [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['item_name' => 'name']],
+//            [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['item_name' => 'name']],
         ];
     }
 
@@ -42,7 +42,7 @@ class AuthAssignment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'item_name' => Yii::t('app', 'Item Name'),
+            'item_name' => Yii::t('app', 'Role'),
             'user_id' => Yii::t('app', 'User ID'),
             'created_at' => Yii::t('app', 'Created At'),
         ];

@@ -15,6 +15,7 @@ class AppAsset extends AssetBundle {
         "_theme/assets/css/font-awesome.css",
         "_theme/assets/css/ace-fonts.css",
         "_theme/assets/css/ace.css",
+        "_theme/assets/css/my.css",
     ];
     public $js = [
         "_theme/assets/js/ace-extra.js",

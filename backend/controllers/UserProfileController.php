@@ -25,6 +25,11 @@ class UserProfileController extends Controller {
                 'rules' => [
                     [
                         'allow' => true,
+                        'actions' => ['create', 'update', 'index', 'view'],
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
                         'actions' => ['my-profile'],
                         'roles' => ['employee'],
                     ],

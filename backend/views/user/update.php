@@ -13,7 +13,13 @@ $this->params['breadcrumbs'][] = ['label' => $model->userProfile->first_name, 'u
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="page-header">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>
+        <?= Html::encode($this->title) ?>
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            Make some changes to current authenticated user
+        </small>
+    </h1>
 </div><!-- /.page-header -->
 <div class="row">
     <div class="col-xs-12">
@@ -23,6 +29,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'model' => $model,
                 'modelUserProfile' => $modelUserProfile,
                 'modelAddress' => $modelAddress,
+                'modelAuth' => $modelAuth,
             ])
             ?>
         </div>

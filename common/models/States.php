@@ -60,4 +60,11 @@ class States extends \yii\db\ActiveRecord
             'deleted_by' => Yii::t('app', 'Deleted By'),
         ];
     }
+    
+    public static function getName($id = null){
+        if($id)
+            return self::findOne($id)->name;
+        else
+            return null;
+    }
 }
