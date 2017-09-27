@@ -30,8 +30,8 @@ class UserProfileController extends Controller {
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['my-profile'],
-                        'roles' => ['employee'],
+                        'actions' => ['my-profile', 'display-skills'],
+                        'roles' => ['@'],
                     ],
                 ],
             ],
@@ -92,16 +92,21 @@ class UserProfileController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id) {
-        $model = $this->findModel($id);
+    public function actionUpdate() {
+        $model = $this->findModel(Yii::$app->user->identity->id);
+        $modelAddress = $model->address;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                        'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $modelAddress->load(Yii::$app->request->post())) {
+            $model->skills = implode(', ', $model->skills);
+            if ($model->save()) {
+                $modelAddress->save();
+                return $this->redirect(['my-profile']);
+            }
         }
+        return $this->render('update', [
+                    'model' => $model,
+                    'modelAddress' => $modelAddress,
+        ]);
     }
 
     /**
@@ -122,6 +127,15 @@ class UserProfileController extends Controller {
         ]);
     }
 
+    public function actionDisplaySkills($counter) {
+        $model = new UserProfile();
+
+        return $this->renderAjax('addSkills', [
+                    'counter' => $counter,
+                    'model' => $model
+        ]);
+    }
+
     /**
      * Finds the UserProfile model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -130,7 +144,7 @@ class UserProfileController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id) {
-        if (($model = UserProfile::findOne($id)) !== null) {
+        if (($model = UserProfile::findOne(['user_id' => $id])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

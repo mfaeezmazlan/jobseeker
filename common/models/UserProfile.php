@@ -16,6 +16,7 @@ use Yii;
  * @property string $mobile_no
  * @property string $home_no
  * @property string $description
+ * @property string $skills
  * @property string $is_deleted
  * @property string $created_at
  * @property integer $created_by
@@ -46,7 +47,7 @@ class UserProfile extends \yii\db\ActiveRecord
             [['user_id', 'address_id', 'profile_pic_id', 'first_name', 'last_name'], 'required'],
             [['user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['first_name', 'last_name'], 'string', 'max' => 100],
+            [['first_name', 'last_name', 'skills'], 'string', 'max' => 100],
             [['mobile_no', 'home_no'], 'string', 'max' => 50],
             [['description'], 'string', 'max' => 1024],
             [['is_deleted'], 'string', 'max' => 1],
@@ -69,7 +70,8 @@ class UserProfile extends \yii\db\ActiveRecord
             'last_name' => Yii::t('app', 'Last Name'),
             'mobile_no' => Yii::t('app', 'Mobile No'),
             'home_no' => Yii::t('app', 'Home No'),
-            'description' => Yii::t('app', 'Description'),
+            'description' => Yii::t('app', 'About Me'),
+            'skills' => Yii::t('app', 'Skills'),
             'is_deleted' => Yii::t('app', 'Is Deleted'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),
