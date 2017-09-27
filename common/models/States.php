@@ -18,7 +18,7 @@ use Yii;
  * @property string $deleted_at
  * @property integer $deleted_by
  */
-class States extends \yii\db\ActiveRecord
+class States extends \common\models\GenericWeb
 {
     /**
      * @inheritdoc

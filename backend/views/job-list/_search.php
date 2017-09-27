@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description') ?>
 
-    <?php // echo $form->field($model, 'is_deleted') ?>
+    <?php // echo $form->field($model, 'isDeleted') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

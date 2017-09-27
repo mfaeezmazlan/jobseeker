@@ -89,29 +89,24 @@ $counter = 0;
 <div class="hr hr8 hr-double hr-dotted"></div>
 <div class="row">
     <h4>Simple CV <i class="fa fa-file blue"></i></h4>
-    <div class="col-xs-12 col-md-9 col-lg-9">
+    <div class="col-xs-12 col-md-8 col-lg-8">
         <?= $form->field($model, 'description')->textarea(['maxlength' => true, 'rows' => '5']) ?>
     </div>
-    <div class="col-xs-12 col-md-3 col-lg-3" id="panelAddFrame">
-        <?php
-        if ($model->isNewRecord):
-            echo $form->field($model, 'skills[]', ['template' => '<div class="row"><div class="col-xs-10 col-md-9 col-lg-9">{label}{input}{error}{hint}</div><div class="col-xs-2 col-md-3 col-lg-3"><button style="margin-top:26px" id="btnAddPanel" type="button" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus"></i></button></div></div>'])
-                    ->textInput(['placeholder' => 'Skills']);
-            ?>
-
-            <?php
-        else:
-            $skillsArr = explode(', ', $model->skills);
-            foreach ($skillsArr as $skill) {
-                if ($counter == 0)
-                    echo $form->field($model, 'skills[]', ['template' => '<div class="row"><div class="col-xs-10 col-md-9 col-lg-9">{label}{input}{error}{hint}</div><div class="col-xs-2 col-md-3 col-lg-3"><button style="margin-top:26px" id="btnAddPanel" type="button" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus"></i></button></div></div>'])
-                            ->textInput(['placeholder' => 'Skills', 'value' => $skill]);
-                else
-                    echo $form->field($model, 'skills[]', ['template' => '<div id="additionalPanel_' . $counter . '"><div class="row"><div class="col-xs-10 col-md-9 col-lg-9">{label}{input}{error}{hint}</div><div class="col-xs-2 col-md-3 col-lg-3"><button onclick="delAdditionalPanel(' . $counter . ')" style="margin-top:26px" id="btnAddPanel" type="button" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-minus"></i></button></div></div></div>'])
-                            ->textInput(['placeholder' => 'Skills', 'value' => $skill]);
-                $counter++;
-            }
-        endif;
+    <div class="col-xs-12 col-md-4 col-lg-4" id="panelAddFrame">
+        <?=
+        $form->field($model, 'skills')->widget(Select2::className(), [
+            'showToggleAll' => false,
+            'data' => common\models\Reference::getList('skills'),
+            'options' => [
+                'placeholder' => 'Select skills',
+                'value' => ($model->isNewRecord ? null : explode(',', $model->skills))
+            ],
+            'pluginOptions' => [
+                'multiple' => true,
+                'maximumSelectionLength' => 5,
+                'allowClear' => true,
+            ],
+        ]);
         ?>
     </div>
 </div>

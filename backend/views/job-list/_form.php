@@ -9,7 +9,7 @@ use yii\helpers\ArrayHelper;
 /* @var $model common\models\JobList */
 /* @var $form yii\widgets\ActiveForm */
 
-$source = common\models\CompanyProfile::find()->where(['is_deleted' => '0'])->orderBy(['company_name' => SORT_ASC])->all();
+$source = common\models\CompanyProfile::find()->where(['isDeleted' => '0'])->orderBy(['company_name' => SORT_ASC])->all();
 $option['company_profile'] = ArrayHelper::map($source, 'id', 'company_name');
 ?>
 

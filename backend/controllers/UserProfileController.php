@@ -97,7 +97,7 @@ class UserProfileController extends Controller {
         $modelAddress = $model->address;
 
         if ($model->load(Yii::$app->request->post()) && $modelAddress->load(Yii::$app->request->post())) {
-            $model->skills = implode(', ', $model->skills);
+            $model->skills = implode(',', $model->skills);
             if ($model->save()) {
                 $modelAddress->save();
                 return $this->redirect(['my-profile']);

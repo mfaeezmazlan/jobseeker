@@ -16,7 +16,7 @@ use Yii;
  * @property string $email
  * @property string $auth_key
  * @property integer $status
- * @property string $is_deleted
+ * @property string $isDeleted
  * @property string $created_at
  * @property integer $created_by
  * @property string $updated_at
@@ -27,7 +27,7 @@ use Yii;
  * @property CompanyProfile[] $companyProfiles
  * @property UserProfile[] $userProfiles
  */
-class User extends \yii\db\ActiveRecord {
+class User extends \common\models\GenericWeb {
 
     public $repeat_password;
 
@@ -51,7 +51,7 @@ class User extends \yii\db\ActiveRecord {
             [['status', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['username', 'password', 'password_hash', 'password_reset_token', 'email', 'auth_key'], 'string', 'max' => 255],
-            [['is_deleted'], 'string', 'max' => 1],
+            [['isDeleted'], 'string', 'max' => 1],
         ];
     }
 
@@ -69,7 +69,7 @@ class User extends \yii\db\ActiveRecord {
             'email' => Yii::t('app', 'Email'),
             'auth_key' => Yii::t('app', 'Auth Key'),
             'status' => Yii::t('app', 'Status'),
-            'is_deleted' => Yii::t('app', 'Is Deleted'),
+            'isDeleted' => Yii::t('app', 'Is Deleted'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_at' => Yii::t('app', 'Updated At'),

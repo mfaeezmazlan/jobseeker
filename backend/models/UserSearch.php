@@ -18,7 +18,7 @@ class UserSearch extends User {
     public function rules() {
         return [
             [['id', 'status', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['username', 'password', 'password_hash', 'password_reset_token', 'email', 'auth_key', 'is_deleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['username', 'password', 'password_hash', 'password_reset_token', 'email', 'auth_key', 'isDeleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -72,7 +72,7 @@ class UserSearch extends User {
                 ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
                 ->andFilterWhere(['like', 'email', $this->email])
                 ->andFilterWhere(['like', 'auth_key', $this->auth_key])
-                ->andFilterWhere(['like', 'is_deleted', $this->is_deleted]);
+                ->andFilterWhere(['like', 'isDeleted', $this->isDeleted]);
 
         return $dataProvider;
     }

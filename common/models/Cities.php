@@ -18,21 +18,19 @@ use Yii;
  * @property string $deleted_at
  * @property integer $deleted_by
  */
-class Cities extends \yii\db\ActiveRecord
-{
+class Cities extends \common\models\GenericWeb {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%cities}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['name', 'state_id'], 'required'],
             [['state_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
@@ -45,8 +43,7 @@ class Cities extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
@@ -60,4 +57,5 @@ class Cities extends \yii\db\ActiveRecord
             'deleted_by' => Yii::t('app', 'Deleted By'),
         ];
     }
+
 }

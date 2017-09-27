@@ -18,7 +18,8 @@ class JobListSearch extends JobList {
     public function rules() {
         return [
             [['id', 'company_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['field', 'position', 'description', 'is_deleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['field', 'position', 'description', 'isDeleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['salary'], 'number'],
         ];
     }
 
@@ -57,6 +58,7 @@ class JobListSearch extends JobList {
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'salary' => $this->salary,
             'company_id' => $this->company_id,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
@@ -69,7 +71,7 @@ class JobListSearch extends JobList {
         $query->andFilterWhere(['like', 'field', $this->field])
                 ->andFilterWhere(['like', 'position', $this->position])
                 ->andFilterWhere(['like', 'description', $this->description])
-                ->andFilterWhere(['like', 'is_deleted', $this->is_deleted]);
+                ->andFilterWhere(['like', 'isDeleted', $this->isDeleted]);
 
         return $dataProvider;
     }

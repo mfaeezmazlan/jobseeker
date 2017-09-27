@@ -44,6 +44,13 @@ $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii
             <b class="arrow"></b>
         </li>
         
+        <?php if ($assignmentRole->item_name == 'employee'): ?>
+        <li class="" id="nav_2">
+            <?= Html::a("<i class='menu-icon fa fa-check'></i><span class='menu-text'> Job Application </span>", ['job-list/application']) ?>
+            <b class="arrow"></b>
+        </li>
+        <?php endif; ?>
+        
         <?php if ($assignmentRole->item_name == 'admin' || $assignmentRole->item_name == 'company'): ?>
         <li class="" id="nav_3">
             <?= Html::a("<i class='menu-icon fa fa-search-plus'></i><span class='menu-text'> Talent Search </span>", ['site/index']) ?>
@@ -63,6 +70,10 @@ $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii
                 <ul class="submenu">
                     <li class="" id="nav_4_1">
                         <?= Html::a("<span class='menu-text'> Manage User </span>", ['user/index']) ?>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="" id="nav_4_2">
+                        <?= Html::a("<span class='menu-text'> Manage References </span>", ['reference/index']) ?>
                         <b class="arrow"></b>
                     </li>
                 </ul>

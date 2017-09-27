@@ -18,7 +18,7 @@ class UserProfileSearch extends UserProfile {
     public function rules() {
         return [
             [['id', 'user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['first_name', 'last_name', 'mobile_no', 'home_no', 'description', 'is_deleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['first_name', 'last_name', 'mobile_no', 'home_no', 'description', 'isDeleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -73,7 +73,7 @@ class UserProfileSearch extends UserProfile {
                 ->andFilterWhere(['like', 'mobile_no', $this->mobile_no])
                 ->andFilterWhere(['like', 'home_no', $this->home_no])
                 ->andFilterWhere(['like', 'description', $this->description])
-                ->andFilterWhere(['like', 'is_deleted', $this->is_deleted]);
+                ->andFilterWhere(['like', 'isDeleted', $this->isDeleted]);
 
         return $dataProvider;
     }

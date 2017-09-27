@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'postcode') ?>
 
-    <?php // echo $form->field($model, 'is_deleted') ?>
+    <?php // echo $form->field($model, 'isDeleted') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

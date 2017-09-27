@@ -18,7 +18,7 @@ class AddressSearch extends Address {
     public function rules() {
         return [
             [['id', 'type', 'country', 'state', 'district', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['city', 'street_1', 'street_2', 'postcode', 'is_deleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['city', 'street_1', 'street_2', 'postcode', 'isDeleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -73,7 +73,7 @@ class AddressSearch extends Address {
                 ->andFilterWhere(['like', 'street_1', $this->street_1])
                 ->andFilterWhere(['like', 'street_2', $this->street_2])
                 ->andFilterWhere(['like', 'postcode', $this->postcode])
-                ->andFilterWhere(['like', 'is_deleted', $this->is_deleted]);
+                ->andFilterWhere(['like', 'isDeleted', $this->isDeleted]);
 
         return $dataProvider;
     }

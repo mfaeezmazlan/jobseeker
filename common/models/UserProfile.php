@@ -17,7 +17,7 @@ use Yii;
  * @property string $home_no
  * @property string $description
  * @property string $skills
- * @property string $is_deleted
+ * @property string $isDeleted
  * @property string $created_at
  * @property integer $created_by
  * @property string $updated_at
@@ -28,7 +28,7 @@ use Yii;
  * @property Address $address
  * @property User $user
  */
-class UserProfile extends \yii\db\ActiveRecord
+class UserProfile extends \common\models\GenericWeb
 {
     /**
      * @inheritdoc
@@ -46,11 +46,11 @@ class UserProfile extends \yii\db\ActiveRecord
         return [
             [['user_id', 'address_id', 'profile_pic_id', 'first_name', 'last_name'], 'required'],
             [['user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['first_name', 'last_name', 'skills'], 'string', 'max' => 100],
+            [['skills', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['first_name', 'last_name'], 'string', 'max' => 100],
             [['mobile_no', 'home_no'], 'string', 'max' => 50],
             [['description'], 'string', 'max' => 1024],
-            [['is_deleted'], 'string', 'max' => 1],
+            [['isDeleted'], 'string', 'max' => 1],
             [['address_id'], 'exist', 'skipOnError' => true, 'targetClass' => Address::className(), 'targetAttribute' => ['address_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -72,7 +72,7 @@ class UserProfile extends \yii\db\ActiveRecord
             'home_no' => Yii::t('app', 'Home No'),
             'description' => Yii::t('app', 'About Me'),
             'skills' => Yii::t('app', 'Skills'),
-            'is_deleted' => Yii::t('app', 'Is Deleted'),
+            'isDeleted' => Yii::t('app', 'Is Deleted'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_at' => Yii::t('app', 'Updated At'),

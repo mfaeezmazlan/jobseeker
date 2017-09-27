@@ -16,7 +16,7 @@ use Yii;
  * @property string $mobile_no
  * @property string $office_no
  * @property string $description
- * @property string $is_deleted
+ * @property string $isDeleted
  * @property string $created_at
  * @property integer $created_by
  * @property string $updated_at
@@ -28,21 +28,19 @@ use Yii;
  * @property User $user
  * @property JobList[] $jobLists
  */
-class CompanyProfile extends \yii\db\ActiveRecord
-{
+class CompanyProfile extends \common\models\GenericWeb {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%company_profile}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['user_id', 'address_id', 'profile_pic_id', 'company_name', 'registration_no'], 'required'],
             [['user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
@@ -50,7 +48,7 @@ class CompanyProfile extends \yii\db\ActiveRecord
             [['company_name', 'registration_no'], 'string', 'max' => 100],
             [['mobile_no', 'office_no'], 'string', 'max' => 50],
             [['description'], 'string', 'max' => 1024],
-            [['is_deleted'], 'string', 'max' => 1],
+            [['isDeleted'], 'string', 'max' => 1],
             [['address_id'], 'exist', 'skipOnError' => true, 'targetClass' => Address::className(), 'targetAttribute' => ['address_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -59,8 +57,7 @@ class CompanyProfile extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
             'user_id' => Yii::t('app', 'User ID'),
@@ -71,7 +68,7 @@ class CompanyProfile extends \yii\db\ActiveRecord
             'mobile_no' => Yii::t('app', 'Mobile No'),
             'office_no' => Yii::t('app', 'Office No'),
             'description' => Yii::t('app', 'Description'),
-            'is_deleted' => Yii::t('app', 'Is Deleted'),
+            'isDeleted' => Yii::t('app', 'Is Deleted'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_at' => Yii::t('app', 'Updated At'),
@@ -84,24 +81,22 @@ class CompanyProfile extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAddress()
-    {
+    public function getAddress() {
         return $this->hasOne(Address::className(), ['id' => 'address_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getJobLists()
-    {
+    public function getJobLists() {
         return $this->hasMany(JobList::className(), ['company_id' => 'id']);
     }
+
 }

@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'mobile_no',
             // 'home_no',
             // 'description',
-            // 'is_deleted',
+            // 'isDeleted',
             // 'created_at',
             // 'created_by',
             // 'updated_at',
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'deleted_at',
             // 'deleted_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn','headerOptions' => ['style' => 'width:75px'],'header' => 'Action'],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

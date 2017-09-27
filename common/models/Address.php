@@ -16,7 +16,7 @@ use Yii;
  * @property string $street_1
  * @property string $street_2
  * @property string $postcode
- * @property string $is_deleted
+ * @property string $isDeleted
  * @property string $created_at
  * @property integer $created_by
  * @property string $updated_at
@@ -27,7 +27,7 @@ use Yii;
  * @property CompanyProfile[] $companyProfiles
  * @property UserProfile[] $userProfiles
  */
-class Address extends \yii\db\ActiveRecord {
+class Address extends \common\models\GenericWeb {
 
     /**
      * @inheritdoc
@@ -46,7 +46,7 @@ class Address extends \yii\db\ActiveRecord {
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['city', 'street_1', 'street_2'], 'string', 'max' => 100],
             [['postcode'], 'string', 'max' => 50],
-            [['is_deleted'], 'string', 'max' => 1],
+            [['isDeleted'], 'string', 'max' => 1],
         ];
     }
 
@@ -64,7 +64,7 @@ class Address extends \yii\db\ActiveRecord {
             'street_1' => Yii::t('app', 'Street 1'),
             'street_2' => Yii::t('app', 'Street 2'),
             'postcode' => Yii::t('app', 'Postcode'),
-            'is_deleted' => Yii::t('app', 'Is Deleted'),
+            'isDeleted' => Yii::t('app', 'Is Deleted'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_at' => Yii::t('app', 'Updated At'),

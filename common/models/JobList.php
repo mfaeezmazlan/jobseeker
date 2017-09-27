@@ -11,8 +11,9 @@ use Yii;
  * @property integer $company_id
  * @property string $field
  * @property string $position
+ * @property string $salary
  * @property string $description
- * @property string $is_deleted
+ * @property string $isDeleted
  * @property string $created_at
  * @property integer $created_by
  * @property string $updated_at
@@ -23,7 +24,7 @@ use Yii;
  * @property CompanyProfile $company
  * @property JobListSkills[] $jobListSkills
  */
-class JobList extends \yii\db\ActiveRecord {
+class JobList extends \common\models\GenericWeb {
 
     /**
      * @inheritdoc
@@ -40,9 +41,10 @@ class JobList extends \yii\db\ActiveRecord {
             [['company_id', 'field', 'position'], 'required'],
             [['company_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['field', 'position'], 'string', 'max' => 100],
+            [['field', 'position', 'skills_require'], 'string', 'max' => 100],
             [['description'], 'string', 'max' => 1024],
-            [['is_deleted'], 'string', 'max' => 1],
+            [['isDeleted'], 'string', 'max' => 1],
+            [['salary'], 'number'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyProfile::className(), 'targetAttribute' => ['company_id' => 'id']],
         ];
     }
@@ -56,8 +58,9 @@ class JobList extends \yii\db\ActiveRecord {
             'company_id' => Yii::t('app', 'Company'),
             'field' => Yii::t('app', 'Field'),
             'position' => Yii::t('app', 'Position'),
+            'salary' => Yii::t('app', 'Salary'),
             'description' => Yii::t('app', 'Description'),
-            'is_deleted' => Yii::t('app', 'Is Deleted'),
+            'isDeleted' => Yii::t('app', 'Is Deleted'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_at' => Yii::t('app', 'Updated At'),
@@ -72,13 +75,6 @@ class JobList extends \yii\db\ActiveRecord {
      */
     public function getCompany() {
         return $this->hasOne(CompanyProfile::className(), ['id' => 'company_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getJobListSkills() {
-        return $this->hasMany(JobListSkills::className(), ['job_list_id' => 'id']);
     }
 
 }

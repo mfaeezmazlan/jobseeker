@@ -18,7 +18,7 @@ class CompanyProfileSearch extends CompanyProfile {
     public function rules() {
         return [
             [['id', 'user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['company_name', 'registration_no', 'mobile_no', 'office_no', 'description', 'is_deleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['company_name', 'registration_no', 'mobile_no', 'office_no', 'description', 'isDeleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -73,7 +73,7 @@ class CompanyProfileSearch extends CompanyProfile {
                 ->andFilterWhere(['like', 'mobile_no', $this->mobile_no])
                 ->andFilterWhere(['like', 'office_no', $this->office_no])
                 ->andFilterWhere(['like', 'description', $this->description])
-                ->andFilterWhere(['like', 'is_deleted', $this->is_deleted]);
+                ->andFilterWhere(['like', 'isDeleted', $this->isDeleted]);
 
         return $dataProvider;
     }

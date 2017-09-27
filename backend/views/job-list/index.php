@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'company_id',
             'field',
             'position',
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn','headerOptions' => ['style' => 'width:75px'],'header' => 'Action'],
         ],
     ]);
     ?>

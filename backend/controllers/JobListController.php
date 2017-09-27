@@ -43,6 +43,20 @@ class JobListController extends Controller {
     }
 
     /**
+     * Lists all JobList models for application.
+     * @return mixed
+     */
+    public function actionApplication() {
+        $searchModel = new JobListSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('application', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
      * Displays a single JobList model.
      * @param integer $id
      * @return mixed
@@ -115,6 +129,14 @@ class JobListController extends Controller {
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionApply($id) {
+        $modelJobApplication = new \common\models\JobApplication();
+        $modelJobApplication->job_list_id = $id;
+        $modelJobApplication->user_id = Yii::$app->user->identity->id;
+        $modelJobApplication->save();
+        return $this->redirect(['application']);
     }
 
 }

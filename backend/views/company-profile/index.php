@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'mobile_no',
             // 'office_no',
             // 'description',
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn','headerOptions' => ['style' => 'width:75px'],'header' => 'Action'],
         ],
     ]);
     ?>
