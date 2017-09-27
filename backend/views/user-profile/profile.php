@@ -55,14 +55,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     <!-- #section:custom/extra.grid -->
                     <div class="clearfix">
                         <div class="grid2">
-                            <span class="bigger-175 blue">25</span>
+                            <span class="bigger-175 blue"><?= count(\common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id])->all()) ?></span>
 
                             <br />
                             Submission
                         </div>
 
                         <div class="grid2">
-                            <span class="bigger-175 green">12</span>
+                            <span class="bigger-175 green"><?= count(\common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id, 'status' => 2])->all()) ?></span>
 
                             <br />
                             Approval

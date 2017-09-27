@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
     <div class="col-xs-12">
         <div class="job-list-index">
+            <?= Html::a(Yii::t('app', 'Create <i class="fa fa-plus"></i>'), ['create'], ['class' => 'btn btn-success btn-sm']) ?>
             <?php Pjax::begin(); ?>    <?=
             GridView::widget([
                 'dataProvider' => $dataProvider,

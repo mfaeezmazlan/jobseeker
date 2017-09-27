@@ -92,6 +92,13 @@ class SiteController extends Controller {
             $modelUser->password_hash = $modelUser->repeat_password = $modelUser->password = Yii::$app->security->generatePasswordHash($modelUser->password);
             $modelUser->auth_key = Yii::$app->security->generateRandomString();
             if ($modelUser->save()) {
+                $modelUserProfile = new \common\models\UserProfile();
+                $modelUserProfile->first_name = $modelUser->username;
+                $modelUserProfile->profile_pic_id = 0;
+                $modelUserProfile->address_id = 1;
+                $modelUserProfile->user_id = $modelUser->id;
+                $modelUserProfile->save();
+
                 $modelAuth = new \common\models\AuthAssignment();
                 $modelAuth->user_id = $modelUser->id;
                 $modelAuth->item_name = 'employee';
@@ -136,7 +143,7 @@ class SiteController extends Controller {
 
         return $output;
     }
-    
+
     public function actionGetState($search = null, $page = 1) {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 

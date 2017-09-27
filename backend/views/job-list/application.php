@@ -52,6 +52,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     ],
                     [
+                        'attribute' => 'status_application',
+                        'header' => 'Application Status',
+                        'format' => 'raw',
+                        'value' => function($model) {
+                            $data = \common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id, 'job_list_id' => $model->id])->one();
+                            if($data)
+                                return common\models\Reference::getDesc('status_application', $data->status);
+                            else
+                                return null;
+                        }
+                    ],
+                    [
                         'class' => 'yii\grid\ActionColumn',
                         'template' => '{view_application}',
                         'buttons' =>[

@@ -38,7 +38,7 @@ class JobList extends \common\models\GenericWeb {
      */
     public function rules() {
         return [
-            [['company_id', 'field', 'position'], 'required'],
+            [['company_id', 'field', 'position', 'salary'], 'required'],
             [['company_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['skills_require', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['field', 'position'], 'string', 'max' => 100],
@@ -56,8 +56,8 @@ class JobList extends \common\models\GenericWeb {
         return [
             'id' => Yii::t('app', 'ID'),
             'company_id' => Yii::t('app', 'Company'),
-            'field' => Yii::t('app', 'Field'),
-            'position' => Yii::t('app', 'Position'),
+            'field' => Yii::t('app', 'Job Field'),
+            'position' => Yii::t('app', 'Job Position'),
             'salary' => Yii::t('app', 'Salary'),
             'description' => Yii::t('app', 'Description'),
             'isDeleted' => Yii::t('app', 'Is Deleted'),

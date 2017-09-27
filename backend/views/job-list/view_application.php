@@ -54,17 +54,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                             ],
                             [
-                                'attribute' => 'success_chance',
-                                'header' => 'Success Chance',
+                                'attribute' => 'skill_match',
+                                'header' => 'Skills Match',
                                 'format' => 'raw',
                                 'value' => function($model) {
                                     $skillsRequire = explode(',', $model->skills_require);
                                     $myskills = explode(',', common\models\UserProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one()->skills);
-                                    $diff = array_diff($myskills, $skillsRequire);
+                                    $intersect = array_intersect($myskills, $skillsRequire);
 
                                     $totalSkillsRequire = count($skillsRequire);
 
-                                    return (count($skillsRequire) - 1) / count($skillsRequire) * 100 . "%";
+                                    return (count($intersect) / count($skillsRequire)) * 100 . "%";
                                 }
                                     ],
                                 ],

@@ -18,8 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-xs-12">
         <div class="job-application-view">
             <p>
-                <?= Html::a(Yii::t('app', 'Update <i class="fa fa-pencil"></i>'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']);
-                ?>
+                <?= Html::a(Yii::t('app', 'Update <i class="fa fa-pencil"></i>'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
                 <?=
                 Html::a(Yii::t('app', 'Delete <i class="fa fa-trash"></i>'), ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger btn-sm',
@@ -57,23 +56,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             return implode(', ', $arr);
                         }
                             ],
-                            [
-                                'attribute' => 'success_chance',
-                                'header' => 'Success Chance',
-                                'format' => 'raw',
-                                'value' => function($model) {
-                                    $skillsRequire = explode(',', $model->skills_require);
-                                    $myskills = explode(',', common\models\UserProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one()->skills);
-                                    $diff = array_diff($myskills, $skillsRequire);
-
-                                    $totalSkillsRequire = count($skillsRequire);
-
-                                    return (count($skillsRequire) - 1) / count($skillsRequire) * 100 . "%";
-                                }
-                                    ],
-                                ],
-                            ]);
-                            ?>
+                        ],
+                    ]);
+                    ?>
         </div>
     </div><!-- /.col -->
 </div><!-- /.row -->

@@ -101,14 +101,14 @@ class JobListController extends Controller {
         $model = new JobList();
         $companyModel = \common\models\CompanyProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
         $model->company_id = $companyModel->id;
-        $modelJobSkills = new \common\models\JobListSkills();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->skills_require = implode(',', $model->skills_require);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                         'model' => $model,
-                        'modelJobSkills' => $modelJobSkills,
             ]);
         }
     }
