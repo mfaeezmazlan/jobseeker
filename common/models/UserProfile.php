@@ -41,6 +41,7 @@ use Yii;
  */
 class UserProfile extends \common\models\GenericWeb {
 
+    public $file;
     /**
      * @inheritdoc
      */
@@ -57,6 +58,7 @@ class UserProfile extends \common\models\GenericWeb {
             [['user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['skills', 'date_of_birth', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['expected_salary'], 'number'],
+            [['file'], 'file'],
             [['nric', 'mobile_no', 'home_no'], 'string', 'max' => 50],
             [['first_name', 'last_name', 'language', 'leadership_experience'], 'string', 'max' => 100],
             [['description'], 'string', 'max' => 1024],
@@ -85,6 +87,7 @@ class UserProfile extends \common\models\GenericWeb {
             'skills' => Yii::t('app', 'Skills'),
             'language' => Yii::t('app', 'Language'),
             'gender' => Yii::t('app', 'Gender'),
+            'file' => Yii::t('app', 'Resume'),
             'area_of_education' => Yii::t('app', 'Area Of Education'),
             'date_of_birth' => Yii::t('app', 'Date Of Birth'),
             'marital_status' => Yii::t('app', 'Marital Status'),
@@ -116,5 +119,13 @@ class UserProfile extends \common\models\GenericWeb {
     public function getUser() {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
-
+    
+    public function getFullName(){
+        return $this->first_name . " " . $this->last_name;
+    }
+    
+    
+    public function getDoc() {
+        return $this->hasMany(UserDoc::className(), ['user_id' => 'user_id']);
+    }
 }

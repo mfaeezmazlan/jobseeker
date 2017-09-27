@@ -6,16 +6,16 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\UserProfile */
 $this->title = $model->first_name;
-$this->params['breadcrumbs'][] = 'My Profile';
+$this->params['breadcrumbs'][] = 'Applicant Profile';
 ?>
 <div class="page-header">
     <h1>
         <?= Html::encode($this->title) ?>
         <small>
             <i class="ace-icon fa fa-angle-double-right"></i>
-            Make your profile awesome!!
+            Your applicant profile
         </small>
-        <?= Html::a('<i class="fa fa-pencil green icon-animated-vertical"></i>', ['user-profile/update'], ['class' => 'pull-right']) ?>
+        <?php // Html::a('<i class="fa fa-pencil green icon-animated-vertical"></i>', ['user-profile/update'], ['class' => 'pull-right']) ?>
     </h1>
 </div><!-- /.page-header -->
 <div class="row">
@@ -54,14 +54,14 @@ $this->params['breadcrumbs'][] = 'My Profile';
                     <!-- #section:custom/extra.grid -->
                     <div class="clearfix">
                         <div class="grid2">
-                            <span class="bigger-175 blue"><?= count(\common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id])->all()) ?></span>
+                            <span class="bigger-175 blue"><?= count(\common\models\JobApplication::find()->where(['user_id' => $user_id])->all()) ?></span>
 
                             <br />
                             Submission
                         </div>
 
                         <div class="grid2">
-                            <span class="bigger-175 green"><?= count(\common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id, 'status' => 2])->all()) ?></span>
+                            <span class="bigger-175 green"><?= count(\common\models\JobApplication::find()->where(['user_id' => $user_id, 'status' => 2])->all()) ?></span>
 
                             <br />
                             Approval
@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = 'My Profile';
                             <div class="profile-info-name"> Resume </div>
 
                             <div class="profile-info-value">
-                                <span class="editable" id="about"><?= \common\components\FileHandler::generateDocument($model, "uploads/resume/".Yii::$app->user->id) ?></span>
+                                <span class="editable" id="about"><?= \common\components\FileHandler::generateDocument($model, "uploads/resume/".$user_id) ?></span>
                             </div>
                         </div>
                     </div>

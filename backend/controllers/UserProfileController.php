@@ -33,6 +33,11 @@ class UserProfileController extends Controller {
                         'actions' => ['my-profile', 'display-skills'],
                         'roles' => ['@'],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view-profile'],
+                        'roles' => ['company','admin'],
+                    ],
                 ],
             ],
             'verbs' => [
@@ -95,17 +100,24 @@ class UserProfileController extends Controller {
     public function actionUpdate() {
         $model = $this->findModel(Yii::$app->user->identity->id);
         $modelAddress = $model->address;
+        $modelAttachment = new \common\models\DocAttach();
+        if ($modelUserDoc = \common\models\UserDoc::find()->where(['user_id' => Yii::$app->user->identity->id])->one()) {
+            $modelAttachment = \common\models\DocAttach::findOne($modelUserDoc->doc_attach_id);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $modelAddress->load(Yii::$app->request->post())) {
             $model->skills = implode(',', $model->skills);
             if ($model->save()) {
-                $modelAddress->save();
+
+                if (\common\components\FileHandler::generate($modelAttachment, Yii::$app->user->id))
+                    $modelAddress->save();
                 return $this->redirect(['my-profile']);
             }
         }
         return $this->render('update', [
                     'model' => $model,
                     'modelAddress' => $modelAddress,
+                    'modelAttachment' => $modelAttachment,
         ]);
     }
 
@@ -124,6 +136,13 @@ class UserProfileController extends Controller {
     public function actionMyProfile() {
         return $this->render('profile', [
                     'model' => $this->findModel(Yii::$app->user->identity->id),
+        ]);
+    }
+
+    public function actionViewProfile($id) {
+        return $this->render('view_profile', [
+                    'model' => $this->findModel($id),
+                    'user_id' => $id,
         ]);
     }
 

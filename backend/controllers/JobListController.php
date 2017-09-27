@@ -8,6 +8,7 @@ use backend\models\JobListSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * JobListController implements the CRUD actions for JobList model.
@@ -56,8 +57,7 @@ class JobListController extends Controller {
                     'dataProvider' => $dataProvider,
         ]);
     }
-    
-    
+
     /**
      * Apply job
      * @return mixed
@@ -69,18 +69,30 @@ class JobListController extends Controller {
         $modelJobApplication->save();
         return $this->redirect(['application']);
     }
-    
+
     /**
      * Displays a single JobList model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id) {
+        $companyModel = \common\models\CompanyProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
+        $modelJobApplicationProvider = new ActiveDataProvider([
+            'query' => \common\models\JobApplication::find()
+                ->innerJoin('job_list a','a.id=job_application.job_list_id')
+                ->where(['a.company_id' => $companyModel->id, 'job_application.job_list_id' => $id])
+                ->orderBy(['job_application.status' => SORT_ASC,'job_application.created_at' => SORT_DESC]),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
         return $this->render('view', [
                     'model' => $this->findModel($id),
+                    'modelJobApplicationProvider' => $modelJobApplicationProvider,
         ]);
     }
-    
+
     /**
      * Displays a single JobList model.
      * @param integer $id
@@ -159,6 +171,5 @@ class JobListController extends Controller {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
 
 }

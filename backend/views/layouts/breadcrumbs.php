@@ -18,7 +18,7 @@ use yii\widgets\Breadcrumbs;
         ],
         'homeLink' => [
             'label' => Yii::t('yii', 'Dashboard'), 'url' => Yii::$app->homeUrl,
-            'template' => "<li><a href='javascript:history.back()'><i class='fa fa-home fa-large blue'></i></a> {link}</li>"
+            'template' => "<li><a title='Back' href='javascript:history.back()'><i class='fa fa-arrow-circle-left fa-lg blue'></i></a> {link}</li>"
         ],
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]);

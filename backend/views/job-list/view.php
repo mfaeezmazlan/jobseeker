@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\JobList */
@@ -59,6 +60,62 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]);
                     ?>
-        </div>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        <div class="hr hr8 hr-double hr-dotted"></div>
+        <div class="row">
+            <h4>List of Applicant <i class="fa fa-list blue"></i></h4>
+            <div class="col-xs-12">
+
+                <?=
+                GridView::widget([
+                    'dataProvider' => $modelJobApplicationProvider,
+//                    'filterModel' => $searchModel,
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'attribute' => 'user_id',
+                            'format' => 'raw',
+                            'value' => function($model) {
+                                $data = backend\models\User::findOne($model->user_id);
+                                return Html::a($data->userProfile->fullName, ['user-profile/view-profile', 'id' => $model->user_id]);
+                            }
+                        ],
+                        'created_at',
+                        [
+                            'attribute' => 'status',
+                            'value' => function($model) {
+                                return common\models\Reference::getDesc('status_application', $model->status);
+                            }
+                        ],
+                        'updated_at',
+                        [
+                            'attribute' => 'updated_by',
+                            'value' => function($model) {
+                                $data = backend\models\User::findOne($model->updated_by);
+                                return $data->userProfile->fullName;
+                            }
+                        ],
+                        [
+                            'class' => 'yii\grid\ActionColumn',
+                            'headerOptions' => ['style' => 'width:75px'],
+                            'header' => 'Action',
+                            'template' => '{print_resume} {reject} {accept}',
+                            'buttons' => [
+                                'print_resume' => function ($url, $model) {
+                                    return Html::a('<i class="fa fa-print blue"></i>', ['job-list/view-application', 'id' => $model->id], ['title' => 'Print Resume']);
+                                },
+                                        'reject' => function ($url, $model) {
+                                    return Html::a('<i class="fa fa-times red"></i>', ['job-list/view-application', 'id' => $model->id], ['title' => 'Reject']);
+                                },
+                                        'accept' => function ($url, $model) {
+                                    return Html::a('<i class="fa fa-check green"></i>', ['job-list/view-application', 'id' => $model->id], ['title' => 'Accept']);
+                                }
+                                    ]
+                                ],
+                            ],
+                        ]);
+                        ?>
     </div><!-- /.col -->
 </div><!-- /.row -->

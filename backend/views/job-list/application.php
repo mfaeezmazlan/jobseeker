@@ -65,6 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
+                        'headerOptions' => ['style' => 'width:75px'],
                         'template' => '{view_application}',
                         'buttons' =>[
                             'view_application' => function ($url, $model) {
