@@ -16,202 +16,63 @@ $this->title = 'Latest job announcement';
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <div class="row">
-                            <!-- #section:pages/pricing.large -->
-                            <div class="col-xs-6 col-sm-3 pricing-box">
-                                <div class="widget-box widget-color-dark">
-                                    <div class="widget-header">
-                                        <h5 class="widget-title bigger lighter">Web Application Developer</h5>
-                                    </div>
-                                    <div class="widget-body">
-                                        <div class="widget-main">
-                                            <ul class="list-unstyled spaced2">
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Bachelor in Information & Technologies
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Fresh graduate are very welcome
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    HTML, CSS & Javascript
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Familiar with MVC Framework
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Medical Expenses
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Travelling Expenses
-                                                </li>
-                                            </ul>
-                                            <hr />
-                                            <div class="price">
-                                                RM2500 ~ RM3000
-                                                <small>/month</small>
-                                            </div>
+                        <!-- #section:pages/pricing.large -->
+                        <?php
+                        $counter = 0;
+                        $total = count($modelJobList);
+                        $noCol = 12;
+                        foreach ($modelJobList as $joblist) {
+                            $color = ['blue', 'dark', 'green', 'orange', 'red'];
+                            $colorBtn = ['primary', 'inverse', 'success', 'warning', 'danger'];
+                            $rand = rand(0, 4);
+                            if ($counter > 3)
+                                $counter = 0;
+                            if ($counter == 0) {
+                                ?>
+                                <div class="row">
+                                    <?php
+                                }
+                                ?>
+                                <div class="col-xs-6 col-sm-3 pricing-box">
+                                    <div class="widget-box widget-color-<?= $color[$rand] ?>">
+                                        <div class="widget-header">
+                                            <h5 class="widget-title bigger"><?= $joblist->position ?></h5>
                                         </div>
-                                        <div>
-                                            <a href="#" class="btn btn-block btn-inverse">
-                                                <i class="ace-icon fa fa-check-circle bigger-110"></i>
-                                                <span>Apply</span>
-                                            </a>
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                <ul class="list-unstyled spaced2">
+                                                    <li>
+                                                        <i class="ace-icon fa fa-check green"></i>
+                                                        Bachelor in <?= $joblist->field ?>
+                                                    </li>
+                                                    <li>
+                                                        <i class="ace-icon fa fa-check green"></i>
+                                                        <?= $joblist->description ?>
+                                                    </li>
+                                                </ul>
+                                                <hr />
+                                                <div class="price">
+                                                    RM<?= $joblist->salary ?>
+                                                    <small>/month</small>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <?= Html::a('<i class="ace-icon fa fa-check-circle bigger-110"></i><span>Apply</span>', ['job-list/view-application', 'id' => $joblist->id], ['class' => 'btn btn-block btn-' . $colorBtn[$rand]]) ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-3 pricing-box">
-                                <div class="widget-box widget-color-orange">
-                                    <div class="widget-header">
-                                        <h5 class="widget-title bigger lighter">Electrical Engineer</h5>
-                                    </div>
-                                    <div class="widget-body">
-                                        <div class="widget-main">
-                                            <ul class="list-unstyled spaced2">
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Bachelor in Electrical Engineering
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Fresh graduate are very welcome
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    AutoCad & Electrical Drafting
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Willingly to learn new things
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Medical Expenses
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Travelling Expenses
-                                                </li>
-                                            </ul>
-                                            <hr />
-                                            <div class="price">
-                                                RM2500 ~ RM3000
-                                                <small>/month</small>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="btn btn-block btn-warning">
-                                                <i class="ace-icon fa fa-check-circle bigger-110"></i>
-                                                <span>Apply</span>
-                                            </a>
-                                        </div>
-                                    </div>
+                                <?php
+                                if ($counter == 3) {
+                                    ?>
                                 </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-3 pricing-box">
-                                <div class="widget-box widget-color-blue">
-                                    <div class="widget-header">
-                                        <h5 class="widget-title bigger lighter">Accountant</h5>
-                                    </div>
-                                    <div class="widget-body">
-                                        <div class="widget-main">
-                                            <ul class="list-unstyled spaced2">
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Bachelor in Accounting
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Fresh graduate are very welcome
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Love calculating expenses
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Love business progression
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Medical Expenses
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Travelling Expenses
-                                                </li>
-                                            </ul>
-                                            <hr />
-                                            <div class="price">
-                                                RM2600
-                                                <small>/month</small>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="btn btn-block btn-primary">
-                                                <i class="ace-icon fa fa-check-circle bigger-110"></i>
-                                                <span>Apply</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-3 pricing-box">
-                                <div class="widget-box widget-color-green">
-                                    <div class="widget-header">
-                                        <h5 class="widget-title bigger lighter">Mechanical Engineer</h5>
-                                    </div>
-                                    <div class="widget-body">
-                                        <div class="widget-main">
-                                            <ul class="list-unstyled spaced2">
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Bachelor in Mechanical Engineering
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Fresh graduate are very welcome
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    AutoCad & Mechanical Drafting
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Willingly to learn new things
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Medical Expenses
-                                                </li>
-                                                <li>
-                                                    <i class="ace-icon fa fa-check green"></i>
-                                                    Travelling Expenses
-                                                </li>
-                                            </ul>
-                                            <hr />
-                                            <div class="price">
-                                                RM2700
-                                                <small>/month</small>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="btn btn-block btn-success">
-                                                <i class="ace-icon fa fa-check-circle bigger-110"></i>
-                                                <span>Apply</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /section:pages/pricing.large -->
-                        </div>
+                                <?php
+                            }
+                            $counter++;
+                        }
+                        ?>
+
+                        <!-- /section:pages/pricing.large -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div>

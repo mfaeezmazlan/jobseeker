@@ -62,7 +62,8 @@ class SiteController extends Controller {
 
         switch ($assignmentRole) {
             case 'employee':
-                return $this->render('index_employee');
+                $modelJobList = \common\models\JobList::find()->orderBy(['created_at' => SORT_DESC])->limit(4)->all();
+                return $this->render('index_employee',['modelJobList' => $modelJobList]);
             case 'company':
                 return $this->render('index_company');
             case 'admin':
