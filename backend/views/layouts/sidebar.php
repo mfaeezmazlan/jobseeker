@@ -56,6 +56,10 @@ $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii
             <?= Html::a("<i class='menu-icon fa fa-search-plus'></i><span class='menu-text'> Talent Search </span>", ['site/index']) ?>
             <b class="arrow"></b>
         </li>
+        <li class="" id="nav_5">
+            <?= Html::a("<i class='menu-icon fa fa-graduation-cap'></i><span class='menu-text'> Job List </span>", ['job-list/index']) ?>
+            <b class="arrow"></b>
+        </li>
         <?php endif; ?>
         <?php if ($assignmentRole->item_name == 'admin'): ?>
             <li class="" id="nav_4">

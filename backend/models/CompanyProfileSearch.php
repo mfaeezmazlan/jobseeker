@@ -37,9 +37,10 @@ class CompanyProfileSearch extends CompanyProfile {
      *
      * @return ActiveDataProvider
      */
-    public function search($params) {
+    public function search($params, $user_id = null) {
         $query = CompanyProfile::find();
-
+        if($user_id)
+            $query->andWhere(['user_id' => $user_id]);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

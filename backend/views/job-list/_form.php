@@ -11,13 +11,14 @@ use yii\helpers\ArrayHelper;
 
 $source = common\models\CompanyProfile::find()->where(['isDeleted' => '0'])->orderBy(['company_name' => SORT_ASC])->all();
 $option['company_profile'] = ArrayHelper::map($source, 'id', 'company_name');
+$assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
 ?>
 
 <div class="job-list-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?=
+    <?php
     $form->field($model, 'company_id')->widget(Select2::classname(), [
         'showToggleAll' => true,
         'data' => $option['company_profile'],

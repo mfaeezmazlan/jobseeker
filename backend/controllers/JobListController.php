@@ -34,7 +34,8 @@ class JobListController extends Controller {
      */
     public function actionIndex() {
         $searchModel = new JobListSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $companyModel = \common\models\CompanyProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $companyModel->id);
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
@@ -55,7 +56,20 @@ class JobListController extends Controller {
                     'dataProvider' => $dataProvider,
         ]);
     }
-
+    
+    
+    /**
+     * Apply job
+     * @return mixed
+     */
+    public function actionApply($id) {
+        $modelJobApplication = new \common\models\JobApplication();
+        $modelJobApplication->job_list_id = $id;
+        $modelJobApplication->user_id = Yii::$app->user->identity->id;
+        $modelJobApplication->save();
+        return $this->redirect(['application']);
+    }
+    
     /**
      * Displays a single JobList model.
      * @param integer $id
@@ -131,12 +145,5 @@ class JobListController extends Controller {
         }
     }
 
-    public function actionApply($id) {
-        $modelJobApplication = new \common\models\JobApplication();
-        $modelJobApplication->job_list_id = $id;
-        $modelJobApplication->user_id = Yii::$app->user->identity->id;
-        $modelJobApplication->save();
-        return $this->redirect(['application']);
-    }
 
 }

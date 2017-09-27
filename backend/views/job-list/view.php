@@ -6,9 +6,20 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\JobList */
 
+$assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
 $this->title = $model->field;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Job Lists'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
+switch ($assignmentRole->item_name) {
+    case 'employee':
+        $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Job Application'), 'url' => ['application']];
+        $this->params['breadcrumbs'][] = $this->title;
+        break;
+    case 'company':
+    case 'admin':
+        $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Job Lists'), 'url' => ['index']];
+        $this->params['breadcrumbs'][] = $this->title;
+        break;
+}
 ?>
 
 <div class="page-header">
@@ -18,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-xs-12">
         <div class="job-application-view">
             <p>
-
                 <?php
                 if (\common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id, 'job_list_id' => $model->id])->one())
                     echo "<i class='fa fa-check green'></i> You have applied for this job.";
@@ -52,26 +62,24 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                             return implode(', ', $arr);
                         }
-                    ],
-                    [
-                        'attribute' => 'success_chance',
-                        'header' => 'Success Chance',
-                        'format' => 'raw',
-                        'value' => function($model){
-                            $skillsRequire = explode(',', $model->skills_require);
-                            $myskills = explode(',',common\models\UserProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one()->skills);
-                            $diff = array_diff($myskills, $skillsRequire);
-                            
-                            $totalSkillsRequire = count($skillsRequire);
-                            
-                            return (count($skillsRequire)-1)/count($skillsRequire)*100 . "%";
-                        }
-                    ],
-                ],
-            ]);
-                    ?>
+                            ],
+                            [
+                                'attribute' => 'success_chance',
+                                'header' => 'Success Chance',
+                                'format' => 'raw',
+                                'value' => function($model) {
+                                    $skillsRequire = explode(',', $model->skills_require);
+                                    $myskills = explode(',', common\models\UserProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one()->skills);
+                                    $diff = array_diff($myskills, $skillsRequire);
 
+                                    $totalSkillsRequire = count($skillsRequire);
+
+                                    return (count($skillsRequire) - 1) / count($skillsRequire) * 100 . "%";
+                                }
+                            ],
+                        ],
+                    ]);
+            ?>
         </div>
-
     </div><!-- /.col -->
 </div><!-- /.row -->

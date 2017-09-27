@@ -95,7 +95,7 @@ class SiteController extends Controller {
                 $modelAuth = new \common\models\AuthAssignment();
                 $modelAuth->user_id = $modelUser->id;
                 $modelAuth->item_name = 'employee';
-                $modelAuth->save();
+                $modelAuth->save(false);
             }
             return $this->goHome();
         } else {

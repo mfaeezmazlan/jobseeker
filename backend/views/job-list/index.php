@@ -11,25 +11,32 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Job Lists');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="job-list-index">
+<div class="page-header">
+    <h1>
+        <?= Html::encode($this->title) ?>
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            My Job List Offer
+        </small>
+    </h1>
+</div><!-- /.page-header -->
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Job List'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?php Pjax::begin(); ?>    <?=
-    GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'company_id',
-            'field',
-            'position',
-            ['class' => 'yii\grid\ActionColumn','headerOptions' => ['style' => 'width:75px'],'header' => 'Action'],
-        ],
-    ]);
-    ?>
-    <?php Pjax::end(); ?></div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="job-list-index">
+            <?php Pjax::begin(); ?>    <?=
+            GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'field',
+                    'position',
+                    ['class' => 'yii\grid\ActionColumn', 'headerOptions' => ['style' => 'width:75px'], 'header' => 'Action'],
+                ],
+            ]);
+            ?>
+            <?php Pjax::end(); ?>
+        </div>
+    </div><!-- /.col -->
+</div><!-- /.row -->
