@@ -5,9 +5,10 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\JobList */
+
 $this->title = $model->field;
 
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Job Lists'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Job Application'), 'url' => ['application']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -18,16 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-xs-12">
         <div class="job-application-view">
             <p>
-                <?= Html::a(Yii::t('app', 'Update <i class="fa fa-pencil"></i>'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']);
-                ?>
-                <?=
-                Html::a(Yii::t('app', 'Delete <i class="fa fa-trash"></i>'), ['delete', 'id' => $model->id], [
-                    'class' => 'btn btn-danger btn-sm',
-                    'data' => [
-                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                        'method' => 'post',
-                    ],
-                ])
+                <?php
+                if (\common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id, 'job_list_id' => $model->id])->one())
+                    echo "<i class='fa fa-check green'></i> You have applied for this job.";
+                else
+                    echo Html::a(Yii::t('app', 'Apply <i class="fa fa-check"></i>'), ['apply', 'id' => $model->id], ['class' => 'btn btn-success btn-sm']);
                 ?>
             </p>
 

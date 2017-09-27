@@ -40,8 +40,8 @@ class JobList extends \common\models\GenericWeb {
         return [
             [['company_id', 'field', 'position'], 'required'],
             [['company_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['field', 'position', 'skills_require'], 'string', 'max' => 100],
+            [['skills_require', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['field', 'position'], 'string', 'max' => 100],
             [['description'], 'string', 'max' => 1024],
             [['isDeleted'], 'string', 'max' => 1],
             [['salary'], 'number'],

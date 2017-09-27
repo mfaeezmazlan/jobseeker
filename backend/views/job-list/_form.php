@@ -18,25 +18,27 @@ $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php
-    $form->field($model, 'company_id')->widget(Select2::classname(), [
-        'showToggleAll' => true,
-        'data' => $option['company_profile'],
-        'options' => [
-            'placeholder' => '-- Please Select --'
-        ],
-        'pluginOptions' => [
-            'multiple' => false,
-            'allowClear' => true,
-        ],
-    ])
-    ?>
-
     <?= $form->field($model, 'field')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'position')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+
+    <?=
+    $form->field($model, 'skills_require')->widget(Select2::className(), [
+        'showToggleAll' => false,
+        'data' => common\models\Reference::getList('skills'),
+        'options' => [
+            'placeholder' => 'Select skills',
+            'value' => ($model->isNewRecord ? null : explode(',', $model->skills_require))
+        ],
+        'pluginOptions' => [
+            'multiple' => true,
+            'maximumSelectionLength' => 5,
+            'allowClear' => true,
+        ],
+    ]);
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

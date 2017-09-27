@@ -80,6 +80,17 @@ class JobListController extends Controller {
                     'model' => $this->findModel($id),
         ]);
     }
+    
+    /**
+     * Displays a single JobList model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionViewApplication($id) {
+        return $this->render('view_application', [
+                    'model' => $this->findModel($id),
+        ]);
+    }
 
     /**
      * Creates a new JobList model.
@@ -88,6 +99,8 @@ class JobListController extends Controller {
      */
     public function actionCreate() {
         $model = new JobList();
+        $companyModel = \common\models\CompanyProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
+        $model->company_id = $companyModel->id;
         $modelJobSkills = new \common\models\JobListSkills();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -109,7 +122,9 @@ class JobListController extends Controller {
     public function actionUpdate($id) {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->skills_require = implode(',', $model->skills_require);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

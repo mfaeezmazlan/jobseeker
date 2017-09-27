@@ -53,7 +53,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template' => '{view}'
+                        'template' => '{view_application}',
+                        'buttons' =>[
+                            'view_application' => function ($url, $model) {
+                                return Html::a('<i class="fa fa-eye blue"></i>', ['job-list/view-application', 'ref' => $model->id]);
+                            },
+                        ]
                     ],
                 ],
             ]);
