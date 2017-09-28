@@ -71,13 +71,13 @@ class Reference extends \common\models\GenericWeb {
         $arr = array();
 
         if ($param1 != null && $param2 != null) {
-            $data = self::find()->where(['cat' => $cat, 'param1' => $param1, 'param2' => $param2, 'isDeleted' => 0])->orderBy(['descr' => SORT_ASC])->all();
+            $data = self::find()->where(['cat' => $cat, 'param1' => $param1, 'param2' => $param2, 'isDeleted' => 0])->orderBy(['sort' => SORT_ASC, 'descr' => SORT_ASC])->all();
         } else if ($param1 != null) {
-            $data = self::find()->where(['cat' => $cat, 'param1' => $param1, 'isDeleted' => 0])->orderBy(['descr' => SORT_ASC])->all();
+            $data = self::find()->where(['cat' => $cat, 'param1' => $param1, 'isDeleted' => 0])->orderBy(['sort' => SORT_ASC, 'descr' => SORT_ASC])->all();
         } else if ($param2 != null) {
-            $data = self::find()->where(['cat' => $cat, 'param2' => $param2, 'isDeleted' => 0])->orderBy(['descr' => SORT_ASC])->all();
+            $data = self::find()->where(['cat' => $cat, 'param2' => $param2, 'isDeleted' => 0])->orderBy(['sort' => SORT_ASC, 'descr' => SORT_ASC])->all();
         } else {
-            $data = self::find()->where(['cat' => $cat, 'isDeleted' => 0])->orderBy(['descr' => SORT_ASC])->all();
+            $data = self::find()->where(['cat' => $cat, 'isDeleted' => 0])->orderBy(['sort' => SORT_ASC, 'descr' => SORT_ASC])->all();
         }
 
         foreach ($data as $x) {

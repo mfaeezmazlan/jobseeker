@@ -26,7 +26,7 @@ use Yii;
  * @property string $qualification
  * @property string $leadership_experience
  * @property string $previous_job_field
- * @property string $working_experience
+ * @property integer $working_experience
  * @property string $expected_salary
  * @property string $isDeleted
  * @property string $created_at
@@ -55,14 +55,14 @@ class UserProfile extends \common\models\GenericWeb {
     public function rules() {
         return [
             [['user_id', 'address_id', 'profile_pic_id', 'first_name'], 'required'],
-            [['user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['skills', 'language', 'date_of_birth', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by', 'working_experience'], 'integer'],
+            [['skills', 'language', 'leadership_experience', 'date_of_birth', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['expected_salary'], 'number'],
             [['file'], 'file'],
             [['nric', 'mobile_no', 'home_no'], 'string', 'max' => 50],
-            [['first_name', 'last_name', 'leadership_experience'], 'string', 'max' => 100],
+            [['first_name', 'last_name'], 'string', 'max' => 100],
             [['description'], 'string', 'max' => 1024],
-            [['gender', 'area_of_education', 'marital_status', 'qualification', 'previous_job_field', 'working_experience'], 'string', 'max' => 30],
+            [['gender', 'area_of_education', 'marital_status', 'qualification', 'previous_job_field'], 'string', 'max' => 30],
             [['isDeleted'], 'string', 'max' => 1],
             [['address_id'], 'exist', 'skipOnError' => true, 'targetClass' => Address::className(), 'targetAttribute' => ['address_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -91,10 +91,10 @@ class UserProfile extends \common\models\GenericWeb {
             'area_of_education' => Yii::t('app', 'Area Of Education'),
             'date_of_birth' => Yii::t('app', 'Date Of Birth'),
             'marital_status' => Yii::t('app', 'Marital Status'),
-            'qualification' => Yii::t('app', 'Qualification'),
+            'qualification' => Yii::t('app', 'Highest Qualification'),
             'leadership_experience' => Yii::t('app', 'Leadership Experience'),
             'previous_job_field' => Yii::t('app', 'Previous Job Field'),
-            'working_experience' => Yii::t('app', 'Working Experience'),
+            'working_experience' => Yii::t('app', 'Year of Working Experience'),
             'expected_salary' => Yii::t('app', 'Expected Salary'),
             'isDeleted' => Yii::t('app', 'Is Deleted'),
             'created_at' => Yii::t('app', 'Created At'),

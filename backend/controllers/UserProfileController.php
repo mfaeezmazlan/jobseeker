@@ -107,8 +107,19 @@ class UserProfileController extends Controller {
         }
 
         if ($model->load(Yii::$app->request->post()) && $modelAddress->load(Yii::$app->request->post())) {
-            $model->skills = implode(',', $model->skills);
-            $model->language = implode(',', $model->language);
+            if (is_array($model->skills))
+                $model->skills = implode(',', $model->skills);
+            else
+                $model->skills = null;
+            if (is_array($model->language))
+                $model->language = implode(',', $model->language);
+            else
+                $model->language = null;
+            if (is_array($model->leadership_experience))
+                $model->leadership_experience = implode(',', $model->leadership_experience);
+            else
+                $model->leadership_experience = null;
+
             if ($model->save()) {
                 \common\components\FileHandler::generate($modelAttachment, Yii::$app->user->id);
                 $modelAddress->save();

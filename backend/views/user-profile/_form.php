@@ -24,19 +24,19 @@ $counter = 0;
                 <div class="widget-toolbar no-border">
                     <ul class="nav nav-tabs" id="myTab">
                         <li class="active">
-                            <a data-toggle="tab" href="#personal_information">Personal Information <i class="fa fa-user blue"></i></a>
+                            <a data-toggle="tab" href="#personal_information">Personal Information <i class="fa fa-user green"></i></a>
                         </li>
                         <li>
                             <a data-toggle="tab" href="#home_address">Home Address <i class="fa fa-map-marker blue"></i></a>
                         </li>
                         <li>
-                            <a data-toggle="tab" href="#education">Education <i class="fa fa-graduation-cap blue"></i></a>
+                            <a data-toggle="tab" href="#education">Education <i class="fa fa-graduation-cap red"></i></a>
                         </li>
                         <li>
-                            <a data-toggle="tab" href="#experience">Experience <i class="fa fa-suitcase blue"></i></a>
+                            <a data-toggle="tab" href="#experience">Experience <i class="fa fa-briefcase dark"></i></a>
                         </li>
                         <li>
-                            <a data-toggle="tab" href="#about_me">About me! <i class="fa fa-file blue"></i></a>
+                            <a data-toggle="tab" href="#about_me">About me! <i class="fa fa-file purple"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -119,21 +119,7 @@ $counter = 0;
                             <div class="container">
                                 <p>Please select the highest education level that you have been studied</p>
                                 <div class="hr hr8 hr-double hr-dotted"></div>
-                            </div>
-                        </div>
-                        <div id="experience" class="tab-pane">
-                            <div class="container">
-                                <p>Tell us more about your experience</p>
-                                <div class="hr hr8 hr-double hr-dotted"></div>
-                            </div>
-                        </div>
-                        <div id="about_me" class="tab-pane">
-                            <div class="container">
-                                <p>Last but not least, of course about yourself. Do tell us.</p>
-                                <div class="hr hr8 hr-double hr-dotted"></div>
-                                <?= $form->field($model, 'mobile_no')->textInput(['maxlength' => true]) ?>
-                                <?= $form->field($model, 'home_no')->textInput(['maxlength' => true]) ?>
-                                <?= $form->field($model, 'description')->textarea(['maxlength' => true, 'rows' => '5']) ?>
+                                <?= $form->field($model, 'qualification')->dropDownList(\common\models\Reference::getList('qualification'), ['prompt' => '-- Please Select --']) ?>
                                 <?=
                                 $form->field($model, 'skills')->widget(Select2::className(), [
                                     'showToggleAll' => false,
@@ -144,11 +130,56 @@ $counter = 0;
                                     ],
                                     'pluginOptions' => [
                                         'multiple' => true,
+                                        'maximumSelectionLength' => 15,
+                                        'allowClear' => true,
+                                    ],
+                                ]);
+                                ?>
+                            </div>
+                        </div>
+                        <div id="experience" class="tab-pane">
+                            <div class="container">
+                                <p>Tell us your qualities and experience</p>
+                                <div class="hr hr8 hr-double hr-dotted"></div>
+                                <?php
+                                echo $form->field($model, 'leadership_experience')->widget(Select2::className(), [
+                                    'showToggleAll' => false,
+                                    'data' => common\models\Reference::getList('leadership_exp'),
+                                    'options' => [
+                                        'placeholder' => 'Select Leadership Experience',
+                                        'value' => ($model->isNewRecord ? null : explode(',', $model->leadership_experience))
+                                    ],
+                                    'pluginOptions' => [
+                                        'multiple' => true,
                                         'maximumSelectionLength' => 5,
                                         'allowClear' => true,
                                     ],
                                 ]);
                                 ?>
+                                <?php
+                                echo $form->field($model, 'previous_job_field')->widget(Select2::className(), [
+                                    'showToggleAll' => false,
+                                    'data' => common\models\Reference::getList('job_field'),
+                                    'options' => [
+                                        'placeholder' => 'Select Job Field',
+                                    ],
+                                    'pluginOptions' => [
+                                        'multiple' => false,
+                                        'allowClear' => true,
+                                    ],
+                                ]);
+                                ?>
+                                <?= $form->field($model, 'working_experience')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model, 'expected_salary')->textInput(['maxlength' => true]) ?>
+                            </div>
+                        </div>
+                        <div id="about_me" class="tab-pane">
+                            <div class="container">
+                                <p>Last but not least, of course about yourself. Do tell us.</p>
+                                <div class="hr hr8 hr-double hr-dotted"></div>
+                                <?= $form->field($model, 'mobile_no')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model, 'home_no')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model, 'description')->textarea(['maxlength' => true, 'rows' => '5']) ?>
                                 <?php
                                 if ($readAttachment)
                                     echo $form->field($modelAttachment, 'file', ['template' => '{label}{input} Current File: <font color="#478fca">' . Html::a($readAttachment->file_name, ['user-profile/download-attachment', 'id' => $readAttachment->id, 'user_id' => $model->user_id]) . '</font>'])->fileInput();
