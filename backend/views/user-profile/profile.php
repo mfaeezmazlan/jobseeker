@@ -83,13 +83,10 @@ $this->params['breadcrumbs'][] = 'My Profile';
                             <div class="widget-toolbar no-border">
                                 <ul class="nav nav-tabs" id="myTab">
                                     <li class="active">
-                                        <a data-toggle="tab" href="#home">General Information</a>
+                                        <a data-toggle="tab" href="#personal_information">Personal Information <i class="fa fa-user green"></i></a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#profile">Home Address</a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#info">Info</a>
+                                        <a data-toggle="tab" href="#education">Education & Experience <i class="fa fa-graduation-cap red"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -98,9 +95,7 @@ $this->params['breadcrumbs'][] = 'My Profile';
                         <div class="widget-body">
                             <div class="widget-main padding-6">
                                 <div class="tab-content">
-                                    <div id="home" class="tab-pane in active">
-
-                                        <!-- #section:pages/profile.info -->
+                                    <div id="personal_information" class="tab-pane in active">
                                         <div class="profile-user-info profile-user-info-striped">
                                             <div class="profile-info-row">
                                                 <div class="profile-info-name"> Full name </div>
@@ -111,9 +106,10 @@ $this->params['breadcrumbs'][] = 'My Profile';
                                             </div>
 
                                             <div class="profile-info-row">
-                                                <div class="profile-info-name"> Address </div>
+                                                <div class="profile-info-name"> NRIC </div>
+
                                                 <div class="profile-info-value">
-                                                    <?= $model->address->fullAddress ?>
+                                                    <span class="editable" id="mobile_no"><?= $model->nric ?></span>
                                                 </div>
                                             </div>
 
@@ -134,10 +130,17 @@ $this->params['breadcrumbs'][] = 'My Profile';
                                             </div>
 
                                             <div class="profile-info-row">
-                                                <div class="profile-info-name"> Skills </div>
+                                                <div class="profile-info-name"> Address </div>
+                                                <div class="profile-info-value">
+                                                    <?= $model->address->fullAddress ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Marital Status </div>
 
                                                 <div class="profile-info-value">
-                                                    <span class="editable" id="about"><?= $model->skills ?></span>
+                                                    <span class="editable" id="about"><?= \common\models\Reference::getDesc('marital_status', $model->marital_status) ?></span>
                                                 </div>
                                             </div>
 
@@ -155,20 +158,85 @@ $this->params['breadcrumbs'][] = 'My Profile';
                                                 <div class="profile-info-value">
                                                     <span class="editable" id="about">
                                                         <?php
-                                                            // echo \common\components\FileHandler::generateDocument($model, Yii::getAlias('@web') . "/uploads/resume/" . Yii::$app->user->id); 
-                                                            $user_doc = common\models\UserDoc::find()->where(['user_id' => $model->user_id])->orderBy(['id' => SORT_DESC])->one();
-                                                            echo Html::a($user_doc->docAttach->file_name, ['user-profile/download-attachment', 'id' => $user_doc->doc_attach_id, 'user_id' => $model->user_id])
+                                                        // echo \common\components\FileHandler::generateDocument($model, Yii::getAlias('@web') . "/uploads/resume/" . Yii::$app->user->id); 
+                                                        $user_doc = common\models\UserDoc::find()->where(['user_id' => $model->user_id])->orderBy(['id' => SORT_DESC])->one();
+                                                        if ($user_doc)
+                                                            echo Html::a($user_doc->docAttach->file_name, ['user-profile/download-attachment', 'id' => $user_doc->doc_attach_id, 'user_id' => $model->user_id]);
+                                                        else
+                                                            echo "Not Submitted";
                                                         ?>
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="profile" class="tab-pane">
-                                        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-                                    </div>
-                                    <div id="info" class="tab-pane">
-                                        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+                                    <div id="education" class="tab-pane">
+                                        <div class="profile-user-info profile-user-info-striped">
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Highest Qualification </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="username"><?= \common\models\Reference::getDesc('qualification', $model->qualification) ?></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Skills </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="mobile_no">
+                                                        <?php
+                                                        $tmparr = explode(',', $model->skills);
+                                                        $tmp = array();
+                                                        foreach ($tmparr as $x) {
+                                                            $tmp[] = \common\models\Reference::getDesc('skills', $x);
+                                                        }
+                                                        echo implode(',<br>', $tmp);
+                                                        ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Leadership Experience </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="mobile_no">
+                                                        <?php
+                                                        $tmparr = explode(',', $model->leadership_experience);
+                                                        $tmp = array();
+                                                        foreach ($tmparr as $x) {
+                                                            $tmp[] = \common\models\Reference::getDesc('leadership_exp', $x);
+                                                        }
+                                                        echo implode(',<br>', $tmp);
+                                                        ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Previous Job Field </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="home_no"><?= \common\models\Reference::getDesc('job_field', $model->previous_job_field) ?></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Year of Working Experience </div>
+                                                <div class="profile-info-value">
+                                                    <?= $model->working_experience ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Expected Salary </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about">RM<?= $model->expected_salary ?></span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

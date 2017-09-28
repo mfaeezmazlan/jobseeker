@@ -76,60 +76,169 @@ $this->params['breadcrumbs'][] = 'Applicant Profile';
 
                     <div class="space-12"></div>
 
-                    <!-- #section:pages/profile.info -->
-                    <div class="profile-user-info profile-user-info-striped">
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Full name </div>
-
-                            <div class="profile-info-value">
-                                <span class="editable" id="username"><?= $model->first_name . " " . $model->last_name ?></span>
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-small">
+                            <h5 class="widget-title smaller">Biodata</h5>
+                            <!-- #section:custom/widget-box.tabbed -->
+                            <div class="widget-toolbar no-border">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#personal_information">Personal Information <i class="fa fa-user green"></i></a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#education">Education & Experience <i class="fa fa-graduation-cap red"></i></a>
+                                    </li>
+                                </ul>
                             </div>
+                            <!-- /section:custom/widget-box.tabbed -->
                         </div>
+                        <div class="widget-body">
+                            <div class="widget-main padding-6">
+                                <div class="tab-content">
+                                    <div id="personal_information" class="tab-pane in active">
+                                        <div class="profile-user-info profile-user-info-striped">
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Full name </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Address </div>
-                            <div class="profile-info-value">
-                                <?= $model->address->fullAddress ?>
-                            </div>
-                        </div>
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="username"><?= $model->first_name . " " . $model->last_name ?></span>
+                                                </div>
+                                            </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Mobile No </div>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> NRIC </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable" id="mobile_no"><?= $model->mobile_no ?></span>
-                            </div>
-                        </div>
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="mobile_no"><?= $model->nric ?></span>
+                                                </div>
+                                            </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Home No </div>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Mobile No </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable" id="home_no"><?= $model->home_no ?></span>
-                            </div>
-                        </div>
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="mobile_no"><?= $model->mobile_no ?></span>
+                                                </div>
+                                            </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Skills </div>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Home No </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable" id="about"><?= $model->skills ?></span>
-                            </div>
-                        </div>
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="home_no"><?= $model->home_no ?></span>
+                                                </div>
+                                            </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> About Me </div>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Address </div>
+                                                <div class="profile-info-value">
+                                                    <?= $model->address->fullAddress ?>
+                                                </div>
+                                            </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable" id="about"><?= $model->description ?></span>
-                            </div>
-                        </div>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Marital Status </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Resume </div>
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about"><?= \common\models\Reference::getDesc('marital_status', $model->marital_status) ?></span>
+                                                </div>
+                                            </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable" id="about"><?= \common\components\FileHandler::generateDocument($model, Yii::getAlias('@web') . "/uploads/resume/" . $user_id) ?></span>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> About Me </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about"><?= $model->description ?></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Resume </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about">
+                                                        <?php
+                                                        // echo \common\components\FileHandler::generateDocument($model, Yii::getAlias('@web') . "/uploads/resume/" . Yii::$app->user->id); 
+                                                        $user_doc = common\models\UserDoc::find()->where(['user_id' => $model->user_id])->orderBy(['id' => SORT_DESC])->one();
+                                                        if($user_doc)
+                                                            echo Html::a($user_doc->docAttach->file_name, ['user-profile/download-attachment', 'id' => $user_doc->doc_attach_id, 'user_id' => $model->user_id]);
+                                                        else
+                                                            echo "Not Submitted";
+                                                        ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="education" class="tab-pane">
+                                        <div class="profile-user-info profile-user-info-striped">
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Highest Qualification </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="username"><?= \common\models\Reference::getDesc('qualification', $model->qualification) ?></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Skills </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="mobile_no">
+                                                        <?php
+                                                        $tmparr = explode(',', $model->skills);
+                                                        $tmp = array();
+                                                        foreach ($tmparr as $x) {
+                                                            $tmp[] = \common\models\Reference::getDesc('skills', $x);
+                                                        }
+                                                        echo implode(',<br>', $tmp);
+                                                        ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Leadership Experience </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="mobile_no">
+                                                        <?php
+                                                        $tmparr = explode(',', $model->leadership_experience);
+                                                        $tmp = array();
+                                                        foreach ($tmparr as $x) {
+                                                            $tmp[] = \common\models\Reference::getDesc('leadership_exp', $x);
+                                                        }
+                                                        echo implode(',<br>', $tmp);
+                                                        ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Previous Job Field </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="home_no"><?= \common\models\Reference::getDesc('job_field', $model->previous_job_field) ?></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Year of Working Experience </div>
+                                                <div class="profile-info-value">
+                                                    <?= $model->working_experience ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Expected Salary </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about">RM<?= $model->expected_salary ?></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

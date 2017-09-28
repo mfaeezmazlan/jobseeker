@@ -53,7 +53,7 @@ $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii
         
         <?php if ($assignmentRole->item_name == 'company'): ?>
         <li class="" id="nav_3">
-            <?= Html::a("<i class='menu-icon fa fa-search-plus'></i><span class='menu-text'> Talent Search </span>", ['site/index']) ?>
+            <?= Html::a("<i class='menu-icon fa fa-search-plus'></i><span class='menu-text'> Talent Search </span>", ['talent/index']) ?>
             <b class="arrow"></b>
         </li>
         <li class="" id="nav_5">

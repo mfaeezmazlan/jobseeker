@@ -88,7 +88,10 @@ class Reference extends \common\models\GenericWeb {
 
     public static function getDesc($cat, $code) {
         $data = self::find()->where(['cat' => $cat, 'code' => $code])->one();
-        return $data->descr;
+        if ($data)
+            return $data->descr;
+        else
+            return null;
     }
 
 }
