@@ -124,12 +124,12 @@ $this->params['breadcrumbs'][] = 'Applicant Profile';
                                 <span class="editable" id="about"><?= $model->description ?></span>
                             </div>
                         </div>
-                        
+
                         <div class="profile-info-row">
                             <div class="profile-info-name"> Resume </div>
 
                             <div class="profile-info-value">
-                                <span class="editable" id="about"><?= \common\components\FileHandler::generateDocument($model, "uploads/resume/".$user_id) ?></span>
+                                <span class="editable" id="about"><?= \common\components\FileHandler::generateDocument($model, Yii::getAlias('@web') . "/uploads/resume/" . $user_id) ?></span>
                             </div>
                         </div>
                     </div>

@@ -18,7 +18,7 @@ class FileHandler {
         $modelAttachment->file_name_sys = Yii::$app->user->id . "_" . date('d-m-Y_H_i_s') . "." . $modelAttachment->file->extension;
         $modelAttachment->file_type = $filetype;
 
-        $path = "uploads/resume/$userId";
+        $path = Yii::getAlias('@web') . "/uploads/resume/$userId";
         if (!is_dir($path)) {
             mkdir($path, 0755);
         }
