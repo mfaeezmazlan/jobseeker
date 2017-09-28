@@ -150,8 +150,8 @@ $counter = 0;
                                 ]);
                                 ?>
                                 <?php
-                                if ($fileName)
-                                    echo $form->field($modelAttachment, 'file', ['template' => '{label}{input} Current File: <font color="#478fca">' . $fileName . '</font>'])->fileInput();
+                                if ($readAttachment)
+                                    echo $form->field($modelAttachment, 'file', ['template' => '{label}{input} Current File: <font color="#478fca">' . Html::a($readAttachment->file_name, ['user-profile/download-attachment', 'id' => $readAttachment->id, 'user_id' => $model->user_id]) . '</font>'])->fileInput();
                                 else
                                     echo $form->field($modelAttachment, 'file')->fileInput();
                                 ?>

@@ -153,7 +153,13 @@ $this->params['breadcrumbs'][] = 'My Profile';
                                                 <div class="profile-info-name"> Resume </div>
 
                                                 <div class="profile-info-value">
-                                                    <span class="editable" id="about"><?= \common\components\FileHandler::generateDocument($model, Yii::getAlias('@web') . "/uploads/resume/" . Yii::$app->user->id) ?></span>
+                                                    <span class="editable" id="about">
+                                                        <?php
+                                                            // echo \common\components\FileHandler::generateDocument($model, Yii::getAlias('@web') . "/uploads/resume/" . Yii::$app->user->id); 
+                                                            $user_doc = common\models\UserDoc::find()->where(['user_id' => $model->user_id])->orderBy(['id' => SORT_DESC])->one();
+                                                            echo Html::a($user_doc->docAttach->file_name, ['user-profile/download-attachment', 'id' => $user_doc->doc_attach_id, 'user_id' => $model->user_id])
+                                                        ?>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>

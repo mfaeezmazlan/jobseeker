@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 'model' => $model,
                 'modelAddress' => $modelAddress,
                 'modelAttachment' => $modelAttachment,
-                'fileName' => $fileName,
+                'readAttachment' => $readAttachment,
             ])
             ?>
         </div>

@@ -30,7 +30,7 @@ class UserProfileController extends Controller {
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['my-profile', 'display-skills'],
+                        'actions' => ['my-profile', 'display-skills', 'download-attachment'],
                         'roles' => ['@'],
                     ],
                     [
@@ -101,9 +101,9 @@ class UserProfileController extends Controller {
         $model = $this->findModel(Yii::$app->user->id);
         $modelAddress = $model->address;
         $modelAttachment = new \common\models\DocAttach();
-        $fileName = null;
+        $readAttachment = null;
         if ($modelUserDoc = \common\models\UserDoc::find()->where(['user_id' => Yii::$app->user->identity->id])->orderBy(['id' => SORT_DESC])->one()) {
-            $fileName = \common\models\DocAttach::findOne($modelUserDoc->doc_attach_id)->file_name;
+            $readAttachment = \common\models\DocAttach::findOne($modelUserDoc->doc_attach_id);
         }
 
         if ($model->load(Yii::$app->request->post()) && $modelAddress->load(Yii::$app->request->post())) {
@@ -119,7 +119,7 @@ class UserProfileController extends Controller {
                     'model' => $model,
                     'modelAddress' => $modelAddress,
                     'modelAttachment' => $modelAttachment,
-                    'fileName' => $fileName,
+                    'readAttachment' => $readAttachment,
         ]);
     }
 
@@ -169,6 +169,17 @@ class UserProfileController extends Controller {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionDownloadAttachment($id, $user_id) {
+        $modelAttachment = \common\models\DocAttach::findOne($id);
+        $path = Yii::getAlias('@backend') . "/web/uploads/resume/" . $user_id . "/" . $modelAttachment->file_name_sys;
+        echo $path;
+        if (file_exists($path)) {
+//            header('Content-Type:' . $att->doctype);
+            header("Content-Disposition: attachment; filename={$modelAttachment->file_name}");
+            readfile($path);
         }
     }
 

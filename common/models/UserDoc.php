@@ -56,5 +56,8 @@ class UserDoc extends \common\models\GenericWeb {
             'deleted_by' => Yii::t('app', 'Deleted By'),
         ];
     }
-
+    
+    public function getDocAttach(){
+        return $this->hasOne(DocAttach::className(), ['id' => 'doc_attach_id']);
+    }
 }
