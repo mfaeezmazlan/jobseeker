@@ -17,12 +17,16 @@ $counter = 0;
 
 <div class="row">
     <h4>Personal Information <i class="fa fa-user blue"></i></h4>
-    <div class="col-xs-12 col-md-6 col-lg-6">
+    <div class="col-xs-12 col-md-4 col-lg-3">
         <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
     </div>
 
-    <div class="col-xs-12 col-md-6 col-lg-6">
+    <div class="col-xs-12 col-md-4 col-lg-3">
         <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
+    </div>
+
+    <div class="col-xs-12 col-md-4 col-lg-3">
+        <?= $form->field($model, 'nric')->textInput(['maxlength' => true]) ?>
     </div>
 </div>
 <div class="hr hr8 hr-double hr-dotted"></div>
@@ -85,6 +89,14 @@ $counter = 0;
     <div class="col-xs-12 col-md-3 col-lg-3">
         <?= $form->field($modelAddress, 'city')->textInput(['maxlength' => true]) ?>
     </div>
+</div>
+<div class="hr hr8 hr-double hr-dotted"></div>
+<div class="row">
+    <h4>Education <i class="fa fa-graduation-cap blue"></i></h4>
+</div>
+<div class="hr hr8 hr-double hr-dotted"></div>
+<div class="row">
+    <h4>Experience <i class="fa fa-suitcase blue"></i></h4>
 </div>
 <div class="hr hr8 hr-double hr-dotted"></div>
 <div class="row">
