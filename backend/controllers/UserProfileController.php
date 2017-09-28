@@ -36,7 +36,7 @@ class UserProfileController extends Controller {
                     [
                         'allow' => true,
                         'actions' => ['view-profile'],
-                        'roles' => ['company','admin'],
+                        'roles' => ['company', 'admin'],
                     ],
                 ],
             ],
@@ -98,19 +98,20 @@ class UserProfileController extends Controller {
      * @return mixed
      */
     public function actionUpdate() {
-        $model = $this->findModel(Yii::$app->user->identity->id);
+        $model = $this->findModel(Yii::$app->user->id);
         $modelAddress = $model->address;
         $modelAttachment = new \common\models\DocAttach();
-        if ($modelUserDoc = \common\models\UserDoc::find()->where(['user_id' => Yii::$app->user->identity->id])->one()) {
-            $modelAttachment = \common\models\DocAttach::findOne($modelUserDoc->doc_attach_id);
+        $fileName = null;
+        if ($modelUserDoc = \common\models\UserDoc::find()->where(['user_id' => Yii::$app->user->identity->id])->orderBy(['id' => SORT_DESC])->one()) {
+            $fileName = \common\models\DocAttach::findOne($modelUserDoc->doc_attach_id)->file_name;
         }
 
         if ($model->load(Yii::$app->request->post()) && $modelAddress->load(Yii::$app->request->post())) {
             $model->skills = implode(',', $model->skills);
+            $model->language = implode(',', $model->language);
             if ($model->save()) {
-
-                if (\common\components\FileHandler::generate($modelAttachment, Yii::$app->user->id))
-                    $modelAddress->save();
+                \common\components\FileHandler::generate($modelAttachment, Yii::$app->user->id);
+                $modelAddress->save();
                 return $this->redirect(['my-profile']);
             }
         }
@@ -118,6 +119,7 @@ class UserProfileController extends Controller {
                     'model' => $model,
                     'modelAddress' => $modelAddress,
                     'modelAttachment' => $modelAttachment,
+                    'fileName' => $fileName,
         ]);
     }
 

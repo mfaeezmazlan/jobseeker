@@ -14,11 +14,14 @@ class FileHandler {
             $filetype = $file['type']['file'];
         }
         $modelAttachment->file = UploadedFile::getInstance($modelAttachment, 'file');
+        if(!$modelAttachment->file){
+            return;
+        }
         $modelAttachment->file_name = $modelAttachment->file->name;
         $modelAttachment->file_name_sys = Yii::$app->user->id . "_" . date('d-m-Y_H_i_s') . "." . $modelAttachment->file->extension;
         $modelAttachment->file_type = $filetype;
 
-        $path = Yii::getAlias('@web') . "/uploads/resume/$userId";
+        $path = Yii::getAlias('@backend') . "/web/uploads/resume/$userId";
         if (!is_dir($path)) {
             mkdir($path, 0755);
         }
@@ -31,9 +34,8 @@ class FileHandler {
             $modelUserDoc->user_id = $userId;
             $modelUserDoc->doc_attach_id = $modelAttachment->id;
             $modelUserDoc->save();
-            return true;
         }
-        return false;
+        return;
     }
 
     public static function generateDocument($model, $documentPath, $sizeWidth = "100px") {

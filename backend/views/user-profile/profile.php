@@ -76,60 +76,95 @@ $this->params['breadcrumbs'][] = 'My Profile';
 
                     <div class="space-12"></div>
 
-                    <!-- #section:pages/profile.info -->
-                    <div class="profile-user-info profile-user-info-striped">
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Full name </div>
-
-                            <div class="profile-info-value">
-                                <span class="editable" id="username"><?= $model->first_name . " " . $model->last_name ?></span>
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-small">
+                            <h5 class="widget-title smaller">Biodata</h5>
+                            <!-- #section:custom/widget-box.tabbed -->
+                            <div class="widget-toolbar no-border">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#home">General Information</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#profile">Home Address</a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" href="#info">Info</a>
+                                    </li>
+                                </ul>
                             </div>
+                            <!-- /section:custom/widget-box.tabbed -->
                         </div>
+                        <div class="widget-body">
+                            <div class="widget-main padding-6">
+                                <div class="tab-content">
+                                    <div id="home" class="tab-pane in active">
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Address </div>
-                            <div class="profile-info-value">
-                                <?= $model->address->fullAddress ?>
-                            </div>
-                        </div>
+                                        <!-- #section:pages/profile.info -->
+                                        <div class="profile-user-info profile-user-info-striped">
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Full name </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Mobile No </div>
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="username"><?= $model->first_name . " " . $model->last_name ?></span>
+                                                </div>
+                                            </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable" id="mobile_no"><?= $model->mobile_no ?></span>
-                            </div>
-                        </div>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Address </div>
+                                                <div class="profile-info-value">
+                                                    <?= $model->address->fullAddress ?>
+                                                </div>
+                                            </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Home No </div>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Mobile No </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable" id="home_no"><?= $model->home_no ?></span>
-                            </div>
-                        </div>
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="mobile_no"><?= $model->mobile_no ?></span>
+                                                </div>
+                                            </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Skills </div>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Home No </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable" id="about"><?= $model->skills ?></span>
-                            </div>
-                        </div>
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="home_no"><?= $model->home_no ?></span>
+                                                </div>
+                                            </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> About Me </div>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Skills </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable" id="about"><?= $model->description ?></span>
-                            </div>
-                        </div>
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about"><?= $model->skills ?></span>
+                                                </div>
+                                            </div>
 
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Resume </div>
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> About Me </div>
 
-                            <div class="profile-info-value">
-                                <span class="editable" id="about"><?= \common\components\FileHandler::generateDocument($model, Yii::getAlias('@web') . "/uploads/resume/" . Yii::$app->user->id) ?></span>
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about"><?= $model->description ?></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Resume </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="about"><?= \common\components\FileHandler::generateDocument($model, Yii::getAlias('@web') . "/uploads/resume/" . Yii::$app->user->id) ?></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="profile" class="tab-pane">
+                                        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+                                    </div>
+                                    <div id="info" class="tab-pane">
+                                        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

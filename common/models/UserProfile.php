@@ -56,11 +56,11 @@ class UserProfile extends \common\models\GenericWeb {
         return [
             [['user_id', 'address_id', 'profile_pic_id', 'first_name'], 'required'],
             [['user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['skills', 'date_of_birth', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['skills', 'language', 'date_of_birth', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['expected_salary'], 'number'],
             [['file'], 'file'],
             [['nric', 'mobile_no', 'home_no'], 'string', 'max' => 50],
-            [['first_name', 'last_name', 'language', 'leadership_experience'], 'string', 'max' => 100],
+            [['first_name', 'last_name', 'leadership_experience'], 'string', 'max' => 100],
             [['description'], 'string', 'max' => 1024],
             [['gender', 'area_of_education', 'marital_status', 'qualification', 'previous_job_field', 'working_experience'], 'string', 'max' => 30],
             [['isDeleted'], 'string', 'max' => 1],
