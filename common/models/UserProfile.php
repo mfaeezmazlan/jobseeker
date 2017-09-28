@@ -42,6 +42,8 @@ use Yii;
 class UserProfile extends \common\models\GenericWeb {
 
     public $file;
+    public $min_salary,$max_salary;
+    public $score;
     /**
      * @inheritdoc
      */
@@ -57,7 +59,7 @@ class UserProfile extends \common\models\GenericWeb {
             [['user_id', 'address_id', 'profile_pic_id', 'first_name'], 'required'],
             [['user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by', 'working_experience'], 'integer'],
             [['skills', 'language', 'leadership_experience', 'date_of_birth', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['expected_salary'], 'number'],
+            [['expected_salary', 'min_salary', 'max_salary', 'score'], 'number'],
             [['file'], 'file'],
             [['nric', 'mobile_no', 'home_no'], 'string', 'max' => 50],
             [['first_name', 'last_name'], 'string', 'max' => 100],
@@ -96,6 +98,9 @@ class UserProfile extends \common\models\GenericWeb {
             'previous_job_field' => Yii::t('app', 'Previous Job Field'),
             'working_experience' => Yii::t('app', 'Year of Working Experience'),
             'expected_salary' => Yii::t('app', 'Expected Salary'),
+            'min_salary' => Yii::t('app', 'Minimum Salary'),
+            'max_salary' => Yii::t('app', 'Maximum Salary'),
+            'score' => Yii::t('app', 'Score'),
             'isDeleted' => Yii::t('app', 'Is Deleted'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),

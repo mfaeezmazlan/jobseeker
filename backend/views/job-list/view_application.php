@@ -52,24 +52,24 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                             return implode(', ', $arr);
                         }
-                            ],
-                            [
-                                'attribute' => 'skill_match',
-                                'header' => 'Skills Match',
-                                'format' => 'raw',
-                                'value' => function($model) {
-                                    $skillsRequire = explode(',', $model->skills_require);
-                                    $myskills = explode(',', common\models\UserProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one()->skills);
-                                    $intersect = array_intersect($myskills, $skillsRequire);
+                    ],
+                    [
+                        'attribute' => 'skill_match',
+                        'header' => 'Skills Match',
+                        'format' => 'raw',
+                        'value' => function($model) {
+                            $skillsRequire = explode(',', $model->skills_require);
+                            $myskills = explode(',', common\models\UserProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one()->skills);
+                            $intersect = array_intersect($myskills, $skillsRequire);
 
-                                    $totalSkillsRequire = count($skillsRequire);
+                            $totalSkillsRequire = count($skillsRequire);
 
-                                    return (count($intersect) / count($skillsRequire)) * 100 . "%";
-                                }
-                                    ],
-                                ],
-                            ]);
-                            ?>
+                            return (count($intersect) / count($skillsRequire)) * 100 . "%";
+                        }
+                    ],
+                ],
+            ]);
+            ?>
         </div>
     </div><!-- /.col -->
 </div><!-- /.row -->

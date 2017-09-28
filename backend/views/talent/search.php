@@ -8,7 +8,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\models\ReferenceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Searching Specifically');
+$this->title = Yii::t('app', 'Talent Search');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="page-header">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::encode($this->title) ?>
         <small>
             <i class="ace-icon fa fa-angle-double-right"></i>
-            Searching Job Seeker Specifically by Criteria
+            Searching Talent
         </small>
     </h1>
 </div><!-- /.page-header -->
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
     <div class="col-xs-12">
         <div class="talent-index">
-            <?= $this->render('_search', ['model' => $searchModel]); ?>  
+            <?= $this->render('_search_percent', ['model' => $searchModel]); ?>  
             <button id="open_search" style="display: none;" class="btn btn-block btn-primary">Search Result (Click to open Search Box)</button>
             <div id="talent-grid-view" style="display: none">
                 <?php Pjax::begin(['id' => 'talent-grid']); ?>  
@@ -115,15 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div><!-- /.row -->
 <?php
 $this->registerJs("
-    $('document').ready(function(){ 
-        $('#talent-search').on('pjax:end', function() {
-            $.pjax.reload({container:'#talent-grid'});
-            $('#talent_div').fadeOut('slow',function(){
-                $('#open_search').fadeIn('slow');
-                $('#talent-grid-view').fadeIn('slow');
-            });
-        });
-        
+    $('document').ready(function(){         
         $('#open_search').click(function(){
             $('#open_search').fadeOut('slow');
             $('#talent-grid-view').fadeOut('slow',function(){

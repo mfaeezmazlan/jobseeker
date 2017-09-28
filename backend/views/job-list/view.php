@@ -97,23 +97,29 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $data->userProfile->fullName;
                             }
                         ],
+                        
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'headerOptions' => ['style' => 'width:75px'],
                             'header' => 'Action',
-                            'template' => '{print_resume} {reject} {accept}',
+                            'template' => '{download_resume} {reject} {accept}',
                             'buttons' => [
-                                'print_resume' => function ($url, $model) {
-                                    return Html::a('<i class="fa fa-print blue"></i>', ['job-list/view-application', 'id' => $model->id], ['title' => 'Print Resume']);
+                                'download_resume' => function ($url, $model) {
+                                    $user_doc = common\models\UserDoc::find()->where(['user_id' => $model->user_id])->orderBy(['id' => SORT_DESC])->one();
+                                    if($user_doc)
+                                        return Html::a('<i class="fa fa-download blue"></i>', ['user-profile/download-attachment', 'id' => $user_doc->doc_attach_id, 'user_id' => $model->user_id], ['data-pjax' => '0','title' => 'Download Resume']);
+                                    else
+                                        return Html::a('<i class="fa fa-download dark"></i>', '#', ['data-pjax' => '0','title' => 'Resume not submitted yet']);
+                            
                                 },
-                                        'reject' => function ($url, $model) {
-                                    return Html::a('<i class="fa fa-times red"></i>', ['job-list/view-application', 'id' => $model->id], ['title' => 'Reject']);
+                                'reject' => function ($url, $model) {
+                                    return Html::a('<i class="fa fa-times red"></i>', ['job-list/view-application', 'id' => $model->id], ['data-pjax' => '0', 'title' => 'Reject']);
                                 },
-                                        'accept' => function ($url, $model) {
-                                    return Html::a('<i class="fa fa-check green"></i>', ['job-list/view-application', 'id' => $model->id], ['title' => 'Accept']);
+                                'accept' => function ($url, $model) {
+                                    return Html::a('<i class="fa fa-check green"></i>', ['job-list/view-application', 'id' => $model->id], ['data-pjax' => '0', 'title' => 'Accept']);
                                 }
-                                    ]
-                                ],
+                            ]
+                        ],
                             ],
                         ]);
                         ?>

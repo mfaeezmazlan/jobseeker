@@ -24,9 +24,9 @@ use yii\widgets\Pjax;
             <?php Pjax::begin(['id' => 'talent-search']); ?>  
             <?php
             $form = ActiveForm::begin([
-                        'action' => ['index'],
+                        'action' => ['search'],
                         'method' => 'get',
-                        'options' => ['data-pjax' => true]
+//                        'options' => ['data-pjax' => true]
             ]);
             ?>
             <div class="widget-main">
