@@ -68,7 +68,7 @@ class SiteController extends Controller {
                 $companyModel = \common\models\CompanyProfile::find()->where(['user_id' => Yii::$app->user->id])->one();
                 $totalPendingApplication = count(\common\models\JobApplication::find()
                                 ->innerJoin('job_list a', 'a.id=job_application.job_list_id')
-                                ->where(['a.company_id' => $companyModel->id,'status' => 0])->all());
+                                ->where(['a.company_id' => $companyModel->id, 'status' => 0])->all());
                 $totalJobList = count(\common\models\JobList::find()->where(['company_id' => $companyModel->id])->all());
 
                 $totalUser = count(\common\models\AuthAssignment::find()->where(['item_name' => 'employee'])->all());
@@ -157,6 +157,11 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionLogout() {
+        $cookies = Yii::$app->response->cookies;
+        $cookies->remove('menuToOpen');
+        $cookies->remove('nav_open');
+        unset($cookies['menuToOpen']);
+        unset($cookies['nav_open']);
         Yii::$app->user->logout();
 
         return $this->goHome();

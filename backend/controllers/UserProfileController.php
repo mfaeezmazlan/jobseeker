@@ -147,9 +147,25 @@ class UserProfileController extends Controller {
     }
 
     public function actionMyProfile() {
-        return $this->render('profile', [
-                    'model' => $this->findModel(Yii::$app->user->identity->id),
-        ]);
+        $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one()->item_name;
+
+
+        switch ($assignmentRole) {
+            case 'employee':
+                return $this->render('profile', [
+                            'model' => $this->findModel(Yii::$app->user->identity->id),
+                ]);
+            case 'company':
+                $userProfileModel = $this->findModel(Yii::$app->user->id);
+                $companyProfile = \common\models\CompanyProfile::findOne($userProfileModel->company_profile_id);
+                return $this->render('company_profile', [
+                            'model' => $userProfileModel,
+                            'companyProfile' => $companyProfile,
+                ]);
+            case 'admin':
+            default:
+                return $this->redirect(['site/index']);
+        }
     }
 
     public function actionViewProfile($id) {

@@ -2,6 +2,8 @@
 <?php
 
 use yii\helpers\Html;
+
+$assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
 ?>
 <div id="navbar" class="navbar navbar-default">                    
     <script type="text/javascript">
@@ -172,10 +174,17 @@ use yii\helpers\Html;
                         <i class="ace-icon fa fa-caret-down"></i>
                     </a>
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                        <li>
-                            <?= Html::a("<i class='ace-icon fa fa-user'></i> Profile", ['user-profile/my-profile']) ?>
-                        </li>
-                        <li class="divider"></li>
+                        <?php
+                        if ($assignmentRole->item_name != 'admin'):
+                            ?>
+                            <li>
+                                <?= Html::a("<i class='ace-icon fa fa-user'></i> Profile", ['user-profile/my-profile']) ?>
+
+                            </li>
+                            <li class="divider"></li>
+                                <?php
+                            endif;
+                            ?>
                         <li>
                             <?= yii\helpers\Html::a('<i class="ace-icon fa fa-power-off"></i>Logout', ['site/logout']) ?>
                         </li>

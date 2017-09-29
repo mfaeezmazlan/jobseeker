@@ -17,8 +17,20 @@ $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii
 <div class="job-list-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'field')->textInput(['maxlength' => true]) ?>
+    
+    <?php
+    echo $form->field($model, 'field')->widget(Select2::className(), [
+        'showToggleAll' => false,
+        'data' => common\models\Reference::getList('job_field'),
+        'options' => [
+            'placeholder' => 'Select Job Field',
+        ],
+        'pluginOptions' => [
+            'multiple' => false,
+            'allowClear' => true,
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'position')->textInput(['maxlength' => true]) ?>
 

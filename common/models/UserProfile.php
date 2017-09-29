@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property integer $user_id
  * @property integer $address_id
+ * @property integer $company_profile_id
  * @property integer $profile_pic_id
  * @property string $nric
  * @property string $first_name
@@ -57,7 +58,7 @@ class UserProfile extends \common\models\GenericWeb {
     public function rules() {
         return [
             [['user_id', 'address_id', 'profile_pic_id', 'first_name'], 'required'],
-            [['user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by', 'working_experience'], 'integer'],
+            [['user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by', 'working_experience', 'company_profile_id'], 'integer'],
             [['skills', 'language', 'leadership_experience', 'date_of_birth', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['expected_salary', 'min_salary', 'max_salary', 'score'], 'number'],
             [['file'], 'file'],
@@ -79,6 +80,7 @@ class UserProfile extends \common\models\GenericWeb {
             'id' => Yii::t('app', 'ID'),
             'user_id' => Yii::t('app', 'User ID'),
             'address_id' => Yii::t('app', 'Address ID'),
+            'company_profile_id' => Yii::t('app', 'Company Profile ID'),
             'profile_pic_id' => Yii::t('app', 'Profile Pic ID'),
             'nric' => Yii::t('app', 'Nric'),
             'first_name' => Yii::t('app', 'First Name'),
@@ -129,6 +131,9 @@ class UserProfile extends \common\models\GenericWeb {
         return $this->first_name . " " . $this->last_name;
     }
     
+    public function getCompany(){
+        return $this->hasOne(CompanyProfile::className(), ['id' => 'company_profile_id']);
+    }
     
     public function getDoc() {
         return $this->hasMany(UserDoc::className(), ['user_id' => 'user_id']);

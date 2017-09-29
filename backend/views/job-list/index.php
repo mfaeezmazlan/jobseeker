@@ -31,7 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    'field',
+                    [
+                        'attribute' => 'field',
+                        'value' => function($model){
+                            return common\models\Reference::getDesc('job_field', $model->field);
+                        }
+                    ],
                     'position',
                     ['class' => 'yii\grid\ActionColumn', 'headerOptions' => ['style' => 'width:75px'], 'header' => 'Action'],
                 ],

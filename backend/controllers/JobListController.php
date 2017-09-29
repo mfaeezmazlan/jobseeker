@@ -35,7 +35,7 @@ class JobListController extends Controller {
      */
     public function actionIndex() {
         $searchModel = new JobListSearch();
-        $companyModel = \common\models\CompanyProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
+        $companyModel = \common\models\UserProfile::find()->where(['user_id' => Yii::$app->user->id])->one()->company;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $companyModel->id);
 
         return $this->render('index', [
@@ -79,9 +79,9 @@ class JobListController extends Controller {
         $companyModel = \common\models\CompanyProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
         $modelJobApplicationProvider = new ActiveDataProvider([
             'query' => \common\models\JobApplication::find()
-                ->innerJoin('job_list a','a.id=job_application.job_list_id')
-                ->where(['a.company_id' => $companyModel->id, 'job_application.job_list_id' => $id])
-                ->orderBy(['job_application.status' => SORT_ASC,'job_application.created_at' => SORT_DESC]),
+                    ->innerJoin('job_list a', 'a.id=job_application.job_list_id')
+                    ->where(['a.company_id' => $companyModel->id, 'job_application.job_list_id' => $id])
+                    ->orderBy(['job_application.status' => SORT_ASC, 'job_application.created_at' => SORT_DESC]),
             'pagination' => [
                 'pageSize' => 20,
             ],
@@ -111,7 +111,7 @@ class JobListController extends Controller {
      */
     public function actionCreate() {
         $model = new JobList();
-        $companyModel = \common\models\CompanyProfile::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
+        $companyModel = \common\models\UserProfile::find()->where(['user_id' => Yii::$app->user->id])->one()->company;
         $model->company_id = $companyModel->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -170,6 +170,20 @@ class JobListController extends Controller {
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionAcceptApplication($id) {
+        $jobApplicationModel = \common\models\JobApplication::findOne($id);
+        $jobApplicationModel->status = 2;
+        $jobApplicationModel->save();
+        $this->redirect(['job-list/view', 'id' => $jobApplicationModel->job_list_id]);
+    }
+
+    public function actionRejectApplication($id) {
+        $jobApplicationModel = \common\models\JobApplication::findOne($id);
+        $jobApplicationModel->status = 1;
+        $jobApplicationModel->save();
+        $this->redirect(['job-list/view', 'id' => $jobApplicationModel->job_list_id]);
     }
 
 }
