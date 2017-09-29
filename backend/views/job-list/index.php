@@ -31,13 +31,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
+                    'position',
                     [
                         'attribute' => 'field',
                         'value' => function($model){
                             return common\models\Reference::getDesc('job_field', $model->field);
                         }
                     ],
-                    'position',
+                    [
+                        'attribute' => 'Pending Application',
+                        'headerOptions' => ['style' => 'width:150px'],
+                        'contentOptions' => ['style' => 'text-align: right'],
+                        'value' => function($model){
+                            return count(common\models\JobApplication::find()->where(['job_list_id' => $model->id,'status' => 0])->all());
+                        }
+                    ],
                     ['class' => 'yii\grid\ActionColumn', 'headerOptions' => ['style' => 'width:75px'], 'header' => 'Action'],
                 ],
             ]);

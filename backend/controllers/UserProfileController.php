@@ -5,7 +5,6 @@ namespace backend\controllers;
 use Yii;
 use common\models\UserProfile;
 use backend\models\UserProfileSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -13,7 +12,7 @@ use yii\filters\AccessControl;
 /**
  * UserProfileController implements the CRUD actions for UserProfile model.
  */
-class UserProfileController extends Controller {
+class UserProfileController extends \backend\components\GenericController {
 
     /**
      * @inheritdoc
@@ -25,7 +24,7 @@ class UserProfileController extends Controller {
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'index', 'view'],
+                        'actions' => ['create', 'index', 'view'],
                         'roles' => ['@'],
                     ],
                     [
@@ -37,6 +36,16 @@ class UserProfileController extends Controller {
                         'allow' => true,
                         'actions' => ['view-profile'],
                         'roles' => ['company', 'admin'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update'],
+                        'roles' => ['employee'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update-staff-profile'],
+                        'roles' => ['company'],
                     ],
                 ],
             ],
@@ -133,7 +142,39 @@ class UserProfileController extends Controller {
                     'readAttachment' => $readAttachment,
         ]);
     }
+    
+    
+    public function actionUpdateStaffProfile() {
+        $model = $this->findModel(Yii::$app->user->id);
+        $modelCompany = $model->company;
+        $modelAddress = [
+            'user' => $model->address,
+            'company' => $modelCompany->address
+        ];
 
+        if ($model->load(Yii::$app->request->post()) && $modelCompany->load(Yii::$app->request->post()) 
+//                && $modelCompanyAddress->load(Yii::$app->request->post()) 
+//                && $modelAddress->load(Yii::$app->request->post())
+                && \yii\base\Model::loadMultiple($modelAddress, Yii::$app->request->post())) {
+              
+//            $modelAddress = $modelAddress['user'];
+//            $modelCompanyAddress = $modelAddress['company'];
+            
+            if ($model->save()) {
+                $modelCompany->save();
+                foreach ($modelAddress as $x){
+                    $x->save();
+                }
+                return $this->redirect(['my-profile']);
+            }
+        }
+        return $this->render('update_staff_profile', [
+                    'model' => $model,
+                    'modelCompany' => $modelCompany,
+                    'modelAddress' => $modelAddress
+        ]);
+    }
+    
     /**
      * Deletes an existing UserProfile model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -147,9 +188,14 @@ class UserProfileController extends Controller {
     }
 
     public function actionMyProfile() {
+        $cookies = Yii::$app->response->cookies;
+        $cookies->remove('menuToOpen');
+        $cookies->remove('nav_open');
+        unset($cookies['menuToOpen']);
+        unset($cookies['nav_open']);
+        
         $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one()->item_name;
-
-
+        
         switch ($assignmentRole) {
             case 'employee':
                 return $this->render('profile', [
@@ -157,7 +203,7 @@ class UserProfileController extends Controller {
                 ]);
             case 'company':
                 $userProfileModel = $this->findModel(Yii::$app->user->id);
-                $companyProfile = \common\models\CompanyProfile::findOne($userProfileModel->company_profile_id);
+                $companyProfile = $userProfileModel->company;
                 return $this->render('company_profile', [
                             'model' => $userProfileModel,
                             'companyProfile' => $companyProfile,

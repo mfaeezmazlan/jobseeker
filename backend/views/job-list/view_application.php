@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\JobList */
 
-$this->title = $model->field;
+$this->title = common\models\Reference::getDesc('job_field', $model->field) . ": " . $model->position;
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Job Application'), 'url' => ['application']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -37,7 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->company->company_name;
                         }
                     ],
-                    'field',
+                    [
+                        'attribute' => 'field',
+                        'value' => function($model){
+                            return common\models\Reference::getDesc('job_field', $model->field);
+                        }
+                    ],
                     'position',
                     'salary',
                     'description',

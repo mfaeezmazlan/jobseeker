@@ -8,7 +8,6 @@ use backend\models\UserSearch;
 use common\models\Address;
 use common\models\UserProfile;
 use common\models\AuthAssignment;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -16,7 +15,7 @@ use yii\filters\AccessControl;
 /**
  * UserController implements the CRUD actions for User model.
  */
-class UserController extends Controller {
+class UserController extends \backend\components\GenericController {
 
     /**
      * @inheritdoc

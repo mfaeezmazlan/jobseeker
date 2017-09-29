@@ -5,7 +5,6 @@ namespace backend\controllers;
 use Yii;
 use common\models\JobList;
 use backend\models\JobListSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
@@ -13,7 +12,7 @@ use yii\data\ActiveDataProvider;
 /**
  * JobListController implements the CRUD actions for JobList model.
  */
-class JobListController extends Controller {
+class JobListController extends \backend\components\GenericController {
 
     /**
      * @inheritdoc

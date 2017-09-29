@@ -5,14 +5,13 @@ namespace backend\controllers;
 use Yii;
 use common\models\Address;
 use backend\models\AddressSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * AddressController implements the CRUD actions for Address model.
  */
-class AddressController extends Controller {
+class AddressController extends \backend\components\GenericController {
 
     /**
      * @inheritdoc

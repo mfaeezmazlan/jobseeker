@@ -17,7 +17,7 @@ use yii\widgets\Pjax;
 <div class="col-xs-12 col-sm-12 pricing-box" id="talent_div">
     <div class="widget-box widget-color-blue">
         <div class="widget-header">
-            <h5 class="widget-title bigger">Talent Search</h5>
+            <h5 class="widget-title bigger">Search Job Seeker</h5>
         </div>
         <div class="widget-body">
 

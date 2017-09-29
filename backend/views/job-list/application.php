@@ -37,7 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->company->company_name;
                         }
                     ],
-                    'field',
+                    [
+                        'attribute' => 'field',
+                        'value' => function($model){
+                            return common\models\Reference::getDesc('job_field', $model->field);
+                        }
+                    ],
                     'position',
                     [
                         'attribute' => 'skills_require',

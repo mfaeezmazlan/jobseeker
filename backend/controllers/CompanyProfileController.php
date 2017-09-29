@@ -5,14 +5,13 @@ namespace backend\controllers;
 use Yii;
 use common\models\CompanyProfile;
 use backend\models\CompanyProfileSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * CompanyProfileController implements the CRUD actions for CompanyProfile model.
  */
-class CompanyProfileController extends Controller {
+class CompanyProfileController extends \backend\components\GenericController {
 
     /**
      * @inheritdoc

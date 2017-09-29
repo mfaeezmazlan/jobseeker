@@ -43,7 +43,7 @@ $this->title = 'Latest job announcement';
                                                 <ul class="list-unstyled spaced2">
                                                     <li>
                                                         <i class="ace-icon fa fa-check green"></i>
-                                                        Bachelor in <?= $joblist->field ?>
+                                                        <?= common\models\Reference::getDesc('job_field', $joblist->field) ?>
                                                     </li>
                                                     <li>
                                                         <i class="ace-icon fa fa-check green"></i>

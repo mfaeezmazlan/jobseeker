@@ -3,7 +3,6 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
@@ -11,7 +10,7 @@ use common\models\LoginForm;
 /**
  * Site controller
  */
-class SiteController extends Controller {
+class SiteController extends \backend\components\GenericController {
 
     /**
      * @inheritdoc
@@ -130,10 +129,17 @@ class SiteController extends Controller {
             $modelUser->password_hash = $modelUser->repeat_password = $modelUser->password = Yii::$app->security->generatePasswordHash($modelUser->password);
             $modelUser->auth_key = Yii::$app->security->generateRandomString();
             if ($modelUser->save()) {
+                $modelAddress = new \common\models\Address();
+                $modelAddress->type = 1;
+                $modelAddress->country = 132;
+                $modelAddress->street_1 = 'Street 1';
+                $modelAddress->street_2 = 'Street 2';
+                $modelAddress->save();
+                
                 $modelUserProfile = new \common\models\UserProfile();
                 $modelUserProfile->first_name = $modelUser->username;
                 $modelUserProfile->profile_pic_id = 0;
-                $modelUserProfile->address_id = 1;
+                $modelUserProfile->address_id = $modelAddress->id;
                 $modelUserProfile->user_id = $modelUser->id;
                 $modelUserProfile->save();
 

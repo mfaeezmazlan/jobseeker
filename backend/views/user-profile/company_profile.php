@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = 'My Profile';
             <i class="ace-icon fa fa-angle-double-right"></i>
             Make your profile awesome!!
         </small>
-        <?= Html::a('<i class="fa fa-pencil green icon-animated-vertical"></i>', ['user-profile/update'], ['class' => 'pull-right']) ?>
+        <?= Html::a('<i class="fa fa-pencil green icon-animated-vertical"></i>', ['user-profile/update-staff-profile'], ['class' => 'pull-right']) ?>
     </h1>
 </div><!-- /.page-header -->
 <div class="row">
@@ -154,7 +154,16 @@ $this->params['breadcrumbs'][] = 'My Profile';
                                                     <span class="editable" id="reg_no"><?= $companyProfile->registration_no ?></span>
                                                 </div>
                                             </div>
+                                            
+                                            
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> Company Address </div>
 
+                                                <div class="profile-info-value">
+                                                    <span class="editable" id="comp_mobile_no"><?= $companyProfile->address->fullAddress ?></span>
+                                                </div>
+                                            </div>
+                                            
                                             <div class="profile-info-row">
                                                 <div class="profile-info-name"> Company Mobile No </div>
 
