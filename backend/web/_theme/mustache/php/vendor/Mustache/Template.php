@@ -14,8 +14,8 @@
  *
  * @abstract
  */
-abstract class Mustache_Template
-{
+abstract class Mustache_Template {
+
     /**
      * @var Mustache_Engine
      */
@@ -31,8 +31,7 @@ abstract class Mustache_Template
      *
      * @param Mustache_Engine $mustache
      */
-    public function __construct(Mustache_Engine $mustache)
-    {
+    public function __construct(Mustache_Engine $mustache) {
         $this->mustache = $mustache;
     }
 
@@ -49,8 +48,7 @@ abstract class Mustache_Template
      *
      * @return string Rendered template
      */
-    public function __invoke($context = array())
-    {
+    public function __invoke($context = array()) {
         return $this->render($context);
     }
 
@@ -61,10 +59,9 @@ abstract class Mustache_Template
      *
      * @return string Rendered template
      */
-    public function render($context = array())
-    {
+    public function render($context = array()) {
         return $this->renderInternal(
-            $this->prepareContextStack($context)
+                        $this->prepareContextStack($context)
         );
     }
 
@@ -111,8 +108,7 @@ abstract class Mustache_Template
      *
      * @return boolean True if the value is 'iterable'
      */
-    protected function isIterable($value)
-    {
+    protected function isIterable($value) {
         switch (gettype($value)) {
             case 'object':
                 return $value instanceof Traversable;
@@ -141,8 +137,7 @@ abstract class Mustache_Template
      *
      * @return Mustache_Context
      */
-    protected function prepareContextStack($context = null)
-    {
+    protected function prepareContextStack($context = null) {
         $stack = new Mustache_Context();
 
         $helpers = $this->mustache->getHelpers();
@@ -168,14 +163,14 @@ abstract class Mustache_Template
      *
      * @return string
      */
-    protected function resolveValue($value, Mustache_Context $context, $indent = '')
-    {
+    protected function resolveValue($value, Mustache_Context $context, $indent = '') {
         if (($this->strictCallables ? is_object($value) : !is_string($value)) && is_callable($value)) {
             return $this->mustache
-                ->loadLambda((string) call_user_func($value))
-                ->renderInternal($context, $indent);
+                            ->loadLambda((string) call_user_func($value))
+                            ->renderInternal($context, $indent);
         }
 
         return $value;
     }
+
 }

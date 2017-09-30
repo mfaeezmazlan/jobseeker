@@ -13,8 +13,8 @@
  * A Mustache Template cascading loader implementation, which delegates to other
  * Loader instances.
  */
-class Mustache_Loader_CascadingLoader implements Mustache_Loader
-{
+class Mustache_Loader_CascadingLoader implements Mustache_Loader {
+
     private $loaders;
 
     /**
@@ -27,8 +27,7 @@ class Mustache_Loader_CascadingLoader implements Mustache_Loader
      *
      * @param Mustache_Loader[] $loaders
      */
-    public function __construct(array $loaders = array())
-    {
+    public function __construct(array $loaders = array()) {
         $this->loaders = array();
         foreach ($loaders as $loader) {
             $this->addLoader($loader);
@@ -40,8 +39,7 @@ class Mustache_Loader_CascadingLoader implements Mustache_Loader
      *
      * @param Mustache_Loader $loader
      */
-    public function addLoader(Mustache_Loader $loader)
-    {
+    public function addLoader(Mustache_Loader $loader) {
         $this->loaders[] = $loader;
     }
 
@@ -54,8 +52,7 @@ class Mustache_Loader_CascadingLoader implements Mustache_Loader
      *
      * @return string Mustache Template source
      */
-    public function load($name)
-    {
+    public function load($name) {
         foreach ($this->loaders as $loader) {
             try {
                 return $loader->load($name);
@@ -66,4 +63,5 @@ class Mustache_Loader_CascadingLoader implements Mustache_Loader
 
         throw new Mustache_Exception_UnknownTemplateException($name);
     }
+
 }

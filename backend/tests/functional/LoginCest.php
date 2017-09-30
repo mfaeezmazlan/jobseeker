@@ -8,10 +8,9 @@ use common\fixtures\UserFixture as UserFixture;
 /**
  * Class LoginCest
  */
-class LoginCest
-{
-    public function _before(FunctionalTester $I)
-    {
+class LoginCest {
+
+    public function _before(FunctionalTester $I) {
         $I->haveFixtures([
             'user' => [
                 'class' => UserFixture::className(),
@@ -19,11 +18,11 @@ class LoginCest
             ]
         ]);
     }
+
     /**
      * @param FunctionalTester $I
      */
-    public function loginUser(FunctionalTester $I)
-    {
+    public function loginUser(FunctionalTester $I) {
         $I->amOnPage('/site/login');
         $I->fillField('Username', 'erau');
         $I->fillField('Password', 'password_0');
@@ -33,4 +32,5 @@ class LoginCest
         $I->dontSeeLink('Login');
         $I->dontSeeLink('Signup');
     }
+
 }

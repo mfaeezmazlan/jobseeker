@@ -1,88 +1,88 @@
 {
- "bootbox" : "bootbox.js",
+    "bootbox": "bootbox.js",
 
- "colorpicker" : "bootstrap-colorpicker.js",
+    "colorpicker": "bootstrap-colorpicker.js",
 
- "moment" : "date-time/moment.js",
- "datepicker"  : "date-time/bootstrap-datepicker.js",
+    "moment": "date-time/moment.js",
+    "datepicker": "date-time/bootstrap-datepicker.js",
 
- "timepicker" : "date-time/bootstrap-timepicker.js",
- 
- "datetimepicker" : "date-time/bootstrap-datetimepicker.js",
+    "timepicker": "date-time/bootstrap-timepicker.js",
 
- "daterangepicker" : ["date-time/moment.js" , "date-time/daterangepicker.js"],
+    "datetimepicker": "date-time/bootstrap-datetimepicker.js",
 
- "chosen" : "chosen.jquery.js",
+    "daterangepicker": ["date-time/moment.js", "date-time/daterangepicker.js"],
 
- "excanvas" : "excanvas.js",
+    "chosen": "chosen.jquery.js",
 
- "spinner" : "fuelux/fuelux.spinner.js",
+    "excanvas": "excanvas.js",
 
- "wizard" : "fuelux/fuelux.wizard.js",
+    "spinner": "fuelux/fuelux.spinner.js",
 
- "tree" : "fuelux/fuelux.tree.js",
+    "wizard": "fuelux/fuelux.wizard.js",
 
- "fullcalendar" : ["date-time/moment.js", "fullcalendar.js"],
+    "tree": "fuelux/fuelux.tree.js",
 
- "autosize" : "jquery.autosize.js",
+    "fullcalendar": ["date-time/moment.js", "fullcalendar.js"],
 
- "colorbox" : "jquery.colorbox.js",
+    "autosize": "jquery.autosize.js",
 
- "dataTables" : ["dataTables/jquery.dataTables.js" , "dataTables/jquery.dataTables.bootstrap.js"],
- "dataTables-extensions" : ["dataTables/extensions/TableTools/js/dataTables.tableTools.js", "dataTables/extensions/ColVis/js/dataTables.colVis.js"],
+    "colorbox": "jquery.colorbox.js",
 
- "easy-pie-chart" : "jquery.easypiechart.js",
+    "dataTables": ["dataTables/jquery.dataTables.js", "dataTables/jquery.dataTables.bootstrap.js"],
+    "dataTables-extensions": ["dataTables/extensions/TableTools/js/dataTables.tableTools.js", "dataTables/extensions/ColVis/js/dataTables.colVis.js"],
 
- "flot" : "flot/jquery.flot.js",
+    "easy-pie-chart": "jquery.easypiechart.js",
 
- "flot.pie" : "flot/jquery.flot.pie.js",
+    "flot": "flot/jquery.flot.js",
 
- "flot.resize" : "flot/jquery.flot.resize.js",
+    "flot.pie": "flot/jquery.flot.pie.js",
 
- "gritter" : "jquery.gritter.js",
+    "flot.resize": "flot/jquery.flot.resize.js",
 
- "inputlimiter" : "jquery.inputlimiter.1.3.1.js",
+    "gritter": "jquery.gritter.js",
 
- "knob" : "jquery.knob.js",
+    "inputlimiter": "jquery.inputlimiter.1.3.1.js",
 
- "maskedinput" : "jquery.maskedinput.js",
+    "knob": "jquery.knob.js",
 
- "slimscroll" : "jquery.slimscroll.js",
+    "maskedinput": "jquery.maskedinput.js",
 
- "sparkline" : "jquery.sparkline.js",
+    "slimscroll": "jquery.slimscroll.js",
 
- "validate" : ["jquery.validate.js" , "additional-methods.js"],
+    "sparkline": "jquery.sparkline.js",
 
- "jquery-ui" : ["jquery-ui.custom.js" , "jquery.ui.touch-punch.js"],
- 
- "jquery-ui-full" : ["jquery-ui.js" , "jquery.ui.touch-punch.js"],
+    "validate": ["jquery.validate.js", "additional-methods.js"],
 
- "jqgrid" : ["jqGrid/jquery.jqGrid.src.js" , "jqGrid/i18n/grid.locale-en.js"],
+    "jquery-ui": ["jquery-ui.custom.js", "jquery.ui.touch-punch.js"],
 
- "prettify" : "prettify.js",
+    "jquery-ui-full": ["jquery-ui.js", "jquery.ui.touch-punch.js"],
 
- "spin" : "spin.js",
- 
- "markdown" : ["markdown/markdown.js", "markdown/bootstrap-markdown.js"],
- 
- "hotkeys" : "jquery.hotkeys.js",
- "wysiwyg" : ["jquery.hotkeys.js", "bootstrap-wysiwyg.js"],
- 
- "x-editable" : ["x-editable/bootstrap-editable.js" , "x-editable/ace-editable.js"],
- 
- "select2" : "select2.js",
- 
- "tag" : "bootstrap-tag.js",
- 
- "nestable" : "jquery.nestable.js",
- 
- "dropzone" : "dropzone.js",
- 
- "typeahead" : "typeahead.jquery.js",
- 
- "duallistbox": "jquery.bootstrap-duallistbox.js",
- 
- "raty": "jquery.raty.js",
- 
- "multiselect": "bootstrap-multiselect.js"
+    "jqgrid": ["jqGrid/jquery.jqGrid.src.js", "jqGrid/i18n/grid.locale-en.js"],
+
+    "prettify": "prettify.js",
+
+    "spin": "spin.js",
+
+    "markdown": ["markdown/markdown.js", "markdown/bootstrap-markdown.js"],
+
+    "hotkeys": "jquery.hotkeys.js",
+    "wysiwyg": ["jquery.hotkeys.js", "bootstrap-wysiwyg.js"],
+
+    "x-editable": ["x-editable/bootstrap-editable.js", "x-editable/ace-editable.js"],
+
+    "select2": "select2.js",
+
+    "tag": "bootstrap-tag.js",
+
+    "nestable": "jquery.nestable.js",
+
+    "dropzone": "dropzone.js",
+
+    "typeahead": "typeahead.jquery.js",
+
+    "duallistbox": "jquery.bootstrap-duallistbox.js",
+
+    "raty": "jquery.raty.js",
+
+    "multiselect": "bootstrap-multiselect.js"
 }

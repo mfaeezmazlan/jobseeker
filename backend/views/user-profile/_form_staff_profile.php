@@ -13,7 +13,7 @@ $counter = 0;
 ?>
 
 
-<?php $form = ActiveForm::begin([ 'options' => ['enctype' => 'multipart/form-data']]); ?>
+<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
 <div class="row">
     <div class="col-xs-12 col-md-12 col-lg-12">
@@ -103,7 +103,7 @@ $counter = 0;
                                 <?= $form->field($modelCompany, 'mobile_no')->textInput(['maxlength' => true]) ?>
                                 <?= $form->field($modelCompany, 'office_no')->textInput(['maxlength' => true]) ?>
                                 <?= $form->field($modelCompany, 'description')->textInput(['maxlength' => true]) ?>
-                                
+
                                 <?= $form->field($modelAddress['company'], '[company]street_1')->textInput(['maxlength' => true]) ?>
                                 <?= $form->field($modelAddress['company'], '[company]street_2')->textInput(['maxlength' => true]) ?>
                                 <?= $form->field($modelAddress['company'], '[company]postcode')->textInput(['maxlength' => true]) ?>

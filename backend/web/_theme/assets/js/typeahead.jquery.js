@@ -4,36 +4,36 @@
  * Copyright 2013-2014 Twitter, Inc. and other contributors; Licensed MIT
  */
 
-(function($) {
-    var _ = function() {
+(function ($) {
+    var _ = function () {
         "use strict";
         return {
-            isMsie: function() {
+            isMsie: function () {
                 return /(msie|trident)/i.test(navigator.userAgent) ? navigator.userAgent.match(/(msie |rv:)(\d+(.\d+)?)/i)[2] : false;
             },
-            isBlankString: function(str) {
+            isBlankString: function (str) {
                 return !str || /^\s*$/.test(str);
             },
-            escapeRegExChars: function(str) {
+            escapeRegExChars: function (str) {
                 return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
             },
-            isString: function(obj) {
+            isString: function (obj) {
                 return typeof obj === "string";
             },
-            isNumber: function(obj) {
+            isNumber: function (obj) {
                 return typeof obj === "number";
             },
             isArray: $.isArray,
             isFunction: $.isFunction,
             isObject: $.isPlainObject,
-            isUndefined: function(obj) {
+            isUndefined: function (obj) {
                 return typeof obj === "undefined";
             },
             toStr: function toStr(s) {
                 return _.isUndefined(s) || s === null ? "" : s + "";
             },
             bind: $.proxy,
-            each: function(collection, cb) {
+            each: function (collection, cb) {
                 $.each(collection, reverseArgs);
                 function reverseArgs(index, value) {
                     return cb(value, index);
@@ -41,24 +41,24 @@
             },
             map: $.map,
             filter: $.grep,
-            every: function(obj, test) {
+            every: function (obj, test) {
                 var result = true;
                 if (!obj) {
                     return result;
                 }
-                $.each(obj, function(key, val) {
+                $.each(obj, function (key, val) {
                     if (!(result = test.call(null, val, key, obj))) {
                         return false;
                     }
                 });
                 return !!result;
             },
-            some: function(obj, test) {
+            some: function (obj, test) {
                 var result = false;
                 if (!obj) {
                     return result;
                 }
-                $.each(obj, function(key, val) {
+                $.each(obj, function (key, val) {
                     if (result = test.call(null, val, key, obj)) {
                         return false;
                     }
@@ -66,9 +66,9 @@
                 return !!result;
             },
             mixin: $.extend,
-            getUniqueId: function() {
+            getUniqueId: function () {
                 var counter = 0;
-                return function() {
+                return function () {
                     return counter++;
                 };
             }(),
@@ -78,14 +78,14 @@
                     return String(obj);
                 }
             },
-            defer: function(fn) {
+            defer: function (fn) {
                 setTimeout(fn, 0);
             },
-            debounce: function(func, wait, immediate) {
+            debounce: function (func, wait, immediate) {
                 var timeout, result;
-                return function() {
+                return function () {
                     var context = this, args = arguments, later, callNow;
-                    later = function() {
+                    later = function () {
                         timeout = null;
                         if (!immediate) {
                             result = func.apply(context, args);
@@ -100,15 +100,15 @@
                     return result;
                 };
             },
-            throttle: function(func, wait) {
+            throttle: function (func, wait) {
                 var context, args, timeout, result, previous, later;
                 previous = 0;
-                later = function() {
+                later = function () {
                     previous = new Date();
                     timeout = null;
                     result = func.apply(context, args);
                 };
-                return function() {
+                return function () {
                     var now = new Date(), remaining = wait - (now - previous);
                     context = this;
                     args = arguments;
@@ -123,10 +123,10 @@
                     return result;
                 };
             },
-            noop: function() {}
+            noop: function () {}
         };
     }();
-    var html = function() {
+    var html = function () {
         return {
             wrapper: '<span class="twitter-typeahead"></span>',
             dropdown: '<span class="tt-dropdown-menu"></span>',
@@ -135,7 +135,7 @@
             suggestion: '<div class="tt-suggestion"></div>'
         };
     }();
-    var css = function() {
+    var css = function () {
         "use strict";
         var css = {
             wrapper: {
@@ -197,7 +197,7 @@
         }
         return css;
     }();
-    var EventBus = function() {
+    var EventBus = function () {
         "use strict";
         var namespace = "typeahead:";
         function EventBus(o) {
@@ -207,14 +207,14 @@
             this.$el = $(o.el);
         }
         _.mixin(EventBus.prototype, {
-            trigger: function(type) {
+            trigger: function (type) {
                 var args = [].slice.call(arguments, 1);
                 this.$el.trigger(namespace + type, args);
             }
         });
         return EventBus;
     }();
-    var EventEmitter = function() {
+    var EventEmitter = function () {
         "use strict";
         var splitter = /\s+/, nextTick = getNextTick();
         return {
@@ -265,8 +265,8 @@
             types = types.split(splitter);
             args = [].slice.call(arguments, 1);
             while ((type = types.shift()) && (callbacks = this._callbacks[type])) {
-                syncFlush = getFlush(callbacks.sync, this, [ type ].concat(args));
-                asyncFlush = getFlush(callbacks.async, this, [ type ].concat(args));
+                syncFlush = getFlush(callbacks.sync, this, [type].concat(args));
+                asyncFlush = getFlush(callbacks.async, this, [type].concat(args));
                 syncFlush() && nextTick(asyncFlush);
             }
             return this;
@@ -285,13 +285,13 @@
             var nextTickFn;
             if (window.setImmediate) {
                 nextTickFn = function nextTickSetImmediate(fn) {
-                    setImmediate(function() {
+                    setImmediate(function () {
                         fn();
                     });
                 };
             } else {
                 nextTickFn = function nextTickSetTimeout(fn) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         fn();
                     }, 0);
                 };
@@ -299,12 +299,12 @@
             return nextTickFn;
         }
         function bindContext(fn, context) {
-            return fn.bind ? fn.bind(context) : function() {
+            return fn.bind ? fn.bind(context) : function () {
                 fn.apply(context, [].slice.call(arguments, 0));
             };
         }
     }();
-    var highlight = function(doc) {
+    var highlight = function (doc) {
         "use strict";
         var defaults = {
             node: null,
@@ -320,7 +320,7 @@
             if (!o.node || !o.pattern) {
                 return;
             }
-            o.pattern = _.isArray(o.pattern) ? o.pattern : [ o.pattern ];
+            o.pattern = _.isArray(o.pattern) ? o.pattern : [o.pattern];
             regex = getRegex(o.pattern, o.caseSensitive, o.wordsOnly);
             traverse(o.node, hightlightTextNode);
             function hightlightTextNode(textNode) {
@@ -356,7 +356,7 @@
             return caseSensitive ? new RegExp(regexStr) : new RegExp(regexStr, "i");
         }
     }(window.document);
-    var Input = function() {
+    var Input = function () {
         "use strict";
         var specialKeyCodeMap;
         specialKeyCodeMap = {
@@ -386,7 +386,7 @@
             if (!_.isMsie()) {
                 this.$input.on("input.tt", onInput);
             } else {
-                this.$input.on("keydown.tt keypress.tt cut.tt paste.tt", function($e) {
+                this.$input.on("keydown.tt keypress.tt cut.tt paste.tt", function ($e) {
                     if (specialKeyCodeMap[$e.which || $e.keyCode]) {
                         return;
                     }
@@ -396,7 +396,7 @@
             this.query = this.$input.val();
             this.$overflowHelper = buildOverflowHelper(this.$input);
         }
-        Input.normalizeQuery = function(str) {
+        Input.normalizeQuery = function (str) {
             return (str || "").replace(/^\s*/g, "").replace(/\s{2,}/g, " ");
         };
         _.mixin(Input.prototype, EventEmitter, {
@@ -420,31 +420,31 @@
             _managePreventDefault: function managePreventDefault(keyName, $e) {
                 var preventDefault, hintValue, inputValue;
                 switch (keyName) {
-                  case "tab":
-                    hintValue = this.getHint();
-                    inputValue = this.getInputValue();
-                    preventDefault = hintValue && hintValue !== inputValue && !withModifier($e);
-                    break;
+                    case "tab":
+                        hintValue = this.getHint();
+                        inputValue = this.getInputValue();
+                        preventDefault = hintValue && hintValue !== inputValue && !withModifier($e);
+                        break;
 
-                  case "up":
-                  case "down":
-                    preventDefault = !withModifier($e);
-                    break;
+                    case "up":
+                    case "down":
+                        preventDefault = !withModifier($e);
+                        break;
 
-                  default:
-                    preventDefault = false;
+                    default:
+                        preventDefault = false;
                 }
                 preventDefault && $e.preventDefault();
             },
             _shouldTrigger: function shouldTrigger(keyName, $e) {
                 var trigger;
                 switch (keyName) {
-                  case "tab":
-                    trigger = !withModifier($e);
-                    break;
+                    case "tab":
+                        trigger = !withModifier($e);
+                        break;
 
-                  default:
-                    trigger = true;
+                    default:
+                        trigger = true;
                 }
                 return trigger;
             },
@@ -507,7 +507,7 @@
                 this.$overflowHelper.text(this.getInputValue());
                 return this.$overflowHelper.width() >= constraint;
             },
-            isCursorAtEnd: function() {
+            isCursorAtEnd: function () {
                 var valueLength, selectionStart, range;
                 valueLength = this.$input.val().length;
                 selectionStart = this.$input[0].selectionStart;
@@ -551,7 +551,7 @@
             return $e.altKey || $e.ctrlKey || $e.metaKey || $e.shiftKey;
         }
     }();
-    var Dataset = function() {
+    var Dataset = function () {
         "use strict";
         var datasetKey = "ttDataset", valueKey = "ttValue", datumKey = "ttDatum";
         function Dataset(o) {
@@ -614,7 +614,7 @@
                     function getSuggestionNode(suggestion) {
                         var $el;
                         $el = $(html.suggestion).append(that.templates.suggestion(suggestion)).data(datasetKey, that.name).data(valueKey, that.displayFn(suggestion)).data(datumKey, suggestion);
-                        $el.children().each(function() {
+                        $el.children().each(function () {
                             $(this).css(css.suggestionChild);
                         });
                         return $el;
@@ -685,7 +685,7 @@
             return /^[_a-zA-Z0-9-]+$/.test(str);
         }
     }();
-    var Dropdown = function() {
+    var Dropdown = function () {
         "use strict";
         function Dropdown(o) {
             var that = this, onSuggestionClick, onSuggestionMouseEnter, onSuggestionMouseLeave;
@@ -700,7 +700,7 @@
             onSuggestionMouseEnter = _.bind(this._onSuggestionMouseEnter, this);
             onSuggestionMouseLeave = _.bind(this._onSuggestionMouseLeave, this);
             this.$menu = $(o.menu).on("click.tt", ".tt-suggestion", onSuggestionClick).on("mouseenter.tt", ".tt-suggestion", onSuggestionMouseEnter).on("mouseleave.tt", ".tt-suggestion", onSuggestionMouseLeave);
-            _.each(this.datasets, function(dataset) {
+            _.each(this.datasets, function (dataset) {
                 that.$menu.append(dataset.getRoot());
                 dataset.onSync("rendered", that._onRendered, that);
             });
@@ -724,10 +724,10 @@
                     return dataset.isEmpty();
                 }
             },
-            _hide: function() {
+            _hide: function () {
                 this.$menu.hide();
             },
-            _show: function() {
+            _show: function () {
                 this.$menu.css("display", "block");
             },
             _getSuggestions: function getSuggestions() {
@@ -845,7 +845,7 @@
             return new Dataset(oDataset);
         }
     }();
-    var Typeahead = function() {
+    var Typeahead = function () {
         "use strict";
         var attrsKey = "ttAttrs";
         function Typeahead(o) {
@@ -861,7 +861,7 @@
             $menu = this.$node.find(".tt-dropdown-menu");
             $input = this.$node.find(".tt-input");
             $hint = this.$node.find(".tt-hint");
-            $input.on("blur.tt", function($e) {
+            $input.on("blur.tt", function ($e) {
                 var active, isActive, hasActive;
                 active = document.activeElement;
                 isActive = $menu.is(active);
@@ -869,12 +869,12 @@
                 if (_.isMsie() && (isActive || hasActive)) {
                     $e.preventDefault();
                     $e.stopImmediatePropagation();
-                    _.defer(function() {
+                    _.defer(function () {
                         $input.focus();
                     });
                 }
             });
-            $menu.on("mousedown.tt", function($e) {
+            $menu.on("mousedown.tt", function ($e) {
                 $e.preventDefault();
             });
             this.eventBus = o.eventBus || new EventBus({
@@ -1068,7 +1068,8 @@
             }).css(withHint ? css.input : css.inputWithNoHint);
             try {
                 !$input.attr("dir") && $input.attr("dir", "auto");
-            } catch (e) {}
+            } catch (e) {
+            }
             return $input.wrap($wrapper).parent().prepend(withHint ? $hint : null).append($dropdown);
         }
         function getBackgroundStyles($el) {
@@ -1085,14 +1086,14 @@
         }
         function destroyDomStructure($node) {
             var $input = $node.find(".tt-input");
-            _.each($input.data(attrsKey), function(val, key) {
+            _.each($input.data(attrsKey), function (val, key) {
                 _.isUndefined(val) ? $input.removeAttr(key) : $input.attr(key, val);
             });
             $input.detach().removeData(attrsKey).removeClass("tt-input").insertAfter($node);
             $node.remove();
         }
     }();
-    (function() {
+    (function () {
         "use strict";
         var old, typeaheadKey, methods;
         old = $.fn.typeahead;
@@ -1104,7 +1105,7 @@
                 return this.each(attach);
                 function attach() {
                     var $input = $(this), eventBus, typeahead;
-                    _.each(datasets, function(d) {
+                    _.each(datasets, function (d) {
                         d.highlight = !!o.highlight;
                     });
                     typeahead = new Typeahead({
@@ -1165,10 +1166,10 @@
                 }
             }
         };
-        $.fn.typeahead = function(method) {
+        $.fn.typeahead = function (method) {
             var tts;
             if (methods[method] && method !== "initialize") {
-                tts = this.filter(function() {
+                tts = this.filter(function () {
                     return !!$(this).data(typeaheadKey);
                 });
                 return methods[method].apply(tts, [].slice.call(arguments, 1));

@@ -90,20 +90,20 @@ pre .keyword.operator {
 }
 
 pre .php.embedded .variable, pre .php.embedded .storage.function {
-     color: #0d43fa;
-     font-weight: normal;
+    color: #0d43fa;
+    font-weight: normal;
 }
 
 pre .php.embedded .string, pre .js.embedded .tag.script {
-     color: #c4001e;
+    color: #c4001e;
 }
 
 pre .php.embedded .comment {
-     color: #f4b441;
-     font-weight: normal;
+    color: #f4b441;
+    font-weight: normal;
 }
 
 pre .php.embedded .function.name {
-     color: #000;
-     font-weight: normal;
+    color: #000;
+    font-weight: normal;
 }

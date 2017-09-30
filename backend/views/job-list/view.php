@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'attribute' => 'field',
-                        'value' => function($model){
+                        'value' => function($model) {
                             return common\models\Reference::getDesc('job_field', $model->field);
                         }
                     ],
@@ -103,7 +103,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         return $data->userProfile->fullName;
                     }
                 ],
-
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'headerOptions' => ['style' => 'width:75px'],
@@ -112,20 +111,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     'buttons' => [
                         'download_resume' => function ($url, $model) {
                             $user_doc = common\models\UserDoc::find()->where(['user_id' => $model->user_id])->orderBy(['id' => SORT_DESC])->one();
-                            if($user_doc)
-                                return Html::a('<i class="fa fa-download blue"></i>', ['user-profile/download-attachment', 'id' => $user_doc->doc_attach_id, 'user_id' => $model->user_id], ['data-pjax' => '0','title' => 'Download Resume']);
+                            if ($user_doc)
+                                return Html::a('<i class="fa fa-download blue"></i>', ['user-profile/download-attachment', 'id' => $user_doc->doc_attach_id, 'user_id' => $model->user_id], ['data-pjax' => '0', 'title' => 'Download Resume']);
                             else
-                                return Html::a('<i class="fa fa-download dark"></i>', '#', ['data-pjax' => '0','title' => 'Resume not submitted yet']);
-
+                                return Html::a('<i class="fa fa-download dark"></i>', '#', ['data-pjax' => '0', 'title' => 'Resume not submitted yet']);
                         },
                         'reject' => function ($url, $model) {
-                            if($model->status == 0)
+                            if ($model->status == 0)
                                 return Html::a('<i class="fa fa-times red"></i>', ['job-list/reject-application', 'id' => $model->id], ['data-pjax' => '0', 'title' => 'Reject']);
                             else
                                 return null;
                         },
                         'accept' => function ($url, $model) {
-                            if($model->status == 0)
+                            if ($model->status == 0)
                                 return Html::a('<i class="fa fa-check green"></i>', ['job-list/accept-application', 'id' => $model->id], ['data-pjax' => '0', 'title' => 'Accept']);
                             else
                                 return null;
@@ -134,6 +132,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
         ]);
-    ?>
+        ?>
     </div><!-- /.col -->
 </div><!-- /.row -->

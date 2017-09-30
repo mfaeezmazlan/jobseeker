@@ -187,14 +187,14 @@ class UserProfileController extends \backend\components\GenericController {
         return $this->redirect(['index']);
     }
 
-    public function actionUpdateProfilePic() {      
+    public function actionUpdateProfilePic() {
         $modelUserProfile = $this->findModel(Yii::$app->user->id);
         $modelAttachment = new \common\models\DocAttach();
         foreach ($_FILES as $cat => $file) {
             $filetype = $file['type']['file'];
         }
         $modelAttachment->file = UploadedFile::getInstance($modelAttachment, 'file');
-        
+
         $modelAttachment->file_name = $modelAttachment->file->name;
         $modelAttachment->file_name_sys = Yii::$app->user->id . "_" . date('d-m-Y_H_i_s') . "." . $modelAttachment->file->extension;
         $modelAttachment->file_type = $filetype;
@@ -206,11 +206,11 @@ class UserProfileController extends \backend\components\GenericController {
 
         $modelAttachment->doc_title = $modelAttachment->file->name;
         $modelAttachment->file->saveAs("$path/" . $modelUserProfile->user_id . "_" . date('d-m-Y_H_i_s') . "." . $modelAttachment->file->extension);
-        if($modelAttachment->save()){
+        if ($modelAttachment->save()) {
             $modelUserProfile->profile_pic_id = $modelAttachment->id;
             $modelUserProfile->save();
         }
-        
+
         return $this->redirect(['my-profile']);
     }
 
@@ -226,13 +226,13 @@ class UserProfileController extends \backend\components\GenericController {
         switch ($assignmentRole) {
             case 'employee':
                 $modelUserProfile = $this->findModel(Yii::$app->user->identity->id);
-                
+
                 $modelUserProfileAttachment = new \common\models\DocAttach();
                 $readAttachment = null;
                 if ($modelUserProfile->profile_pic_id != 0) {
                     $readAttachment = \common\models\DocAttach::findOne($modelUserProfile->profile_pic_id);
                 }
-                
+
                 return $this->render('profile', [
                             'model' => $modelUserProfile,
                             'modelUserProfileAttachment' => $modelUserProfileAttachment,
@@ -241,13 +241,13 @@ class UserProfileController extends \backend\components\GenericController {
             case 'company':
                 $userProfileModel = $this->findModel(Yii::$app->user->id);
                 $companyProfile = $userProfileModel->company;
-                
+
                 $modelUserProfileAttachment = new \common\models\DocAttach();
                 $readAttachment = null;
                 if ($userProfileModel->profile_pic_id != 0) {
                     $readAttachment = \common\models\DocAttach::findOne($userProfileModel->profile_pic_id);
                 }
-                
+
                 return $this->render('company_profile', [
                             'model' => $userProfileModel,
                             'companyProfile' => $companyProfile,

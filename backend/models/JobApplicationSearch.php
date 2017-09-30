@@ -10,13 +10,12 @@ use common\models\JobApplication;
 /**
  * JobApplicationSearch represents the model behind the search form about `common\models\JobApplication`.
  */
-class JobApplicationSearch extends JobApplication
-{
+class JobApplicationSearch extends JobApplication {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'user_id', 'job_list_id', 'status', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['isDeleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
@@ -26,8 +25,7 @@ class JobApplicationSearch extends JobApplication
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,8 +37,7 @@ class JobApplicationSearch extends JobApplication
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = JobApplication::find();
 
         // add conditions that should always apply here
@@ -75,4 +72,5 @@ class JobApplicationSearch extends JobApplication
 
         return $dataProvider;
     }
+
 }

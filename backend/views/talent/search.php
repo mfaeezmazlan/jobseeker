@@ -37,13 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'first_name',
                             'header' => 'Name',
                             'format' => 'raw',
-                            'value' => function($model){
-                                return Html::a($model->first_name . " " . $model->last_name,['user-profile/view-profile','id' => $model->user_id]);
+                            'value' => function($model) {
+                                return Html::a($model->first_name . " " . $model->last_name, ['user-profile/view-profile', 'id' => $model->user_id]);
                             }
                         ],
                         [
                             'attribute' => 'language',
-                            'value' => function($model){
+                            'value' => function($model) {
                                 $tmparr = explode(',', $model->language);
                                 $tmp = array();
                                 foreach ($tmparr as $x) {
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'attribute' => 'skills',
-                            'value' => function($model){
+                            'value' => function($model) {
                                 $tmparr = explode(',', $model->skills);
                                 $tmp = array();
                                 foreach ($tmparr as $x) {
@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'attribute' => 'leadership_experience',
-                            'value' => function($model){
+                            'value' => function($model) {
                                 $tmparr = explode(',', $model->leadership_experience);
                                 $tmp = array();
                                 foreach ($tmparr as $x) {
@@ -78,11 +78,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'expected_salary',
                             'contentOptions' => ['style' => 'text-align:right;'],
-                            'value' => function($model){
-                                return "RM".number_format($model->expected_salary, 2);
+                            'value' => function($model) {
+                                return "RM" . number_format($model->expected_salary, 2);
                             }
                         ],
-                        
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'headerOptions' => ['style' => 'width:75px'],
@@ -91,11 +90,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             'buttons' => [
                                 'download_resume' => function ($url, $model) {
                                     $user_doc = common\models\UserDoc::find()->where(['user_id' => $model->user_id])->orderBy(['id' => SORT_DESC])->one();
-                                    if($user_doc)
-                                        return Html::a('<i class="fa fa-download blue"></i>', ['user-profile/download-attachment', 'id' => $user_doc->doc_attach_id, 'user_id' => $model->user_id], ['data-pjax' => '0','title' => 'Download Resume']);
+                                    if ($user_doc)
+                                        return Html::a('<i class="fa fa-download blue"></i>', ['user-profile/download-attachment', 'id' => $user_doc->doc_attach_id, 'user_id' => $model->user_id], ['data-pjax' => '0', 'title' => 'Download Resume']);
                                     else
-                                        return Html::a('<i class="fa fa-download dark"></i>', '#', ['data-pjax' => '0','title' => 'Resume not submitted yet']);
-                            
+                                        return Html::a('<i class="fa fa-download dark"></i>', '#', ['data-pjax' => '0', 'title' => 'Resume not submitted yet']);
                                 },
                                 'reject' => function ($url, $model) {
                                     return Html::a('<i class="fa fa-times red"></i>', ['job-list/view-application', 'id' => $model->id], ['data-pjax' => '0', 'title' => 'Reject']);

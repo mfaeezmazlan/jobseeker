@@ -5,36 +5,36 @@
 @ace-nav-border: rgba(255,255,255,0.4);
 
 .navbar {
-  margin: 0;
-  padding-left: 0;
-  padding-right: 0;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
 
-  border-width: 0;
-  border-radius : 0;
- .box-shadow(none);
+    border-width: 0;
+    border-radius : 0;
+    .box-shadow(none);
 
-  min-height: @navbar-min-height;
+    min-height: @navbar-min-height;
 
-  background: @navbar-background;
+    background: @navbar-background;
 
-  .navbar-text, .navbar-link {
-	 color: @navbar-text-color;
-  }
+    .navbar-text, .navbar-link {
+        color: @navbar-text-color;
+    }
 
-  .navbar-brand {
-	 color: @navbar-text-color;
-	 font-size: @font-size-brand;
-	 text-shadow: none;
+    .navbar-brand {
+        color: @navbar-text-color;
+        font-size: @font-size-brand;
+        text-shadow: none;
 
-	 padding-top: 10px;
-	 padding-bottom: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
 
-	 height: auto;
+        height: auto;
 
-	 &:hover , &:focus {
-		color: @navbar-text-color;
-	 }
-  }
+        &:hover , &:focus {
+            color: @navbar-text-color;
+        }
+    }
 }
 
 /**
@@ -42,21 +42,21 @@
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
     margin-left: 0;
-	margin-right: 0;
+        margin-right: 0;
   }
 }
 */
 
 @media only screen and (min-width: @grid-float-breakpoint) {
- .navbar-container {
-	padding-left: 10px;
-	padding-right: 10px;
- }
+    .navbar-container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 //inside .container
 .navbar-container.container {
-	padding-left: 0;
-	padding-right: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 
@@ -75,9 +75,9 @@
 //some bs resetting!
 .navbar-fixed-top , .navbar-static-top , .navbar-fixed-bottom  {
     .navbar-collapse {
-		padding-left: floor(@grid-gutter-width / 2);
-		padding-right: floor(@grid-gutter-width / 2);
-	}
+        padding-left: floor(@grid-gutter-width / 2);
+        padding-right: floor(@grid-gutter-width / 2);
+    }
 }
 
 
@@ -86,31 +86,31 @@
 ////
 //this is only because of "inside-container"
 //we want the top blue section not to be more than 45px(inherit)
- @media only screen and (min-width: @screen-sm-min) and (max-width: @grid-float-breakpoint-max)  {
-  .navbar.navbar-collapse {
-	 background-color: transparent;
+@media only screen and (min-width: @screen-sm-min) and (max-width: @grid-float-breakpoint-max)  {
+    .navbar.navbar-collapse {
+        background-color: transparent;
 
-	 &:before {
-			background: @navbar-background;
-			content: "";
-			display: block;
+        &:before {
+            background: @navbar-background;
+            content: "";
+            display: block;
 
-			position: absolute;
-			min-height: inherit;
+            position: absolute;
+            min-height: inherit;
 
-			left: 0;
-			right: 0;
-			top: 0;
+            left: 0;
+            right: 0;
+            top: 0;
 
-			z-index: -1;
-			border-radius: inherit;
-	 }
+            z-index: -1;
+            border-radius: inherit;
+        }
 
-	.navbar-container {
-		background-color: @navbar-background;
-	}
-  }
- }
+        .navbar-container {
+            background-color: @navbar-background;
+        }
+    }
+}
 
 
 

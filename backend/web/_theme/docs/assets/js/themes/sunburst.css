@@ -34,13 +34,13 @@ pre .storage {
 }
 
 pre .string, pre .entity.name.class, pre .comment.docstring {
-color: #65B042;
-/* green */
+    color: #65B042;
+    /* green */
 }
 
 pre .string.regexp {
- color: #E9C062;
-    }
+    color: #E9C062;
+}
 
 pre .string.constant {
     color: #DDF2A4;
@@ -87,8 +87,8 @@ pre .entity.name.id {
 
 pre .variable, pre .variable.global {
     color: #3E87E3;
-    }
+}
 pre .variable.class {
 
-    }
+}
 

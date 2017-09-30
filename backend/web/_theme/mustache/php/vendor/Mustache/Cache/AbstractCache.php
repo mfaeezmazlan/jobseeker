@@ -16,8 +16,8 @@
  *
  * @abstract
  */
-abstract class Mustache_Cache_AbstractCache implements Mustache_Cache
-{
+abstract class Mustache_Cache_AbstractCache implements Mustache_Cache {
+
     private $logger = null;
 
     /**
@@ -25,8 +25,7 @@ abstract class Mustache_Cache_AbstractCache implements Mustache_Cache
      *
      * @return Mustache_Logger|Psr\Log\LoggerInterface
      */
-    public function getLogger()
-    {
+    public function getLogger() {
         return $this->logger;
     }
 
@@ -35,8 +34,7 @@ abstract class Mustache_Cache_AbstractCache implements Mustache_Cache
      *
      * @param Mustache_Logger|Psr\Log\LoggerInterface $logger
      */
-    public function setLogger($logger = null)
-    {
+    public function setLogger($logger = null) {
         if ($logger !== null && !($logger instanceof Mustache_Logger || is_a($logger, 'Psr\\Log\\LoggerInterface'))) {
             throw new Mustache_Exception_InvalidArgumentException('Expected an instance of Mustache_Logger or Psr\\Log\\LoggerInterface.');
         }
@@ -51,10 +49,10 @@ abstract class Mustache_Cache_AbstractCache implements Mustache_Cache
      * @param string  $message The log message
      * @param array   $context The log context
      */
-    protected function log($level, $message, array $context = array())
-    {
+    protected function log($level, $message, array $context = array()) {
         if (isset($this->logger)) {
             $this->logger->log($level, $message, $context);
         }
     }
+
 }

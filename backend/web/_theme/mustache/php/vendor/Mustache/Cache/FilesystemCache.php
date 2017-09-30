@@ -19,8 +19,8 @@
  *
  * The FilesystemCache benefits from any opcode caching that may be setup in your environment. So do that, k?
  */
-class Mustache_Cache_FilesystemCache extends Mustache_Cache_AbstractCache
-{
+class Mustache_Cache_FilesystemCache extends Mustache_Cache_AbstractCache {
+
     private $baseDir;
     private $fileMode;
 
@@ -30,8 +30,7 @@ class Mustache_Cache_FilesystemCache extends Mustache_Cache_AbstractCache
      * @param string $baseDir  Directory for compiled templates.
      * @param int    $fileMode Override default permissions for cache files. Defaults to using the system-defined umask.
      */
-    public function __construct($baseDir, $fileMode = null)
-    {
+    public function __construct($baseDir, $fileMode = null) {
         $this->baseDir = $baseDir;
         $this->fileMode = $fileMode;
     }
@@ -43,8 +42,7 @@ class Mustache_Cache_FilesystemCache extends Mustache_Cache_AbstractCache
      *
      * @return boolean
      */
-    public function load($key)
-    {
+    public function load($key) {
         $fileName = $this->getCacheFilename($key);
         if (!is_file($fileName)) {
             return false;
@@ -63,14 +61,11 @@ class Mustache_Cache_FilesystemCache extends Mustache_Cache_AbstractCache
      *
      * @return void
      */
-    public function cache($key, $value)
-    {
+    public function cache($key, $value) {
         $fileName = $this->getCacheFilename($key);
 
         $this->log(
-            Mustache_Logger::DEBUG,
-            'Writing to template cache: "{fileName}"',
-            array('fileName' => $fileName)
+                Mustache_Logger::DEBUG, 'Writing to template cache: "{fileName}"', array('fileName' => $fileName)
         );
 
         $this->writeFile($fileName, $value);
@@ -85,8 +80,7 @@ class Mustache_Cache_FilesystemCache extends Mustache_Cache_AbstractCache
      *
      * @return string
      */
-    protected function getCacheFilename($name)
-    {
+    protected function getCacheFilename($name) {
         return sprintf('%s/%s.php', $this->baseDir, $name);
     }
 
@@ -99,14 +93,11 @@ class Mustache_Cache_FilesystemCache extends Mustache_Cache_AbstractCache
      *
      * @return string
      */
-    private function buildDirectoryForFilename($fileName)
-    {
+    private function buildDirectoryForFilename($fileName) {
         $dirName = dirname($fileName);
         if (!is_dir($dirName)) {
             $this->log(
-                Mustache_Logger::INFO,
-                'Creating Mustache template cache directory: "{dirName}"',
-                array('dirName' => $dirName)
+                    Mustache_Logger::INFO, 'Creating Mustache template cache directory: "{dirName}"', array('dirName' => $dirName)
             );
 
             @mkdir($dirName, 0777, true);
@@ -128,14 +119,11 @@ class Mustache_Cache_FilesystemCache extends Mustache_Cache_AbstractCache
      *
      * @return void
      */
-    private function writeFile($fileName, $value)
-    {
+    private function writeFile($fileName, $value) {
         $dirName = $this->buildDirectoryForFilename($fileName);
 
         $this->log(
-            Mustache_Logger::DEBUG,
-            'Caching compiled template to "{fileName}"',
-            array('fileName' => $fileName)
+                Mustache_Logger::DEBUG, 'Caching compiled template to "{fileName}"', array('fileName' => $fileName)
         );
 
         $tempFile = tempnam($dirName, basename($fileName));
@@ -148,12 +136,11 @@ class Mustache_Cache_FilesystemCache extends Mustache_Cache_AbstractCache
             }
 
             $this->log(
-                Mustache_Logger::ERROR,
-                'Unable to rename Mustache temp cache file: "{tempName}" -> "{fileName}"',
-                array('tempName' => $tempFile, 'fileName' => $fileName)
+                    Mustache_Logger::ERROR, 'Unable to rename Mustache temp cache file: "{tempName}" -> "{fileName}"', array('tempName' => $tempFile, 'fileName' => $fileName)
             );
         }
 
         throw new Mustache_Exception_RuntimeException(sprintf('Failed to write cache file "%s".', $fileName));
     }
+
 }

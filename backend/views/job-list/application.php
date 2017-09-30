@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'attribute' => 'field',
-                        'value' => function($model){
+                        'value' => function($model) {
                             return common\models\Reference::getDesc('job_field', $model->field);
                         }
                     ],
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function($model) {
                             $arr = array();
                             $skills = explode(',', $model->skills_require);
-                            foreach ($skills as $x){
+                            foreach ($skills as $x) {
                                 $arr[] = common\models\Reference::getDesc('skills', $x);
                             }
                             return implode(', ', $arr);
@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw',
                         'value' => function($model) {
                             $data = \common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id, 'job_list_id' => $model->id])->one();
-                            if($data)
+                            if ($data)
                                 return common\models\Reference::getDesc('status_application', $data->status);
                             else
                                 return null;
@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'class' => 'yii\grid\ActionColumn',
                         'headerOptions' => ['style' => 'width:75px'],
                         'template' => '{view_application}',
-                        'buttons' =>[
+                        'buttons' => [
                             'view_application' => function ($url, $model) {
                                 return Html::a('<i class="fa fa-eye blue"></i>', ['job-list/view-application', 'id' => $model->id]);
                             },

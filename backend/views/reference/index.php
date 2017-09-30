@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'code',
                     'descr',
                     'param1',
-                    ['class' => 'yii\grid\ActionColumn','headerOptions' => ['style' => 'width:75px'],'header' => 'Action'],
+                    ['class' => 'yii\grid\ActionColumn', 'headerOptions' => ['style' => 'width:75px'], 'header' => 'Action'],
                 ],
             ]);
             ?>

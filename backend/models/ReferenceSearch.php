@@ -10,13 +10,12 @@ use common\models\Reference;
 /**
  * ReferenceSearch represents the model behind the search form about `common\models\Reference`.
  */
-class ReferenceSearch extends Reference
-{
+class ReferenceSearch extends Reference {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'sort', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['cat', 'code', 'descr', 'param1', 'param2', 'isDeleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
@@ -26,8 +25,7 @@ class ReferenceSearch extends Reference
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,8 +37,7 @@ class ReferenceSearch extends Reference
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = Reference::find();
 
         // add conditions that should always apply here
@@ -70,12 +67,13 @@ class ReferenceSearch extends Reference
         ]);
 
         $query->andFilterWhere(['like', 'cat', $this->cat])
-            ->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'descr', $this->descr])
-            ->andFilterWhere(['like', 'param1', $this->param1])
-            ->andFilterWhere(['like', 'param2', $this->param2])
-            ->andFilterWhere(['like', 'isDeleted', $this->isDeleted]);
+                ->andFilterWhere(['like', 'code', $this->code])
+                ->andFilterWhere(['like', 'descr', $this->descr])
+                ->andFilterWhere(['like', 'param1', $this->param1])
+                ->andFilterWhere(['like', 'param2', $this->param2])
+                ->andFilterWhere(['like', 'isDeleted', $this->isDeleted]);
 
         return $dataProvider;
     }
+
 }

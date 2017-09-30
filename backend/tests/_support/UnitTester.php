@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\tests;
 
 /**
@@ -16,10 +17,10 @@ namespace backend\tests;
  *
  * @SuppressWarnings(PHPMD)
  */
-class UnitTester extends \Codeception\Actor
-{
+class UnitTester extends \Codeception\Actor {
+
     use _generated\UnitTesterActions;
-   /**
-    * Define custom actions here
-    */
+    /**
+     * Define custom actions here
+     */
 }

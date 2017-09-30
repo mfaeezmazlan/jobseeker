@@ -1,7 +1,7 @@
 {
- "layout" : "empty"
- ,
- "title" : "Empty Page"
- ,
- "description" : "Minimal empty page"
+    "layout": "empty"
+    ,
+    "title": "Empty Page"
+    ,
+    "description": "Minimal empty page"
 }

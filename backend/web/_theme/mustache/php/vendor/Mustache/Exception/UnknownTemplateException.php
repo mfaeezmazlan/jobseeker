@@ -12,21 +12,20 @@
 /**
  * Unknown template exception.
  */
-class Mustache_Exception_UnknownTemplateException extends InvalidArgumentException implements Mustache_Exception
-{
+class Mustache_Exception_UnknownTemplateException extends InvalidArgumentException implements Mustache_Exception {
+
     protected $templateName;
 
     /**
      * @param string $templateName
      */
-    public function __construct($templateName)
-    {
+    public function __construct($templateName) {
         $this->templateName = $templateName;
         parent::__construct(sprintf('Unknown template: %s', $templateName));
     }
 
-    public function getTemplateName()
-    {
+    public function getTemplateName() {
         return $this->templateName;
     }
+
 }

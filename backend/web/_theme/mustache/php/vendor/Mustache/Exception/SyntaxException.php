@@ -12,16 +12,15 @@
 /**
  * Mustache syntax exception.
  */
-class Mustache_Exception_SyntaxException extends LogicException implements Mustache_Exception
-{
+class Mustache_Exception_SyntaxException extends LogicException implements Mustache_Exception {
+
     protected $token;
 
     /**
      * @param string $msg
      * @param array  $token
      */
-    public function __construct($msg, array $token)
-    {
+    public function __construct($msg, array $token) {
         $this->token = $token;
         parent::__construct($msg);
     }
@@ -29,8 +28,8 @@ class Mustache_Exception_SyntaxException extends LogicException implements Musta
     /**
      * @return array
      */
-    public function getToken()
-    {
+    public function getToken() {
         return $this->token;
     }
+
 }

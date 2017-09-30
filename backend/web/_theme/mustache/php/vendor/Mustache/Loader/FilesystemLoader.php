@@ -24,8 +24,8 @@
  *          'partials_loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/views/partials'),
  *     ));
  */
-class Mustache_Loader_FilesystemLoader implements Mustache_Loader
-{
+class Mustache_Loader_FilesystemLoader implements Mustache_Loader {
+
     private $baseDir;
     private $extension = '.mustache';
     private $templates = array();
@@ -45,8 +45,7 @@ class Mustache_Loader_FilesystemLoader implements Mustache_Loader
      * @param string $baseDir Base directory containing Mustache template files.
      * @param array  $options Array of Loader options (default: array())
      */
-    public function __construct($baseDir, array $options = array())
-    {
+    public function __construct($baseDir, array $options = array()) {
         $this->baseDir = $baseDir;
 
         if (strpos($this->baseDir, '://') === false) {
@@ -76,8 +75,7 @@ class Mustache_Loader_FilesystemLoader implements Mustache_Loader
      *
      * @return string Mustache Template source
      */
-    public function load($name)
-    {
+    public function load($name) {
         if (!isset($this->templates[$name])) {
             $this->templates[$name] = $this->loadFile($name);
         }
@@ -94,8 +92,7 @@ class Mustache_Loader_FilesystemLoader implements Mustache_Loader
      *
      * @return string Mustache Template source
      */
-    protected function loadFile($name)
-    {
+    protected function loadFile($name) {
         $fileName = $this->getFileName($name);
 
         if (!file_exists($fileName)) {
@@ -112,8 +109,7 @@ class Mustache_Loader_FilesystemLoader implements Mustache_Loader
      *
      * @return string Template file name
      */
-    protected function getFileName($name)
-    {
+    protected function getFileName($name) {
         $fileName = $this->baseDir . '/' . $name;
         if (substr($fileName, 0 - strlen($this->extension)) !== $this->extension) {
             $fileName .= $this->extension;
@@ -121,4 +117,5 @@ class Mustache_Loader_FilesystemLoader implements Mustache_Loader
 
         return $fileName;
     }
+
 }

@@ -14,13 +14,12 @@
  *
  * This class is responsible for turning a set of Mustache tokens into a parse tree.
  */
-class Mustache_Parser
-{
+class Mustache_Parser {
+
     private $lineNum;
     private $lineTokens;
     private $pragmas;
     private $defaultPragmas = array();
-
     private $pragmaFilters;
     private $pragmaBlocks;
 
@@ -31,14 +30,13 @@ class Mustache_Parser
      *
      * @return array Mustache token parse tree
      */
-    public function parse(array $tokens = array())
-    {
-        $this->lineNum    = -1;
+    public function parse(array $tokens = array()) {
+        $this->lineNum = -1;
         $this->lineTokens = 0;
-        $this->pragmas    = $this->defaultPragmas;
+        $this->pragmas = $this->defaultPragmas;
 
         $this->pragmaFilters = isset($this->pragmas[Mustache_Engine::PRAGMA_FILTERS]);
-        $this->pragmaBlocks  = isset($this->pragmas[Mustache_Engine::PRAGMA_BLOCKS]);
+        $this->pragmaBlocks = isset($this->pragmas[Mustache_Engine::PRAGMA_BLOCKS]);
 
         return $this->buildTree($tokens);
     }
@@ -51,8 +49,7 @@ class Mustache_Parser
      *
      * @param string[] $pragmas
      */
-    public function setPragmas(array $pragmas)
-    {
+    public function setPragmas(array $pragmas) {
         $this->pragmas = array();
         foreach ($pragmas as $pragma) {
             $this->enablePragma($pragma);
@@ -70,8 +67,7 @@ class Mustache_Parser
      *
      * @return array Mustache Token parse tree
      */
-    private function buildTree(array &$tokens, array $parent = null)
-    {
+    private function buildTree(array &$tokens, array $parent = null) {
         $nodes = array();
 
         while (!empty($tokens)) {
@@ -80,14 +76,14 @@ class Mustache_Parser
             if ($token[Mustache_Tokenizer::LINE] === $this->lineNum) {
                 $this->lineTokens++;
             } else {
-                $this->lineNum    = $token[Mustache_Tokenizer::LINE];
+                $this->lineNum = $token[Mustache_Tokenizer::LINE];
                 $this->lineTokens = 0;
             }
 
             if ($this->pragmaFilters && isset($token[Mustache_Tokenizer::NAME])) {
                 list($name, $filters) = $this->getNameAndFilters($token[Mustache_Tokenizer::NAME]);
                 if (!empty($filters)) {
-                    $token[Mustache_Tokenizer::NAME]    = $name;
+                    $token[Mustache_Tokenizer::NAME] = $name;
                     $token[Mustache_Tokenizer::FILTERS] = $filters;
                 }
             }
@@ -108,26 +104,20 @@ class Mustache_Parser
                 case Mustache_Tokenizer::T_END_SECTION:
                     if (!isset($parent)) {
                         $msg = sprintf(
-                            'Unexpected closing tag: /%s on line %d',
-                            $token[Mustache_Tokenizer::NAME],
-                            $token[Mustache_Tokenizer::LINE]
+                                'Unexpected closing tag: /%s on line %d', $token[Mustache_Tokenizer::NAME], $token[Mustache_Tokenizer::LINE]
                         );
                         throw new Mustache_Exception_SyntaxException($msg, $token);
                     }
 
                     if ($token[Mustache_Tokenizer::NAME] !== $parent[Mustache_Tokenizer::NAME]) {
                         $msg = sprintf(
-                            'Nesting error: %s (on line %d) vs. %s (on line %d)',
-                            $parent[Mustache_Tokenizer::NAME],
-                            $parent[Mustache_Tokenizer::LINE],
-                            $token[Mustache_Tokenizer::NAME],
-                            $token[Mustache_Tokenizer::LINE]
+                                'Nesting error: %s (on line %d) vs. %s (on line %d)', $parent[Mustache_Tokenizer::NAME], $parent[Mustache_Tokenizer::LINE], $token[Mustache_Tokenizer::NAME], $token[Mustache_Tokenizer::LINE]
                         );
                         throw new Mustache_Exception_SyntaxException($msg, $token);
                     }
 
                     $this->clearStandaloneLines($nodes, $tokens);
-                    $parent[Mustache_Tokenizer::END]   = $token[Mustache_Tokenizer::INDEX];
+                    $parent[Mustache_Tokenizer::END] = $token[Mustache_Tokenizer::INDEX];
                     $parent[Mustache_Tokenizer::NODES] = $nodes;
 
                     return $parent;
@@ -165,7 +155,7 @@ class Mustache_Parser
 
                 case Mustache_Tokenizer::T_PRAGMA:
                     $this->enablePragma($token[Mustache_Tokenizer::NAME]);
-                    // no break
+                // no break
 
                 case Mustache_Tokenizer::T_COMMENT:
                     $this->clearStandaloneLines($nodes, $tokens);
@@ -180,9 +170,7 @@ class Mustache_Parser
 
         if (isset($parent)) {
             $msg = sprintf(
-                'Missing closing tag: %s opened on line %d',
-                $parent[Mustache_Tokenizer::NAME],
-                $parent[Mustache_Tokenizer::LINE]
+                    'Missing closing tag: %s opened on line %d', $parent[Mustache_Tokenizer::NAME], $parent[Mustache_Tokenizer::LINE]
             );
             throw new Mustache_Exception_SyntaxException($msg, $parent);
         }
@@ -200,8 +188,7 @@ class Mustache_Parser
      *
      * @return array|null Resulting indent token, if any.
      */
-    private function clearStandaloneLines(array &$nodes, array &$tokens)
-    {
+    private function clearStandaloneLines(array &$nodes, array &$tokens) {
         if ($this->lineTokens > 1) {
             // this is the third or later node on this line, so it can't be standalone
             return;
@@ -256,8 +243,7 @@ class Mustache_Parser
      *
      * @return boolean True if token is a whitespace token
      */
-    private function tokenIsWhitespace(array $token)
-    {
+    private function tokenIsWhitespace(array $token) {
         if ($token[Mustache_Tokenizer::TYPE] === Mustache_Tokenizer::T_TEXT) {
             return preg_match('/^\s*$/', $token[Mustache_Tokenizer::VALUE]);
         }
@@ -273,8 +259,7 @@ class Mustache_Parser
      * @param array|null $parent
      * @param array      $token
      */
-    private function checkIfTokenIsAllowedInParent($parent, array $token)
-    {
+    private function checkIfTokenIsAllowedInParent($parent, array $token) {
         if ($parent[Mustache_Tokenizer::TYPE] === Mustache_Tokenizer::T_PARENT) {
             throw new Mustache_Exception_SyntaxException('Illegal content in < parent tag', $token);
         }
@@ -287,10 +272,9 @@ class Mustache_Parser
      *
      * @return array [Tag name, Array of filters]
      */
-    private function getNameAndFilters($name)
-    {
+    private function getNameAndFilters($name) {
         $filters = array_map('trim', explode('|', $name));
-        $name    = array_shift($filters);
+        $name = array_shift($filters);
 
         return array($name, $filters);
     }
@@ -300,8 +284,7 @@ class Mustache_Parser
      *
      * @param string $name
      */
-    private function enablePragma($name)
-    {
+    private function enablePragma($name) {
         $this->pragmas[$name] = true;
 
         switch ($name) {
@@ -314,4 +297,5 @@ class Mustache_Parser
                 break;
         }
     }
+
 }

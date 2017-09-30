@@ -18,16 +18,15 @@
  * reduce boilerplate code that a simple Logger that does the same thing with
  * messages regardless of the error level has to implement.
  */
-abstract class Mustache_Logger_AbstractLogger implements Mustache_Logger
-{
+abstract class Mustache_Logger_AbstractLogger implements Mustache_Logger {
+
     /**
      * System is unusable.
      *
      * @param string $message
      * @param array  $context
      */
-    public function emergency($message, array $context = array())
-    {
+    public function emergency($message, array $context = array()) {
         $this->log(Mustache_Logger::EMERGENCY, $message, $context);
     }
 
@@ -40,8 +39,7 @@ abstract class Mustache_Logger_AbstractLogger implements Mustache_Logger
      * @param string $message
      * @param array  $context
      */
-    public function alert($message, array $context = array())
-    {
+    public function alert($message, array $context = array()) {
         $this->log(Mustache_Logger::ALERT, $message, $context);
     }
 
@@ -53,8 +51,7 @@ abstract class Mustache_Logger_AbstractLogger implements Mustache_Logger
      * @param string $message
      * @param array  $context
      */
-    public function critical($message, array $context = array())
-    {
+    public function critical($message, array $context = array()) {
         $this->log(Mustache_Logger::CRITICAL, $message, $context);
     }
 
@@ -65,8 +62,7 @@ abstract class Mustache_Logger_AbstractLogger implements Mustache_Logger
      * @param string $message
      * @param array  $context
      */
-    public function error($message, array $context = array())
-    {
+    public function error($message, array $context = array()) {
         $this->log(Mustache_Logger::ERROR, $message, $context);
     }
 
@@ -79,8 +75,7 @@ abstract class Mustache_Logger_AbstractLogger implements Mustache_Logger
      * @param string $message
      * @param array  $context
      */
-    public function warning($message, array $context = array())
-    {
+    public function warning($message, array $context = array()) {
         $this->log(Mustache_Logger::WARNING, $message, $context);
     }
 
@@ -90,8 +85,7 @@ abstract class Mustache_Logger_AbstractLogger implements Mustache_Logger
      * @param string $message
      * @param array  $context
      */
-    public function notice($message, array $context = array())
-    {
+    public function notice($message, array $context = array()) {
         $this->log(Mustache_Logger::NOTICE, $message, $context);
     }
 
@@ -103,8 +97,7 @@ abstract class Mustache_Logger_AbstractLogger implements Mustache_Logger
      * @param string $message
      * @param array  $context
      */
-    public function info($message, array $context = array())
-    {
+    public function info($message, array $context = array()) {
         $this->log(Mustache_Logger::INFO, $message, $context);
     }
 
@@ -114,8 +107,8 @@ abstract class Mustache_Logger_AbstractLogger implements Mustache_Logger
      * @param string $message
      * @param array  $context
      */
-    public function debug($message, array $context = array())
-    {
+    public function debug($message, array $context = array()) {
         $this->log(Mustache_Logger::DEBUG, $message, $context);
     }
+
 }

@@ -1,9 +1,9 @@
 {
- "title" : "jQuery UI"
- ,
- "description" : "Restyling jQuery UI Widgets and Elements"
- ,
- "styles" : ["jquery-ui-full"]
- ,
- "scripts" : ["jquery-ui-full"]
+    "title": "jQuery UI"
+    ,
+    "description": "Restyling jQuery UI Widgets and Elements"
+    ,
+    "styles": ["jquery-ui-full"]
+    ,
+    "scripts": ["jquery-ui-full"]
 }

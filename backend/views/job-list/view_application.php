@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'attribute' => 'field',
-                        'value' => function($model){
+                        'value' => function($model) {
                             return common\models\Reference::getDesc('job_field', $model->field);
                         }
                     ],

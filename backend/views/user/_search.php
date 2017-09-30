@@ -10,10 +10,12 @@ use yii\widgets\ActiveForm;
 
 <div class="user-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+    <?php
+    $form = ActiveForm::begin([
+                'action' => ['index'],
+                'method' => 'get',
+    ]);
+    ?>
 
     <?= $form->field($model, 'id') ?>
 
@@ -43,7 +45,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'deleted_at') ?>
 
-    <?php // echo $form->field($model, 'deleted_by') ?>
+    <?php // echo $form->field($model, 'deleted_by')  ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

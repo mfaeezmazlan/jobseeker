@@ -1,12 +1,12 @@
 {
-   "count" : 5 ,
-   "latest" :
-   [
-	{
-		"name": "Alex" ,
-		"img": "avatar.png" ,
-		"time": "Message Time" ,
-		"summary": "Message Summary"
-	}
-   ]
+    "count": 5,
+    "latest":
+            [
+                {
+                    "name": "Alex",
+                    "img": "avatar.png",
+                    "time": "Message Time",
+                    "summary": "Message Summary"
+                }
+            ]
 }

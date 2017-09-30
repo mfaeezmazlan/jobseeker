@@ -13,7 +13,7 @@ $counter = 0;
 ?>
 
 
-<?php $form = ActiveForm::begin([ 'options' => ['enctype' => 'multipart/form-data']]); ?>
+<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
 <div class="row">
     <h4>Personal Information <i class="fa fa-user blue"></i></h4>

@@ -67,7 +67,7 @@ $this->title = 'AMH Reality Enterprise';
         <?php
         echo Highcharts::widget([
             'options' => [
-                'chart' => ['type'=>'bar'],
+                'chart' => ['type' => 'bar'],
                 'title' => ['text' => 'Total User'],
                 'xAxis' => [
                     'categories' => ['Admin', 'Company', 'Employee']

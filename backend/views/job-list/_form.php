@@ -17,7 +17,7 @@ $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii
 <div class="job-list-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    
+
     <?php
     echo $form->field($model, 'field')->widget(Select2::className(), [
         'showToggleAll' => false,

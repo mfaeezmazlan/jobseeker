@@ -12,7 +12,7 @@ pre {
     color: #000;
     font-size: 12px;
     margin-bottom: 20px;
-	line-height: 16px;
+    line-height: 16px;
 }
 
 pre, code {
@@ -21,12 +21,12 @@ pre, code {
 
 pre .comment {
     color: #7E7E7E;
-	font-style: italic;
+    font-style: italic;
 }
 
 pre .constant {
     color: #18838A;
-	font-weight: bold;
+    font-weight: bold;
 }
 
 pre .storage {
@@ -39,7 +39,7 @@ pre .string {
 
 pre .keyword, pre .selector {
     color: #0000A1;
-	font-weight: bold;
+    font-weight: bold;
 }
 
 pre .inherited-class {

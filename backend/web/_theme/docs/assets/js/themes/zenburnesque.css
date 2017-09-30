@@ -47,7 +47,7 @@ pre .inherited-class {
 }
 
 pre .entity {
-  color: #F09040;
+    color: #F09040;
 }
 
 pre .support {
@@ -55,5 +55,5 @@ pre .support {
 }
 
 pre .variable.class {
-  color: #FF8000;
+    color: #FF8000;
 }

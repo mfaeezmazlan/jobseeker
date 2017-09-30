@@ -24,8 +24,8 @@
  * The ArrayLoader is used internally as a partials loader by Mustache_Engine instance when an array of partials
  * is set. It can also be used as a quick-and-dirty Template loader.
  */
-class Mustache_Loader_ArrayLoader implements Mustache_Loader, Mustache_Loader_MutableLoader
-{
+class Mustache_Loader_ArrayLoader implements Mustache_Loader, Mustache_Loader_MutableLoader {
+
     private $templates;
 
     /**
@@ -33,8 +33,7 @@ class Mustache_Loader_ArrayLoader implements Mustache_Loader, Mustache_Loader_Mu
      *
      * @param array $templates Associative array of Template source (default: array())
      */
-    public function __construct(array $templates = array())
-    {
+    public function __construct(array $templates = array()) {
         $this->templates = $templates;
     }
 
@@ -47,8 +46,7 @@ class Mustache_Loader_ArrayLoader implements Mustache_Loader, Mustache_Loader_Mu
      *
      * @return string Mustache Template source
      */
-    public function load($name)
-    {
+    public function load($name) {
         if (!isset($this->templates[$name])) {
             throw new Mustache_Exception_UnknownTemplateException($name);
         }
@@ -61,8 +59,7 @@ class Mustache_Loader_ArrayLoader implements Mustache_Loader, Mustache_Loader_Mu
      *
      * @param array $templates
      */
-    public function setTemplates(array $templates)
-    {
+    public function setTemplates(array $templates) {
         $this->templates = $templates;
     }
 
@@ -72,8 +69,8 @@ class Mustache_Loader_ArrayLoader implements Mustache_Loader, Mustache_Loader_Mu
      * @param string $name
      * @param string $template Mustache Template source
      */
-    public function setTemplate($name, $template)
-    {
+    public function setTemplate($name, $template) {
         $this->templates[$name] = $template;
     }
+
 }

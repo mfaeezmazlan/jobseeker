@@ -22,19 +22,19 @@ pre, code {
 }
 
 pre .comment {
-	color: #66747B;
+    color: #66747B;
 }
 
 pre .constant {
-	color: #EC7600;
+    color: #EC7600;
 }
 
 pre .storage {
-	color: #EC7600;
+    color: #EC7600;
 }
 
 pre .string, pre .comment.docstring {
-	color: #EC7600;
+    color: #EC7600;
 }
 
 pre .string.regexp, pre .support.tag.script, pre .support.tag.style {
@@ -43,7 +43,7 @@ pre .string.regexp, pre .support.tag.script, pre .support.tag.style {
 
 
 pre .keyword, pre .selector {
-	color: #93C763;
+    color: #93C763;
 }
 
 pre .inherited-class {
@@ -51,22 +51,22 @@ pre .inherited-class {
 }
 
 pre .entity {
-	color: #93C763;
+    color: #93C763;
 }
 
 pre .integer {
-	color: #FFCD22;
+    color: #FFCD22;
 }
 
 pre .support, *[data-language="csharp"] .function.call {
-	color: #FACD22;
+    color: #FACD22;
 }
 
 pre .variable.global, pre .variable.class, pre .variable.instance {
-	color: #CCC;
+    color: #CCC;
 }
 
 /* C# specific rule */
 pre .preprocessor {
-	color: #66747B;
+    color: #66747B;
 }

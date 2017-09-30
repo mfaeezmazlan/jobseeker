@@ -23,8 +23,8 @@
  *     $tpl = $m->loadTemplate('{{ foo }}');
  *     echo $tpl->render(array('foo' => 'bar')); // "bar"
  */
-class Mustache_Loader_StringLoader implements Mustache_Loader
-{
+class Mustache_Loader_StringLoader implements Mustache_Loader {
+
     /**
      * Load a Template by source.
      *
@@ -32,8 +32,8 @@ class Mustache_Loader_StringLoader implements Mustache_Loader
      *
      * @return string Mustache Template source
      */
-    public function load($name)
-    {
+    public function load($name) {
         return $name;
     }
+
 }

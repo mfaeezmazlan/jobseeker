@@ -68,7 +68,7 @@ AppAsset::register($this);
                         <div class="footer-content">
                             <span class="bigger-120">
                                 <span class="blue bolder">AMH Reality Enterprise</span>
-                                 &copy; <?= date('Y') ?>
+                                &copy; <?= date('Y') ?>
                             </span>
                         </div>
                         <!-- /section:basics/footer -->

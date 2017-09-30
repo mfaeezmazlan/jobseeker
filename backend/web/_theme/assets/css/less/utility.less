@@ -45,8 +45,8 @@
 
 
 .biggerX (@index) when (@index < 310) {
-	.bigger-@{index} { font-size: unit(@index,~"%") !important; }
-	.biggerX(@index + 10);
+    .bigger-@{index} { font-size: unit(@index,~"%") !important; }
+    .biggerX(@index + 10);
 }
 .biggerX(110);
 .bigger-115 { font-size: 115% !important;}
@@ -56,15 +56,15 @@
 .bigger-275 { font-size: 275% !important; }
 
 .smallerX (@index) when (@index > 10) {
-	.smaller-@{index} { font-size: unit(@index,~"%") !important; }
-	.smallerX(@index - 10);
+    .smaller-@{index} { font-size: unit(@index,~"%") !important; }
+    .smallerX(@index - 10);
 }
 .smallerX(90);
 .smaller-75 { font-size: 75% !important;}
 
 .widthX (@index) when (@index < 105) {
-	.width-@{index} { width: unit(@index,~"%") !important; }
-	.widthX(@index + 5);
+    .width-@{index} { width: unit(@index,~"%") !important; }
+    .widthX(@index + 5);
 }
 .widthX(20);
 .width-75 { width: 75% !important;}
@@ -112,80 +112,80 @@
 .overflow-scroll {overflow-x: hidden !important; overflow-y: scroll !important;}
 
 .no-radius {
- .border-radius(0) !important;
+    .border-radius(0) !important;
 }
 .no-text-shadow {
- text-shadow:none !important;
+    text-shadow:none !important;
 }
 
 //<hr /> like spacing by using div, e.g <div class="hr hr-32"></div>
 .hr {
- display:block;
- height: 0;
- overflow: hidden;
- font-size: 0;
- border-width: 1px 0 0 0;
- border-top: 1px solid #E3E3E3;
- margin: 12px 0;
- border-top-color: rgba(0,0,0,0.11);
+    display:block;
+    height: 0;
+    overflow: hidden;
+    font-size: 0;
+    border-width: 1px 0 0 0;
+    border-top: 1px solid #E3E3E3;
+    margin: 12px 0;
+    border-top-color: rgba(0,0,0,0.11);
 }
 .hr-double {
- height: 3px;
- border-top: 1px solid #E3E3E3;
- border-bottom: 1px solid #E3E3E3;
- 
- border-top-color: rgba(0,0,0,0.11);
- border-bottom-color: rgba(0,0,0,0.11);
+    height: 3px;
+    border-top: 1px solid #E3E3E3;
+    border-bottom: 1px solid #E3E3E3;
+
+    border-top-color: rgba(0,0,0,0.11);
+    border-bottom-color: rgba(0,0,0,0.11);
 }
 .hr.dotted, .hr-dotted { border-style: dotted;}
 
 .hrX (@index) when (@index > 0) {
-	.hr-@{index}, .hr@{index} { margin:unit(@index,px) 0; }
-	.hrX(@index - 2);
+    .hr-@{index}, .hr@{index} { margin:unit(@index,px) 0; }
+    .hrX(@index - 2);
 }
 .hrX(32);
 
 
 //some spacing classes, use like <div class="space-24"></div>
 .space() {
-	max-height: 1px;
-	min-height: 1px;
-	overflow: hidden;
+    max-height: 1px;
+    min-height: 1px;
+    overflow: hidden;
 }
 .space { .space(); margin: 12px 0; }
 [class*="vspace-"] { display: none;} //visible only on smaller devices where columns are stacked on top of each other
 
 .spaceX (@index) when (@index > 0) {
-	.space-@{index} { .space(); margin: unit(@index,px) 0 unit(@index - 1,px); }
-	[class*="vspace-@{index}"]
-	{
-		.space();
-		margin:unit(@index,px) 0 unit(@index - 1,px) 0;
-	}
-	.spaceX(@index - 2);
+    .space-@{index} { .space(); margin: unit(@index,px) 0 unit(@index - 1,px); }
+    [class*="vspace-@{index}"]
+    {
+        .space();
+        margin:unit(@index,px) 0 unit(@index - 1,px) 0;
+    }
+    .spaceX(@index - 2);
 }
 .spaceX(32);//produce spaces
 .space-0 , [class*="vspace-0"] { .space(); margin: 0; }
 
 @media only screen and (max-width: @screen-tiny-max) {
-	[class*="vspace-"][class*="-xs"] {
-		display: block;
-	}
+    [class*="vspace-"][class*="-xs"] {
+        display: block;
+    }
 }
 @media only screen and (max-width: @screen-xs-max) {
-	[class*="vspace-"][class*="-sm"] {
-		 display: block;
-	}
+    [class*="vspace-"][class*="-sm"] {
+        display: block;
+    }
 }
 @media only screen and (max-width: @screen-sm-max) {
-	[class*="vspace-"][class*="-md"] {
-		 display: block;
-	}
+    [class*="vspace-"][class*="-md"] {
+        display: block;
+    }
 }
 @media only screen and (max-width: @screen-md-max) {
-	[class*="vspace-"][class*="-lg"] {
-		 display: block;
-	}
+    [class*="vspace-"][class*="-lg"] {
+        display: block;
+    }
 }
 
 
@@ -193,71 +193,71 @@
 
 //headers
 .header {
- line-height: 28px;
- margin-bottom: 16px;
- margin-top: 18px;
- padding-bottom: 4px;
- border-bottom: 1px solid #CCC;
- 
- &.blue {
-	border-bottom-color: desaturate(lighten(@ace-blue, 35%), 10%);
- }
- &.green {
-	border-bottom-color: desaturate(lighten(@ace-green, 35%), 6%);
- }
- &.purple {
-	border-bottom-color: desaturate(lighten(@ace-purple, 28%), 5%);
- }
- &.orange {
-	border-bottom-color: desaturate(lighten(@ace-orange, 25%), 5%);
- }
- &.orange2 {
-	border-bottom-color: desaturate(lighten(@ace-orange2, 20%), 5%);
- }
- &.red {
-	border-bottom-color: desaturate(lighten(@ace-red, 30%), 5%);
- }
- &.grey {
-	border-bottom-color: desaturate(lighten(@ace-grey, 30%), 5%);
- }
- &.pink {
-	border-bottom-color: desaturate(lighten(@ace-pink, 32%), 5%);
- }
- &.pink2 {
-	border-bottom-color: desaturate(lighten(@ace-pink2, 20%), 5%);
- }
- &.light-blue {
-	border-bottom-color: desaturate(lighten(@ace-light-blue, 15%), 5%);
- }
- &.light-red {
-	border-bottom-color: desaturate(lighten(@ace-light-red, 15%), 5%);
- }
- &.light-green {
-	border-bottom-color: desaturate(lighten(@ace-light-green, 15%), 5%);
- }
- &.brown {
-	border-bottom-color: desaturate(lighten(@ace-brown, 32%), 5%);
- }
+    line-height: 28px;
+    margin-bottom: 16px;
+    margin-top: 18px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #CCC;
 
-  > .@{icon} {
-	margin-right: 2px;
-  }
+    &.blue {
+        border-bottom-color: desaturate(lighten(@ace-blue, 35%), 10%);
+    }
+    &.green {
+        border-bottom-color: desaturate(lighten(@ace-green, 35%), 6%);
+    }
+    &.purple {
+        border-bottom-color: desaturate(lighten(@ace-purple, 28%), 5%);
+    }
+    &.orange {
+        border-bottom-color: desaturate(lighten(@ace-orange, 25%), 5%);
+    }
+    &.orange2 {
+        border-bottom-color: desaturate(lighten(@ace-orange2, 20%), 5%);
+    }
+    &.red {
+        border-bottom-color: desaturate(lighten(@ace-red, 30%), 5%);
+    }
+    &.grey {
+        border-bottom-color: desaturate(lighten(@ace-grey, 30%), 5%);
+    }
+    &.pink {
+        border-bottom-color: desaturate(lighten(@ace-pink, 32%), 5%);
+    }
+    &.pink2 {
+        border-bottom-color: desaturate(lighten(@ace-pink2, 20%), 5%);
+    }
+    &.light-blue {
+        border-bottom-color: desaturate(lighten(@ace-light-blue, 15%), 5%);
+    }
+    &.light-red {
+        border-bottom-color: desaturate(lighten(@ace-light-red, 15%), 5%);
+    }
+    &.light-green {
+        border-bottom-color: desaturate(lighten(@ace-light-green, 15%), 5%);
+    }
+    &.brown {
+        border-bottom-color: desaturate(lighten(@ace-brown, 32%), 5%);
+    }
+
+    > .@{icon} {
+        margin-right: 2px;
+    }
 }
 
 
 
 
 .action-buttons a {
-  margin: 0 3px;
-  display: inline-block;
-  opacity: 0.85;
-   .transition(~"all 0.1s");
+    margin: 0 3px;
+    display: inline-block;
+    opacity: 0.85;
+    .transition(~"all 0.1s");
 
-  &:hover {
-	text-decoration: none;
-	opacity: 1;
-	.transform(~"scale(1.2)");
-  }
+    &:hover {
+        text-decoration: none;
+        opacity: 1;
+        .transform(~"scale(1.2)");
+    }
 }
 
 

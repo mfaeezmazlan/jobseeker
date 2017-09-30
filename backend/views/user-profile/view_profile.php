@@ -166,7 +166,7 @@ if ($model->profile_pic_id != 0) {
                                                         <?php
                                                         // echo \common\components\FileHandler::generateDocument($model, Yii::getAlias('@web') . "/uploads/resume/" . Yii::$app->user->id); 
                                                         $user_doc = common\models\UserDoc::find()->where(['user_id' => $model->user_id])->orderBy(['id' => SORT_DESC])->one();
-                                                        if($user_doc)
+                                                        if ($user_doc)
                                                             echo Html::a($user_doc->docAttach->file_name, ['user-profile/download-attachment', 'id' => $user_doc->doc_attach_id, 'user_id' => $model->user_id]);
                                                         else
                                                             echo "Not Submitted";

@@ -33,7 +33,7 @@ $this->title = 'AMH Reality Enterprise';
             </div>
         </div>
         <div class="infobox infobox-pink" id="pending_box">
-            <div class="infobox-icon" onclick="location.href='index.php?r=job-list/index'">
+            <div class="infobox-icon" onclick="location.href = 'index.php?r=job-list/index'">
                 <i class="ace-icon fa fa-envelope"></i>
             </div>
             <div class="infobox-data">

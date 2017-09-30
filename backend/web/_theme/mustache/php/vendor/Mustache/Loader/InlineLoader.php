@@ -48,8 +48,8 @@
  *     Hello, {{ name }}!
  *
  */
-class Mustache_Loader_InlineLoader implements Mustache_Loader
-{
+class Mustache_Loader_InlineLoader implements Mustache_Loader {
+
     protected $fileName;
     protected $offset;
     protected $templates;
@@ -70,8 +70,7 @@ class Mustache_Loader_InlineLoader implements Mustache_Loader
      *                         This usually coincides with the `__halt_compiler`
      *                         call, and the `__COMPILER_HALT_OFFSET__`.
      */
-    public function __construct($fileName, $offset)
-    {
+    public function __construct($fileName, $offset) {
         if (!is_file($fileName)) {
             throw new Mustache_Exception_InvalidArgumentException('InlineLoader expects a valid filename.');
         }
@@ -81,7 +80,7 @@ class Mustache_Loader_InlineLoader implements Mustache_Loader
         }
 
         $this->fileName = $fileName;
-        $this->offset   = $offset;
+        $this->offset = $offset;
     }
 
     /**
@@ -93,8 +92,7 @@ class Mustache_Loader_InlineLoader implements Mustache_Loader
      *
      * @return string Mustache Template source
      */
-    public function load($name)
-    {
+    public function load($name) {
         $this->loadTemplates();
 
         if (!array_key_exists($name, $this->templates)) {
@@ -107,17 +105,17 @@ class Mustache_Loader_InlineLoader implements Mustache_Loader
     /**
      * Parse and load templates from the end of a source file.
      */
-    protected function loadTemplates()
-    {
+    protected function loadTemplates() {
         if ($this->templates === null) {
             $this->templates = array();
             $data = file_get_contents($this->fileName, false, null, $this->offset);
             foreach (preg_split("/^@@(?= [\w\d\.]+$)/m", $data, -1) as $chunk) {
                 if (trim($chunk)) {
-                    list($name, $content)         = explode("\n", $chunk, 2);
+                    list($name, $content) = explode("\n", $chunk, 2);
                     $this->templates[trim($name)] = trim($content);
                 }
             }
         }
     }
+
 }

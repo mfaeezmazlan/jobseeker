@@ -135,7 +135,7 @@ class SiteController extends \backend\components\GenericController {
                 $modelAddress->street_1 = 'Street 1';
                 $modelAddress->street_2 = 'Street 2';
                 $modelAddress->save();
-                
+
                 $modelUserProfile = new \common\models\UserProfile();
                 $modelUserProfile->first_name = $modelUser->username;
                 $modelUserProfile->profile_pic_id = 0;

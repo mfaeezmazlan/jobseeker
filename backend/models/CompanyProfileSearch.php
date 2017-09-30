@@ -39,7 +39,7 @@ class CompanyProfileSearch extends CompanyProfile {
      */
     public function search($params, $user_id = null) {
         $query = CompanyProfile::find();
-        if($user_id)
+        if ($user_id)
             $query->andWhere(['user_id' => $user_id]);
         // add conditions that should always apply here
 

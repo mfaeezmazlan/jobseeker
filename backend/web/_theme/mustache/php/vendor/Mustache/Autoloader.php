@@ -12,8 +12,8 @@
 /**
  * Mustache class autoloader.
  */
-class Mustache_Autoloader
-{
+class Mustache_Autoloader {
+
     private $baseDir;
 
     /**
@@ -21,10 +21,9 @@ class Mustache_Autoloader
      *
      * @param string $baseDir Mustache library base directory (default: dirname(__FILE__).'/..')
      */
-    public function __construct($baseDir = null)
-    {
+    public function __construct($baseDir = null) {
         if ($baseDir === null) {
-            $baseDir = dirname(__FILE__).'/..';
+            $baseDir = dirname(__FILE__) . '/..';
         }
 
         // realpath doesn't always work, for example, with stream URIs
@@ -43,8 +42,7 @@ class Mustache_Autoloader
      *
      * @return Mustache_Autoloader Registered Autoloader instance
      */
-    public static function register($baseDir = null)
-    {
+    public static function register($baseDir = null) {
         $loader = new self($baseDir);
         spl_autoload_register(array($loader, 'autoload'));
 
@@ -56,8 +54,7 @@ class Mustache_Autoloader
      *
      * @param string $class
      */
-    public function autoload($class)
-    {
+    public function autoload($class) {
         if ($class[0] === '\\') {
             $class = substr($class, 1);
         }
@@ -71,4 +68,5 @@ class Mustache_Autoloader
             require $file;
         }
     }
+
 }
