@@ -7,6 +7,12 @@ use yii\widgets\DetailView;
 /* @var $model common\models\UserProfile */
 $this->title = $model->first_name;
 $this->params['breadcrumbs'][] = 'Applicant Profile';
+
+$pathToProfilePic = Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'];
+if ($model->profile_pic_id != 0) {
+    $readAttachment = \common\models\DocAttach::findOne($model->profile_pic_id);
+    $pathToProfilePic = Yii::getAlias('@web') . '/uploads/resume/' . $model->user_id . '/' . $readAttachment->file_name_sys;
+}
 ?>
 <div class="page-header">
     <h1>
@@ -27,7 +33,7 @@ $this->params['breadcrumbs'][] = 'Applicant Profile';
                     <div>
                         <!-- #section:pages/profile.picture -->
                         <span class="profile-picture">
-                            <img id="avatar" class="editable img-responsive" height="200px" alt="Alex's Avatar" src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" />
+                            <img id="avatar" class="editable img-responsive" style="max-width: 234px" alt="Alex's Avatar" src="<?= $pathToProfilePic ?>" />
                         </span>
 
                         <!-- /section:pages/profile.picture -->

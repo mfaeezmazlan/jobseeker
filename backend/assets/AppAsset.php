@@ -12,10 +12,12 @@ class AppAsset extends AssetBundle {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        "_theme/assets/css/bootstrap.css",
         "_theme/assets/css/font-awesome.css",
         "_theme/assets/css/ace-fonts.css",
         "_theme/assets/css/ace.css",
         "_theme/assets/css/my.css",
+        "_theme/assets/css/bootstrap.css",
     ];
     public $js = [
         "_theme/assets/js/ace-extra.js",
@@ -41,7 +43,7 @@ class AppAsset extends AssetBundle {
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+//        'yii\bootstrap\BootstrapAsset',
     ];
 
 }

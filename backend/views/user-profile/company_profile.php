@@ -2,12 +2,48 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UserProfile */
 $this->title = $model->first_name;
 $this->params['breadcrumbs'][] = 'My Profile';
+
+$pathToProfilePic = Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'];
+if ($model->profile_pic_id != 0) {
+    $pathToProfilePic = Yii::getAlias('@web') . '/uploads/resume/' . $model->user_id . '/' . $readAttachment->file_name_sys;
+}
 ?>
+
+
+<!-- Modal Dialog for Update Profile Picture -->
+<div id="updateProfileDiv" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal Dialog content-->
+        <?php
+        $form = ActiveForm::begin([
+                    'action' => ['update-profile-pic'],
+                    'options' => ['enctype' => 'multipart/form-data']
+        ]);
+        ?>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update your profile picture</h4>
+            </div>
+            <div class="modal-body">
+
+                <?= $form->field($modelUserProfileAttachment, 'file')->fileInput()->label('Profile Picture'); ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Upload</button>
+            </div>
+        </div>
+        <?php ActiveForm::end(); ?>
+    </div>
+</div>
 <div class="page-header">
     <h1>
         <?= Html::encode($this->title) ?>
@@ -27,7 +63,7 @@ $this->params['breadcrumbs'][] = 'My Profile';
                     <div>
                         <!-- #section:pages/profile.picture -->
                         <span class="profile-picture">
-                            <img id="avatar" class="editable img-responsive" height="200px" alt="Alex's Avatar" src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" />
+                            <img title="Click to update" id="avatar" class="editable img-responsive" style="max-width: 234px" alt="Alex's Avatar" src="<?= $pathToProfilePic ?>" />
                         </span>
 
                         <!-- /section:pages/profile.picture -->
@@ -154,8 +190,8 @@ $this->params['breadcrumbs'][] = 'My Profile';
                                                     <span class="editable" id="reg_no"><?= $companyProfile->registration_no ?></span>
                                                 </div>
                                             </div>
-                                            
-                                            
+
+
                                             <div class="profile-info-row">
                                                 <div class="profile-info-name"> Company Address </div>
 
@@ -163,7 +199,7 @@ $this->params['breadcrumbs'][] = 'My Profile';
                                                     <span class="editable" id="comp_mobile_no"><?= $companyProfile->address->fullAddress ?></span>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="profile-info-row">
                                                 <div class="profile-info-name"> Company Mobile No </div>
 
@@ -199,3 +235,13 @@ $this->params['breadcrumbs'][] = 'My Profile';
         <!-- PAGE CONTENT ENDS -->
     </div><!-- /.col -->
 </div><!-- /.row -->
+
+<?php
+$this->registerJs("
+    $('document').ready(function(){         
+        $('#avatar').click(function(){
+            $('#updateProfileDiv').modal();
+        });
+    });
+", \yii\web\View::POS_END);
+?>

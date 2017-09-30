@@ -4,6 +4,12 @@
 use yii\helpers\Html;
 
 $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
+$modelUserProfile = \common\models\UserProfile::find()->where(['user_id' => Yii::$app->user->id])->one();
+$pathToProfilePic = Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'];
+if ($modelUserProfile->profile_pic_id != 0) {
+    $readAttachment = \common\models\DocAttach::findOne($modelUserProfile->profile_pic_id);
+    $pathToProfilePic = Yii::getAlias('@web') . '/uploads/resume/' . Yii::$app->user->id . '/' . $readAttachment->file_name_sys;
+}
 ?>
 <div id="navbar" class="navbar navbar-default">                    
     <script type="text/javascript">
@@ -167,7 +173,7 @@ $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii
                 <!-- #section:basics/navbar.user_menu -->
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" alt="user photo" />
+                        <img class="nav-user-photo" src="<?= $pathToProfilePic ?>" alt="user photo" />
                         <span class="user-info">
                             <small>Welcome,</small><?= Yii::$app->user->identity->userProfile->first_name ?>
                         </span>

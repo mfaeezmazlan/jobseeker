@@ -8,6 +8,7 @@ use backend\models\UserProfileSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 /**
  * UserProfileController implements the CRUD actions for UserProfile model.
@@ -29,7 +30,7 @@ class UserProfileController extends \backend\components\GenericController {
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['my-profile', 'display-skills', 'download-attachment'],
+                        'actions' => ['my-profile', 'display-skills', 'download-attachment', 'update-profile-pic'],
                         'roles' => ['@'],
                     ],
                     [
@@ -142,8 +143,7 @@ class UserProfileController extends \backend\components\GenericController {
                     'readAttachment' => $readAttachment,
         ]);
     }
-    
-    
+
     public function actionUpdateStaffProfile() {
         $model = $this->findModel(Yii::$app->user->id);
         $modelCompany = $model->company;
@@ -152,17 +152,17 @@ class UserProfileController extends \backend\components\GenericController {
             'company' => $modelCompany->address
         ];
 
-        if ($model->load(Yii::$app->request->post()) && $modelCompany->load(Yii::$app->request->post()) 
+        if ($model->load(Yii::$app->request->post()) && $modelCompany->load(Yii::$app->request->post())
 //                && $modelCompanyAddress->load(Yii::$app->request->post()) 
 //                && $modelAddress->load(Yii::$app->request->post())
                 && \yii\base\Model::loadMultiple($modelAddress, Yii::$app->request->post())) {
-              
+
 //            $modelAddress = $modelAddress['user'];
 //            $modelCompanyAddress = $modelAddress['company'];
-            
+
             if ($model->save()) {
                 $modelCompany->save();
-                foreach ($modelAddress as $x){
+                foreach ($modelAddress as $x) {
                     $x->save();
                 }
                 return $this->redirect(['my-profile']);
@@ -174,7 +174,7 @@ class UserProfileController extends \backend\components\GenericController {
                     'modelAddress' => $modelAddress
         ]);
     }
-    
+
     /**
      * Deletes an existing UserProfile model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -187,26 +187,72 @@ class UserProfileController extends \backend\components\GenericController {
         return $this->redirect(['index']);
     }
 
+    public function actionUpdateProfilePic() {      
+        $modelUserProfile = $this->findModel(Yii::$app->user->id);
+        $modelAttachment = new \common\models\DocAttach();
+        foreach ($_FILES as $cat => $file) {
+            $filetype = $file['type']['file'];
+        }
+        $modelAttachment->file = UploadedFile::getInstance($modelAttachment, 'file');
+        
+        $modelAttachment->file_name = $modelAttachment->file->name;
+        $modelAttachment->file_name_sys = Yii::$app->user->id . "_" . date('d-m-Y_H_i_s') . "." . $modelAttachment->file->extension;
+        $modelAttachment->file_type = $filetype;
+
+        $path = Yii::getAlias('@backend') . "/web/uploads/resume/$modelUserProfile->user_id";
+        if (!is_dir($path)) {
+            mkdir($path, 0755);
+        }
+
+        $modelAttachment->doc_title = $modelAttachment->file->name;
+        $modelAttachment->file->saveAs("$path/" . $modelUserProfile->user_id . "_" . date('d-m-Y_H_i_s') . "." . $modelAttachment->file->extension);
+        if($modelAttachment->save()){
+            $modelUserProfile->profile_pic_id = $modelAttachment->id;
+            $modelUserProfile->save();
+        }
+        
+        return $this->redirect(['my-profile']);
+    }
+
     public function actionMyProfile() {
         $cookies = Yii::$app->response->cookies;
         $cookies->remove('menuToOpen');
         $cookies->remove('nav_open');
         unset($cookies['menuToOpen']);
         unset($cookies['nav_open']);
-        
+
         $assignmentRole = \common\models\AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one()->item_name;
-        
+
         switch ($assignmentRole) {
             case 'employee':
+                $modelUserProfile = $this->findModel(Yii::$app->user->identity->id);
+                
+                $modelUserProfileAttachment = new \common\models\DocAttach();
+                $readAttachment = null;
+                if ($modelUserProfile->profile_pic_id != 0) {
+                    $readAttachment = \common\models\DocAttach::findOne($modelUserProfile->profile_pic_id);
+                }
+                
                 return $this->render('profile', [
-                            'model' => $this->findModel(Yii::$app->user->identity->id),
+                            'model' => $modelUserProfile,
+                            'modelUserProfileAttachment' => $modelUserProfileAttachment,
+                            'readAttachment' => $readAttachment,
                 ]);
             case 'company':
                 $userProfileModel = $this->findModel(Yii::$app->user->id);
                 $companyProfile = $userProfileModel->company;
+                
+                $modelUserProfileAttachment = new \common\models\DocAttach();
+                $readAttachment = null;
+                if ($userProfileModel->profile_pic_id != 0) {
+                    $readAttachment = \common\models\DocAttach::findOne($userProfileModel->profile_pic_id);
+                }
+                
                 return $this->render('company_profile', [
                             'model' => $userProfileModel,
                             'companyProfile' => $companyProfile,
+                            'modelUserProfileAttachment' => $modelUserProfileAttachment,
+                            'readAttachment' => $readAttachment,
                 ]);
             case 'admin':
             default:
