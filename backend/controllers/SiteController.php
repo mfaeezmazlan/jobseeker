@@ -62,7 +62,14 @@ class SiteController extends \backend\components\GenericController {
         switch ($assignmentRole) {
             case 'employee':
                 $modelJobList = \common\models\JobList::find()->orderBy(['created_at' => SORT_DESC])->limit(4)->all();
-                return $this->render('index_employee', ['modelJobList' => $modelJobList]);
+                $searchModel = new \backend\models\JobListSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams,true);
+
+                return $this->render('index_employee', [
+                            'modelJobList' => $modelJobList,
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
+                ]);
             case 'company':
                 $companyModel = \common\models\CompanyProfile::find()->where(['user_id' => Yii::$app->user->id])->one();
                 $totalPendingApplication = count(\common\models\JobApplication::find()
@@ -85,7 +92,7 @@ class SiteController extends \backend\components\GenericController {
                 $totalUser = count(\common\models\AuthAssignment::find()->where(['item_name' => 'employee'])->all());
                 $totalUserCompany = count(\common\models\AuthAssignment::find()->where(['item_name' => 'company'])->all());
                 $totalUserAdmin = count(\common\models\AuthAssignment::find()->where(['item_name' => 'admin'])->all());
-                $totalPendingApplication = count(\common\models\JobApplication::find()->where(['status' => 0])->all());
+                $totalPendingApplication = count(\common\models\JobApplication::find()->innerJoin('job_list a', 'job_application.job_list_id = a.id')->where(['status' => 0])->all());
                 $totalJobList = count(\common\models\JobList::find()->all());
 
                 // Get DB Usage
