@@ -35,7 +35,7 @@ class JobListController extends \backend\components\GenericController {
     public function actionIndex() {
         $searchModel = new JobListSearch();
         $companyModel = \common\models\UserProfile::find()->where(['user_id' => Yii::$app->user->id])->one()->company;
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $companyModel->id);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, false, $companyModel->id);
 
         return $this->render('index', [
                     'searchModel' => $searchModel,

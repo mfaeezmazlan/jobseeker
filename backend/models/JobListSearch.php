@@ -38,10 +38,12 @@ class JobListSearch extends JobList {
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $join = false) {
+    public function search($params, $join = false, $company_id = null) {
         $query = JobList::find();
-        if ($join)
+        if ($join == true)
             $query->innerJoin('job_application', 'job_list.id=job_application.job_list_id')->andWhere(['job_application.user_id' => Yii::$app->user->id]);
+        if ($company_id)
+            $query->andWhere(['company_id' => $company_id]);
 
         // add conditions that should always apply here
 
