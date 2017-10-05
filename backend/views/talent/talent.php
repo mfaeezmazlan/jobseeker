@@ -253,15 +253,13 @@ $this->registerJs("
                 $('#open_search').fadeIn('slow');
                 $('#talent-grid-view').fadeIn('slow');
             });
-        });
-        
+        }); 
         $('#open_search').click(function(){
             $('#open_search').fadeOut('slow');
             $('#talent-grid-view').fadeOut('slow',function(){
                 $('#talent_div').fadeIn('slow');
             });
         });
-    });
-    
+    });    
 ", \yii\web\View::POS_END);
 ?>
