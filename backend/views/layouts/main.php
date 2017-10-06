@@ -4,12 +4,25 @@
 
 use backend\assets\AppAsset;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use common\widgets\Alert;
+//use common\widgets\Alert;
 
 AppAsset::register($this);
+?>
+
+<?php
+
+function setflash($messageGiven, $messageType) {
+    ?>
+    <div id="xalert" class="alert alert-<?= $messageType ?>">
+        <button class="close" data-dismiss="alert">
+            <i class="ace-icon fa fa-times"></i>
+        </button>
+        <?= $messageGiven ?>
+    </div>
+    <?php
+    unset(Yii::$app->session['flash_msg']);
+    unset(Yii::$app->session['flash_type']);
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -36,7 +49,11 @@ AppAsset::register($this);
         }
         ?>
         <?php $this->beginBody() ?>
-
+        <script>
+            setTimeout(function () {
+                $('#xalert').hide('slow');
+            }, 5000);
+        </script>
         <?php
         if (!Yii::$app->user->isGuest) {
             ?>
@@ -58,6 +75,14 @@ AppAsset::register($this);
                         <?php include('breadcrumbs.php'); ?>
                         <!-- /section:basics/content.breadcrumbs -->
                         <div class="page-content">
+
+                            <?php
+                            $session_flash_message = Yii::$app->session['flash_msg'];
+                            $session_flash_type = Yii::$app->session['flash_type'];
+                            if ($session_flash_message && $session_flash_type) {
+                                setflash($session_flash_message, $session_flash_type);
+                            }
+                            ?>
                             <?= $content ?>
                         </div><!-- /.page-content -->
                     </div>
@@ -80,7 +105,26 @@ AppAsset::register($this);
             </div><!-- /.main-container -->
             <?php
         } else {
-            echo $content;
+            ?>
+            <div class="main-container">
+                <div class="main-content">
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <div class="login-container">
+                                <?php
+                                $session_flash_message = Yii::$app->session['flash_msg'];
+                                $session_flash_type = Yii::$app->session['flash_type'];
+                                if ($session_flash_message && $session_flash_type) {
+                                    setflash($session_flash_message, $session_flash_type);
+                                }
+                                echo $content;
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
         }
         ?>
         <?php $this->endBody() ?>

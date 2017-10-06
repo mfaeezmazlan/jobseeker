@@ -245,21 +245,21 @@ if ($winnerModel) {
     </div><!-- /.col -->
 </div><!-- /.row -->
 <?php
-$this->registerJs("
-    $('document').ready(function(){ 
-        $('#talent-search').on('pjax:end', function() {
-            $.pjax.reload({container:'#talent-grid'});
-            $('#talent_div').fadeOut('slow',function(){
-                $('#open_search').fadeIn('slow');
-                $('#talent-grid-view').fadeIn('slow');
-            });
-        }); 
-        $('#open_search').click(function(){
-            $('#open_search').fadeOut('slow');
-            $('#talent-grid-view').fadeOut('slow',function(){
-                $('#talent_div').fadeIn('slow');
-            });
-        });
-    });    
-", \yii\web\View::POS_END);
+//$this->registerJs("
+//    $('document').ready(function(){ 
+//        $('#talent-search').on('pjax:end', function() {
+//            $.pjax.reload({container:'#talent-grid'});
+//            $('#talent_div').fadeOut('slow',function(){
+//                $('#open_search').fadeIn('slow');
+//                $('#talent-grid-view').fadeIn('slow');
+//            });
+//        }); 
+//        $('#open_search').click(function(){
+//            $('#open_search').fadeOut('slow');
+//            $('#talent-grid-view').fadeOut('slow',function(){
+//                $('#talent_div').fadeIn('slow');
+//            });
+//        });
+//    });    
+//", \yii\web\View::POS_END);
 ?>

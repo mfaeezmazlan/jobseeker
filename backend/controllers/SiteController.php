@@ -21,7 +21,7 @@ class SiteController extends \backend\components\GenericController {
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'get-country', 'get-state'],
+                        'actions' => ['login', 'error', 'reset-password', 'get-country', 'get-state'],
                         'allow' => true,
                     ],
                     [
@@ -63,7 +63,7 @@ class SiteController extends \backend\components\GenericController {
             case 'employee':
                 $modelJobList = \common\models\JobList::find()->orderBy(['created_at' => SORT_DESC])->limit(4)->all();
                 $searchModel = new \backend\models\JobListSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams,true);
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams, true);
 
                 return $this->render('index_employee', [
                             'modelJobList' => $modelJobList,
@@ -128,7 +128,11 @@ class SiteController extends \backend\components\GenericController {
         $model = new LoginForm();
         $modelUser = new \backend\models\User();
         $modelUser->scenario = 'register';
+        $modelPasswordResetRequest = new \backend\models\PasswordResetRequestForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            Yii::$app->session['flash_msg'] = "Welcome " . $model->user->userProfile->first_name .".";
+            Yii::$app->session['flash_type'] = "success";
             return $this->goBack();
         } else if ($modelUser->load(Yii::$app->request->post()) && $modelUser->validate()) {
 
@@ -156,12 +160,53 @@ class SiteController extends \backend\components\GenericController {
                 $modelAuth->save(false);
             }
             return $this->goHome();
+        } else if ($modelPasswordResetRequest->load(Yii::$app->request->post())) {
+            if ($modelPasswordResetRequest->validate()) {
+                if ($modelPasswordResetRequest->sendEmail()) {
+                    Yii::$app->session['flash_msg'] = "Check your email for further instructions.";
+                    Yii::$app->session['flash_type'] = "success";
+                    return $this->goHome();
+                } else {
+                    Yii::$app->session['flash_msg'] = "Sorry, we are unable to reset password for the provided email address.";
+                    Yii::$app->session['flash_type'] = "danger";
+                }
+            } else {
+                Yii::$app->session['flash_msg'] = "Sorry, please key in your email address again. We can't find your email on our system.";
+                Yii::$app->session['flash_type'] = "danger";
+                return $this->redirect(['site/login']);
+            }
         } else {
             return $this->render('login', [
                         'model' => $model,
                         'modelUser' => $modelUser,
+                        'modelPasswordResetRequest' => $modelPasswordResetRequest,
             ]);
         }
+    }
+
+    /**
+     * Resets password.
+     *
+     * @param string $token
+     * @return mixed
+     * @throws BadRequestHttpException
+     */
+    public function actionResetPassword($token) {
+        try {
+            $model = new \backend\models\ResetPasswordForm($token);
+        } catch (InvalidParamException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->session['flash_msg'] = "Successfully save new password. Save it in secure place.";
+            Yii::$app->session['flash_type'] = "success";
+            return $this->goHome();
+        }
+
+        return $this->render('resetPassword', [
+                    'model' => $model,
+        ]);
     }
 
     /**

@@ -84,12 +84,12 @@ if ($model->profile_pic_id != 0) {
                     <!-- #section:custom/extra.grid -->
                     <div class="clearfix">
                         <div class="grid2">
-                            <span class="bigger-175 blue"><?= count(\common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id])->all()) ?></span>
+                            <span class="bigger-175 blue"><?= count(\common\models\JobApplication::find()->innerJoin('job_list a','job_application.job_list_id=a.id')->where(['job_application.user_id' => Yii::$app->user->identity->id])->all()) ?></span>
                             <br />
                             Submission
                         </div>
                         <div class="grid2">
-                            <span class="bigger-175 green"><?= count(\common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id, 'status' => 2])->all()) ?></span>
+                            <span class="bigger-175 green"><?= count(\common\models\JobApplication::find()->innerJoin('job_list a','job_application.job_list_id=a.id')->where(['user_id' => Yii::$app->user->identity->id, 'status' => 2])->all()) ?></span>
                             <br />
                             Approval
                         </div>

@@ -6,6 +6,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'name' => 'Job Seeker',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
