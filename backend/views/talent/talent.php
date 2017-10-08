@@ -10,6 +10,11 @@ use yii\widgets\Pjax;
 
 $this->title = Yii::t('app', 'Talent Search');
 $this->params['breadcrumbs'][] = $this->title;
+
+$pathToProfilePic = Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'];
+if ($winnerModel->profile_pic_id != 0) {
+    $pathToProfilePic = Yii::getAlias('@web') . '/uploads/resume/' . $winnerModel->user_id . '/' . $readAttachment->file_name_sys;
+}
 ?>
 <div class="page-header">
     <h1>
@@ -33,7 +38,7 @@ if ($winnerModel) {
                             <div>
                                 <!-- #section:pages/profile.picture -->
                                 <span class="profile-picture">
-                                    <img id="avatar" class="editable img-responsive" height="200px" alt="Alex's Avatar" src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" />
+                                    <img id="avatar" class="editable img-responsive" style="max-width: 234px" alt="Alex's Avatar" src="<?= $pathToProfilePic ?>" />
                                 </span>
 
                                 <!-- /section:pages/profile.picture -->

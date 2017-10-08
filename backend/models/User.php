@@ -45,7 +45,7 @@ class User extends \common\models\GenericWeb {
         return [
             [['username', 'email', 'password'], 'required'],
             [['email'], 'email'],
-            [['email'], 'unique'],
+            [['username','email'], 'unique'],
             [['username', 'email', 'password', 'repeat_password'], 'required', 'on' => 'register'],
             [['password', 'repeat_password'], 'string', 'min' => 6, 'on' => 'register'],
             [['repeat_password'], 'compare', 'compareAttribute' => 'password', 'message' => 'Password did not match', 'on' => 'register'],

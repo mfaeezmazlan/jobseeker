@@ -131,7 +131,7 @@ class SiteController extends \backend\components\GenericController {
         $modelPasswordResetRequest = new \backend\models\PasswordResetRequestForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            Yii::$app->session['flash_msg'] = "Welcome " . $model->user->userProfile->first_name .".";
+            Yii::$app->session['flash_msg'] = "Welcome " . $model->user->userProfile->first_name . ".";
             Yii::$app->session['flash_type'] = "success";
             return $this->goBack();
         } else if ($modelUser->load(Yii::$app->request->post()) && $modelUser->validate()) {
@@ -158,6 +158,11 @@ class SiteController extends \backend\components\GenericController {
                 $modelAuth->user_id = $modelUser->id;
                 $modelAuth->item_name = 'employee';
                 $modelAuth->save(false);
+                Yii::$app->session['flash_msg'] = "You hace successfully registered.";
+                Yii::$app->session['flash_type'] = "success";
+            } else {
+                Yii::$app->session['flash_msg'] = "Fail to register.";
+                Yii::$app->session['flash_type'] = "danger";
             }
             return $this->goHome();
         } else if ($modelPasswordResetRequest->load(Yii::$app->request->post())) {
@@ -176,6 +181,19 @@ class SiteController extends \backend\components\GenericController {
                 return $this->redirect(['site/login']);
             }
         } else {
+            $errorModelUser = $modelUser->getErrors();
+            print_r($errorModelUser);exit();
+            if (count($errorModelUser) > 0) {
+                $tmpStringError = null;
+                foreach ($errorModelUser as $error) {
+                    $tmpStringError .= implode(',<br>', $error);
+                }
+                    $tmpStringError .= "<hr>Please register again.";
+
+                Yii::$app->session['flash_msg'] = $tmpStringError;
+                Yii::$app->session['flash_type'] = "danger";
+            }
+
             return $this->render('login', [
                         'model' => $model,
                         'modelUser' => $modelUser,

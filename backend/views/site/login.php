@@ -9,10 +9,9 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 <div class="center">
     <h1>
-        <i class="ace-icon fa fa-leaf green"></i>
+        <i class="ace-icon fa fa-laptop green"></i>
         <span class="red">Job</span>
         <span class="white" id="id-text2">Seeker</span>
     </h1>
@@ -24,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="widget-body">
             <div class="widget-main">
                 <h4 class="header blue lighter bigger">
-                    <i class="ace-icon fa fa-coffee green"></i>
+                    <i class="ace-icon fa fa-info-circle green"></i>
                     Please Enter Your Information
                 </h4>
                 <div class="space-6"></div>
@@ -82,6 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     Enter your email and to receive instructions
                 </p>
                 <?php $formRequestPassword = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
+                <?= $formRequestPassword->errorSummary($modelPasswordResetRequest) ?>
                 <fieldset>
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">

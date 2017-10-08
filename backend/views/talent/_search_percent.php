@@ -89,8 +89,6 @@ use yii\widgets\Pjax;
                     ]);
                     ?>
                     <?= $form->field($model, 'working_experience')->textInput(['maxlength' => true]) ?>
-                    <?= $form->field($model, 'min_salary')->textInput(['maxlength' => true]) ?>
-                    <?= $form->field($model, 'max_salary')->textInput(['maxlength' => true]) ?>
                     <div class="form-group">
                     </div>
                 </div>

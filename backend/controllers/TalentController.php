@@ -44,11 +44,11 @@ class TalentController extends \backend\components\GenericController {
         $searchModel = new \backend\models\UserProfileSearch();
 
         $dataProvider = $searchModel->searchTalent(Yii::$app->request->queryParams);
-        
-        if(isset($_GET['UserProfileSearch'])){
-            return $this->render('indexResult',[
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider
+
+        if (isset($_GET['UserProfileSearch'])) {
+            return $this->render('indexResult', [
+                        'searchModel' => $searchModel,
+                        'dataProvider' => $dataProvider
             ]);
         }
 
@@ -165,13 +165,20 @@ class TalentController extends \backend\components\GenericController {
                     'pageSize' => 20,
                 ],
             ]);
-            if ($winnerId && $totalSearch != 0)
+
+            $readAttachment = null;
+            if ($winnerId && $totalSearch != 0) {
                 $winnerModel = \common\models\UserProfile::find()->where(['id' => $winnerId])->one();
+                if ($winnerModel->profile_pic_id != 0) {
+                    $readAttachment = \common\models\DocAttach::findOne($winnerModel->profile_pic_id);
+                }
+            }
 
             return $this->render('talent', [
                         'provider' => $provider,
                         'winnerModel' => $winnerModel,
                         'highestScore' => $highestScore,
+                        'readAttachment' => $readAttachment,
             ]);
         } else {
             return $this->render('search', [
