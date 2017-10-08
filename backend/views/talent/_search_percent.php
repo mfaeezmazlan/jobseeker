@@ -20,8 +20,6 @@ use yii\widgets\Pjax;
             <h5 class="widget-title bigger">Talent Search</h5>
         </div>
         <div class="widget-body">
-
-            <?php Pjax::begin(['id' => 'talent-search']); ?>  
             <?php
             $form = ActiveForm::begin([
                         'action' => ['search'],
@@ -100,7 +98,6 @@ use yii\widgets\Pjax;
             <div>
                 <?= Html::submitButton(Yii::t('app', 'Search <i class="fa fa-search"></i>'), ['class' => 'btn btn-block btn-primary']) ?>
                 <?php ActiveForm::end(); ?>
-                <?php Pjax::end(); ?>
             </div>
         </div>
     </div>

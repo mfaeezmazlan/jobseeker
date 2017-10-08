@@ -44,6 +44,13 @@ class TalentController extends \backend\components\GenericController {
         $searchModel = new \backend\models\UserProfileSearch();
 
         $dataProvider = $searchModel->searchTalent(Yii::$app->request->queryParams);
+        
+        if(isset($_GET['UserProfileSearch'])){
+            return $this->render('indexResult',[
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider
+            ]);
+        }
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
