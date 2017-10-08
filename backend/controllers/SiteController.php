@@ -182,7 +182,6 @@ class SiteController extends \backend\components\GenericController {
             }
         } else {
             $errorModelUser = $modelUser->getErrors();
-            print_r($errorModelUser);exit();
             if (count($errorModelUser) > 0) {
                 $tmpStringError = null;
                 foreach ($errorModelUser as $error) {
