@@ -50,7 +50,7 @@ $this->title = 'AMH Reality Enterprise';
                 'chart' => ['type' => 'bar'],
                 'title' => ['text' => 'Total User'],
                 'xAxis' => [
-                    'categories' => ['Admin', 'Company', 'Employee']
+                    'categories' => ['Admin', 'Employer', 'Job Seeker']
                 ],
                 'yAxis' => [
                     'title' => ['text' => 'Number of users']

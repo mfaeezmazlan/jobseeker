@@ -1,0 +1,96 @@
+11:02:33:271 (5916) > --- NIXXES log start ---
+11:02:33:271 (5916) > 
+11:02:33:271 (5916) > Memory statistics:
+11:02:33:271 (5916) >   Total RAM = 7.9 GB (8140 MB)
+11:02:33:271 (5916) >   Avail RAM = 6.2 GB (6385 MB)
+11:02:33:271 (5916) >   Total virtual memory = 4.0 GB (4095 MB)
+11:02:33:271 (5916) >   Avail virtual memory = 3.4 GB (3480 MB)
+11:02:33:271 (5916) > OS = Windows 7 (build 7601)
+11:02:33:271 (5916) > Starting Tomb Raider v1.00.716.5
+11:02:33:391 (5916) > [Main] Current directory: D:\Games\Tomb Raider 2013\Tomb Rader 2013
+11:02:33:451 (5916) > Mounted TITLE.000
+11:02:33:466 (5916) > Mounted PATCH.000
+11:02:33:561 (5916) > [Render] PCDeviceManager constructor start
+11:02:33:596 (5916) > [Render] Loading ADL...
+11:02:33:631 (5916) > [Render] Done loading ADL
+11:02:33:631 (5916) > [Render] Querying ADL for Eyefinity modes
+11:02:33:636 (5916) > [Render] ADL_Display_SLSMapIndex_Get() failed
+11:02:33:666 (5916) > [Render] Querying ADL for Eyefinity modes
+11:02:33:671 (5916) > [Render] ADL_Display_SLSMapIndex_Get() failed
+11:02:33:671 (5916) > [Render] PCDeviceManager constructor end
+11:02:33:701 (5916) > [Render] PCDX11DeviceManager constructor start
+11:02:33:701 (5916) > D3D Adapter Information:
+11:02:33:701 (5916) > Adapter Description: AMD Radeon HD 7800 Series
+11:02:33:701 (5916) > VendorID: 1002
+11:02:33:701 (5916) > DeviceID: 6818
+11:02:33:701 (5916) > Revision: 0
+11:02:33:701 (5916) > Failed to load NVAPI!
+11:02:33:711 (5916) > Reducing mouse lag by setting frame latency to 1...
+11:02:33:711 (5916) > D3D reports feature level 11 is supported.
+11:02:33:711 (5916) > D3D reports hardware multiple command list support.
+11:02:33:711 (5916) > Loading AMD HD3D driver.
+11:02:33:711 (5916) > Could not find AmdDxExtCreate11!
+11:02:33:711 (5916) > AMD DirectX eXtension version: 9.0
+
+11:02:33:711 (5916) > Could not load AMD stereoscopic extension!
+11:02:33:746 (5916) > [Render] Querying ADL for Eyefinity modes
+11:02:33:751 (5916) > [Render] ADL_Display_SLSMapIndex_Get() failed
+11:02:33:781 (5916) > [Render] Querying ADL for Eyefinity modes
+11:02:33:786 (5916) > [Render] ADL_Display_SLSMapIndex_Get() failed
+11:02:33:791 (5916) > [Render] PCDX11DeviceManager constructor end
+11:02:35:411 (5916) > D3D Adapter Information:
+11:02:35:411 (5916) > Adapter Description: AMD Radeon HD 7800 Series
+11:02:35:411 (5916) > VendorID: 1002
+11:02:35:411 (5916) > DeviceID: 6818
+11:02:35:411 (5916) > Revision: 0
+11:02:35:411 (5916) > Failed to load NVAPI!
+11:02:35:421 (5916) > Reducing mouse lag by setting frame latency to 1...
+11:02:35:421 (5916) > D3D reports feature level 11 is supported.
+11:02:35:421 (5916) > D3D reports hardware multiple command list support.
+11:02:35:421 (5916) > Loading AMD HD3D driver.
+11:02:35:421 (5916) > Could not find AmdDxExtCreate11!
+11:02:35:421 (5916) > AMD DirectX eXtension version: 9.0
+
+11:02:35:421 (5916) > Could not load AMD stereoscopic extension!
+11:02:36:221 (5916) > [Render] Using DirectX 11
+11:02:36:681 (5916) > Initalizing audio...
+11:02:36:696 (5916) > Audio device found. FMOD reports 3 driver(s).
+11:02:36:696 (5916) > Audio Driver Name: Speakers (Realtek High Definition Audio)
+11:02:36:696 (5916) > Speaker Mode: 2
+11:02:39:439 (5916) > [DLC] mounted pack 1 - 0x00000001 (steam id=208790)
+11:02:39:439 (5916) > [DLC] mounted pack 1 - 0x00000002 (steam id=208791)
+11:02:39:439 (5916) > [DLC] mounted pack 1 - 0x00000004 (steam id=208792)
+11:02:39:444 (5916) > [DLC] mounted pack 1 - 0x00000008 (steam id=208793)
+11:02:39:444 (5916) > [DLC] mounted pack 1 - 0x00000010 (steam id=208794)
+11:02:39:444 (5916) > [DLC] mounted pack 1 - 0x00010000 (steam id=208795)
+11:02:39:444 (5916) > [DLC] mounted pack 1 - 0x00020000 (steam id=208796)
+11:02:39:444 (5916) > [DLC] mounted pack 1 - 0x00040000 (steam id=208797)
+11:02:39:444 (5916) > [DLC] mounted pack 1 - 0x00100000 (steam id=208798)
+11:02:39:444 (5916) > [DLC] mounted pack 1 - 0x00200000 (steam id=208799)
+11:02:39:444 (5916) > [DLC] mounted pack 1 - 0x00400000 (steam id=208800)
+11:02:39:444 (5916) > [DLC] mounted pack 2 - 0x00000400 (steam id=208801)
+11:02:39:444 (5916) > [DLC] mounted pack 2 - 0x00000800 (steam id=208802)
+11:02:39:444 (5916) > [DLC] mounted pack 2 - 0x00001000 (steam id=208803)
+11:02:39:444 (5916) > [DLC] mounted pack 2 - 0x00002000 (steam id=208804)
+11:02:39:444 (5916) > [DLC] mounted pack 2 - 0x00004000 (steam id=208805)
+11:02:39:444 (5916) > [DLC] mounted pack 2 - 0x00100000 (steam id=208806)
+11:02:39:444 (5916) > [DLC] mounted pack 2 - 0x00200000 (steam id=208807)
+11:02:39:444 (5916) > [DLC] mounted pack 2 - 0x00400000 (steam id=208808)
+11:02:39:444 (5916) > [DLC] mounted pack 2 - 0x10000000 (steam id=208815)
+11:02:39:454 (5916) > [DLC] mounted DLC\PACK8.000 (steam id=208812, pack id=8)
+11:02:39:469 (5916) > [DLC] mounted DLC\PACK4.000 (steam id=208810, pack id=4)
+11:03:08:344 (5916) > Player object AddRef laracroft: 1 => 2
+11:03:08:354 (5916) > Player object AddRef laracroft: 2 => 3
+11:03:08:414 (5916) > Player object AddRef laracroft: 3 => 4
+11:12:05:471 (5916) > Player object RemRef laracroft: 4 => 3
+11:12:05:471 (5916) > Player object RemRef laracroft: 3 => 2
+11:12:05:471 (5916) > Player object RemRef laracroft: 2 => 1
+11:12:07:661 (5916) > Player object AddRef laracroft: 1 => 2
+11:12:07:666 (5916) > Player object AddRef laracroft: 2 => 3
+11:12:07:686 (5916) > Player object AddRef laracroft: 3 => 4
+11:14:34:052 (5916) > Player object RemRef laracroft: 4 => 3
+11:14:34:052 (5916) > Player object RemRef laracroft: 3 => 2
+11:14:34:052 (5916) > Player object RemRef laracroft: 2 => 1
+11:14:36:217 (5916) > Player object AddRef laracroft: 1 => 2
+11:14:36:222 (5916) > Player object AddRef laracroft: 2 => 3
+11:14:36:232 (5916) > Player object AddRef laracroft: 3 => 4

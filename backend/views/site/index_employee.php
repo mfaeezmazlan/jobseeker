@@ -123,7 +123,13 @@ $this->title = 'My Dashboard';
                                 </div>
                             </div>
                             <div>
-                                <?= Html::a('<i class="ace-icon fa fa-check-circle bigger-110"></i><span>Apply</span>', ['job-list/view-application', 'id' => $joblist->id], ['class' => 'btn btn-block btn-' . $colorBtn[$rand]]) ?>
+                                <?php
+                                    if ($tmpModelJobApplicationList = \common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id, 'job_list_id' => $joblist->id])->one()){
+                                        echo Html::a('<i class="ace-icon fa fa-check-circle bigger-110"></i><span>Application have been submitted</span>', '#', ['class' => 'btn btn-block btn-' . $colorBtn[$rand]]);
+                                    }else{
+                                        echo Html::a('<i class="ace-icon fa fa-check-circle bigger-110"></i><span>Apply</span>', ['job-list/view-application', 'id' => $joblist->id], ['class' => 'btn btn-block btn-' . $colorBtn[$rand]]);
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>

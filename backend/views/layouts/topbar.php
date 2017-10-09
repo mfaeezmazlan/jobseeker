@@ -10,6 +10,11 @@ if ($modelUserProfile->profile_pic_id != 0) {
     $readAttachment = \common\models\DocAttach::findOne($modelUserProfile->profile_pic_id);
     $pathToProfilePic = Yii::getAlias('@web') . '/uploads/resume/' . Yii::$app->user->id . '/' . $readAttachment->file_name_sys;
 }
+
+$listOfUnreadNotification = \common\models\Notification::find()
+        ->where(['to' => Yii::$app->user->id, 'status' => '0'])
+        ->limit(5)
+        ->orderBy(['created_at' => SORT_DESC])->all();
 ?>
 <div id="navbar" class="navbar navbar-default">                    
     <script type="text/javascript">
@@ -45,64 +50,42 @@ if ($modelUserProfile->profile_pic_id != 0) {
                 <li class="green">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-                        <span class="badge badge-success">5</span>
+                        <span class="badge badge-success"><?= count($listOfUnreadNotification) ?></span>
                     </a>
                     <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
                         <li class="dropdown-header">
                             <i class="ace-icon fa fa-envelope-o"></i>
-                            5 Messages
+                            <?= count($listOfUnreadNotification) ?> Unread Messages
                         </li>
                         <li class="dropdown-content">
                             <ul class="dropdown-menu dropdown-navbar">
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" class="msg-photo" alt="Ahmad's Avatar" />
-                                        <span class="msg-body">
-                                            <span class="msg-title">
-                                                <span class="blue">Ahmad:</span>
-                                                Apa khabar sahabtku ...
+                                <?php
+                                foreach ($listOfUnreadNotification as $notification) {
+                                    $notificationUserModel = \backend\models\User::findOne($notification->from);
+                                    
+                                    ?>
+                                    <li>
+                                        <a href="index.php?r=<?= $notification->path ?>" class="clearfix">
+                                            <img src="<?= (($notificationUserModel->userProfile->profile_pic_id == 0) ? Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] : common\models\DocAttach::getNotificationImage($notificationUserModel->userProfile->profile_pic_id, Yii::getAlias('@web') . '/uploads/resume/'.$notificationUserModel->id)) ?>" class="msg-photo" alt="Ahmad's Avatar" />
+                                            <span class="msg-body">
+                                                <span class="msg-title">
+                                                    <span class="blue"><?= $notificationUserModel->userProfile->first_name ?>:</span>
+                                                    <?= $notification->message ?>
+                                                </span>
+                                                <span class="msg-time">
+                                                    <i class="ace-icon fa fa-clock-o"></i>
+                                                    <span><?= \common\components\DateHandler::resolveDateRead($notification->created_at) ?></span>
+                                                </span>
                                             </span>
-                                            <span class="msg-time">
-                                                <i class="ace-icon fa fa-clock-o"></i>
-                                                <span>3:15 pm</span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" class="msg-photo" alt="Kadijah's Avatar" />
-                                        <span class="msg-body">
-                                            <span class="msg-title">
-                                                <span class="blue">Kadijah:</span>
-                                                Hai, assignment semalam dah siap ke?
-                                            </span>
-                                            <span class="msg-time">
-                                                <i class="ace-icon fa fa-clock-o"></i>
-                                                <span>1:33 pm</span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img src="<?= Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] ?>" class="msg-photo" alt="Farid's Avatar" />
-                                        <span class="msg-body">
-                                            <span class="msg-title">
-                                                <span class="blue">Farid:</span>
-                                                Makan jom
-                                            </span>
-                                            <span class="msg-time">
-                                                <i class="ace-icon fa fa-clock-o"></i>
-                                                <span>10:09 am</span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
+                                        </a>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
                             </ul>
                         </li>
                         <li class="dropdown-footer">
-                            <a href="inbox.html">
+                            <a href="index.php?r=notification/index">
                                 See all messages
                                 <i class="ace-icon fa fa-arrow-right"></i>
                             </a>

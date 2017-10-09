@@ -65,7 +65,25 @@ class JobListController extends \backend\components\GenericController {
         $modelJobApplication = new \common\models\JobApplication();
         $modelJobApplication->job_list_id = $id;
         $modelJobApplication->user_id = Yii::$app->user->identity->id;
-        $modelJobApplication->save();
+        if($modelJobApplication->save()){
+            $from = $modelJobApplication->user_id;
+            $list_of_to = JobList::find()
+                    ->select(['d.id','job_list.position'])
+                    ->innerJoin('job_application b','job_list.id=b.job_list_id')
+                    ->innerJoin('company_profile c','job_list.company_id=c.id')
+                    ->innerJoin('user d','c.user_id=d.id')
+                    ->where(['job_list.id' => $modelJobApplication->job_list_id])
+                    ->all();
+            
+            foreach ($list_of_to as $to){
+                $notificationModel = new \common\models\Notification();
+                $notificationModel->from = $from;
+                $notificationModel->to = $to->id;
+                $notificationModel->message = "I am applying a job as a " . $to->position . " at your company.";
+                $notificationModel->path = "job-list/view&id=".$id;
+                $notificationModel->save();
+            }
+        }
         return $this->redirect(['application']);
     }
 
@@ -174,14 +192,28 @@ class JobListController extends \backend\components\GenericController {
     public function actionAcceptApplication($id) {
         $jobApplicationModel = \common\models\JobApplication::findOne($id);
         $jobApplicationModel->status = 2;
-        $jobApplicationModel->save();
+        if($jobApplicationModel->save()){
+            $notificationModel = new \common\models\Notification();
+            $notificationModel->from = Yii::$app->user->id;
+            $notificationModel->to = $jobApplicationModel->user_id;
+            $notificationModel->message = 'Congratulations!! You have been selected to join us.';
+            $notificationModel->path = 'job-list/view-application&id='.$jobApplicationModel->job_list_id;
+            $notificationModel->save();
+        }
         $this->redirect(['job-list/view', 'id' => $jobApplicationModel->job_list_id]);
     }
 
     public function actionRejectApplication($id) {
         $jobApplicationModel = \common\models\JobApplication::findOne($id);
         $jobApplicationModel->status = 1;
-        $jobApplicationModel->save();
+        if($jobApplicationModel->save()){
+            $notificationModel = new \common\models\Notification();
+            $notificationModel->from = Yii::$app->user->id;
+            $notificationModel->to = $jobApplicationModel->user_id;
+            $notificationModel->message = "We are sorry as your qualification did not meet our expectation.";
+            $notificationModel->path = 'job-list/view-application&id='.$jobApplicationModel->job_list_id;
+            $notificationModel->save();
+        }
         $this->redirect(['job-list/view', 'id' => $jobApplicationModel->job_list_id]);
     }
 

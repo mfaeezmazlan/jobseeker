@@ -82,4 +82,15 @@ class DocAttach extends \common\models\GenericWeb {
         }
     }
 
+    public static function getNotificationImage($id, $generalPath, $sizeWidth = "100px") {
+        $data = self::find()->where(["id" => $id])->one();
+        if ($data) {
+            if (preg_match('/image/', $data->file_type)) {
+                $completePath = $generalPath . "/" . $data->file_name_sys;
+                return $completePath;
+            }
+        }
+        return null;
+    }
+
 }

@@ -20,10 +20,22 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="job-application-view">
             <p>
                 <?php
-                if (\common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id, 'job_list_id' => $model->id])->one())
-                    echo "<i class='fa fa-check green'></i> You have applied for this job.";
-                else
+                if ($tmpModelJobApplicationList = \common\models\JobApplication::find()->where(['user_id' => Yii::$app->user->identity->id, 'job_list_id' => $model->id])->one()){
+                    switch ($tmpModelJobApplicationList->status){
+                        case 0:
+                            echo "<i class='fa fa-check blue'></i> You have applied for this job. Please wait for further action of our staff.";
+                            break;
+                        case 1:
+                            echo "<i class='fa fa-times red'></i> We are sorry as your qualification did not meet our expectation.";
+                            break;
+                        case 2:
+                            echo "<i class='fa fa-check-circle-o green'></i> Congratulations!! You have been selected to join us.";
+                            break;
+                    }
+                }
+                else{
                     echo Html::a(Yii::t('app', 'Apply <i class="fa fa-check"></i>'), ['apply', 'id' => $model->id], ['class' => 'btn btn-success btn-sm']);
+                }
                 ?>
             </p>
 

@@ -33,7 +33,7 @@ use yii\helpers\Url;
             'options' => [
                 'placeholder' => 'Select Role'
             ],
-            'data' => \common\models\OptionHandler::render('roles'),
+            'data' => common\models\Reference::getList('role'),
             'pluginOptions' => [
                 'allowClear' => true,
             ]
