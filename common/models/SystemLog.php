@@ -71,7 +71,8 @@ class SystemLog extends \common\models\GenericWeb {
         
 
         $log = new SystemLog();
-        $log->ip_address = $_SERVER['REMOTE_ADDR'];
+//        $log->ip_address = $_SERVER['REMOTE_ADDR'];
+        $log->ip_address = !empty($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : (!empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR']);
         $log->controller = Yii::$app->controller->id;
         $log->action = Yii::$app->controller->action->id;
         $log->description = preg_replace('/\s+/', '', $description_val);;
