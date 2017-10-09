@@ -32,8 +32,8 @@ $this->title = 'AMH Reality Enterprise';
                 <div class="infobox-content">Offer</div>
             </div>
         </div>
-        <div class="infobox infobox-pink" id="pending_box">
-            <div class="infobox-icon" onclick="location.href = 'index.php?r=job-list/index'">
+        <div class="infobox infobox-pink" id="pending_box" title="View Pending Jobs" style="cursor: pointer;" onclick="location.href = 'index.php?r=job-list/index'">
+            <div class="infobox-icon">
                 <i class="ace-icon fa fa-envelope"></i>
             </div>
             <div class="infobox-data">

@@ -98,7 +98,7 @@ class JobListController extends \backend\components\GenericController {
             'query' => \common\models\JobApplication::find()
                     ->innerJoin('job_list a', 'a.id=job_application.job_list_id')
                     ->where(['a.company_id' => $companyModel->id, 'job_application.job_list_id' => $id])
-                    ->orderBy(['job_application.status' => SORT_ASC, 'job_application.created_at' => SORT_DESC]),
+                    ->orderBy(['job_application.created_at' => SORT_DESC,'job_application.status' => SORT_ASC]),
             'pagination' => [
                 'pageSize' => 20,
             ],

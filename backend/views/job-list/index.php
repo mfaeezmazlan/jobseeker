@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\JobListSearch */
@@ -31,13 +32,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    'position',
                     [
                         'attribute' => 'field',
+                        'filter' => Select2::widget([
+                            'model' => $searchModel,
+                            'attribute' => 'field',
+                            'data' => \common\models\Reference::getList('job_field'),
+                            'theme' => Select2::THEME_BOOTSTRAP,
+                            'options' => [
+                                'placeholder' => 'Select All',
+                            ],
+                            'pluginOptions' => [
+                                'allowClear' => true,
+                            ]
+                        ]),
                         'value' => function($model) {
                             return common\models\Reference::getDesc('job_field', $model->field);
                         }
                     ],
+                    'position',
                     [
                         'attribute' => 'Pending Application',
                         'headerOptions' => ['style' => 'width:150px'],

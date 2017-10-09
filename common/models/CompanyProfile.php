@@ -98,5 +98,13 @@ class CompanyProfile extends \common\models\GenericWeb {
     public function getJobLists() {
         return $this->hasMany(JobList::className(), ['company_id' => 'id']);
     }
-
+    
+    public static function getList(){
+        $arr = [];
+        $data = self::find()->where(['isDeleted' => '0'])->all();
+        foreach ($data as $x){
+            $arr[$x->id] = $x->company_name;
+        }
+        return $arr;
+    }
 }

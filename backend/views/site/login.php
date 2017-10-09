@@ -81,7 +81,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     Enter your email and to receive instructions
                 </p>
                 <?php $formRequestPassword = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
-                <?= $formRequestPassword->errorSummary($modelPasswordResetRequest) ?>
                 <fieldset>
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">

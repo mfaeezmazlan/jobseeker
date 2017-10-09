@@ -89,18 +89,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ],
                 'created_at',
-                [
-                    'attribute' => 'status',
-                    'value' => function($model) {
-                        return common\models\Reference::getDesc('status_application', $model->status);
-                    }
-                ],
                 'updated_at',
                 [
                     'attribute' => 'updated_by',
                     'value' => function($model) {
                         $data = backend\models\User::findOne($model->updated_by);
                         return $data->userProfile->fullName;
+                    }
+                ],
+                [
+                    'attribute' => 'status',
+                    'value' => function($model) {
+                        return common\models\Reference::getDesc('status_application', $model->status);
                     }
                 ],
                 [

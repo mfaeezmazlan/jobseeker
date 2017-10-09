@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\JobListSearch */
@@ -33,12 +34,36 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn'],
                     [
                         'attribute' => 'company_id',
+                        'filter' => Select2::widget([
+                            'model' => $searchModel,
+                            'attribute' => 'company_id',
+                            'data' => \common\models\CompanyProfile::getList(),
+                            'theme' => Select2::THEME_BOOTSTRAP,
+                            'options' => [
+                                'placeholder' => 'Select All',
+                            ],
+                            'pluginOptions' => [
+                                'allowClear' => true,
+                            ]
+                        ]),
                         'value' => function($model) {
                             return $model->company->company_name;
                         }
                     ],
                     [
                         'attribute' => 'field',
+                        'filter' => Select2::widget([
+                            'model' => $searchModel,
+                            'attribute' => 'field',
+                            'data' => \common\models\Reference::getList('job_field'),
+                            'theme' => Select2::THEME_BOOTSTRAP,
+                            'options' => [
+                                'placeholder' => 'Select All',
+                            ],
+                            'pluginOptions' => [
+                                'allowClear' => true,
+                            ]
+                        ]),
                         'value' => function($model) {
                             return common\models\Reference::getDesc('job_field', $model->field);
                         }

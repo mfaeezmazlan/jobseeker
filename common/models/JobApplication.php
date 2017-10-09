@@ -48,7 +48,7 @@ class JobApplication extends \common\models\GenericWeb {
             'user_id' => Yii::t('app', 'Applicant Name'),
             'job_list_id' => Yii::t('app', 'Job List ID'),
             'isDeleted' => Yii::t('app', 'Is Deleted'),
-            'created_at' => Yii::t('app', 'Apply On'),
+            'created_at' => Yii::t('app', 'Apply At'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'updated_by' => Yii::t('app', 'Updated By'),
