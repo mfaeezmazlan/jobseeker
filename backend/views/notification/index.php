@@ -57,7 +57,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function($model) {
                             return \common\components\DateHandler::resolveDateRead($model->created_at);
                         }
-                    ]
+                    ],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'headerOptions' => ['style' => 'width:75px'],
+                        'header' => 'Action',
+                        'template' => '{mark_as_read}',
+                        'buttons' => [
+                            'mark_as_read' => function ($url, $model) {
+                                if ($model->status == '0')
+                                    return Html::a('<i class="fa fa-check green"></i>', ['notification/read', 'id' => $model->id], ['data-pjax' => '0', 'title' => 'Mark as read']);
+                                else
+                                    return Html::a('<i class="fa fa-times red"></i>', ['notification/unread', 'id' => $model->id], ['data-pjax' => '0', 'title' => 'Mark as un-read']);
+                            },
+                        ]
+                    ],
                 ],
             ]);
             ?>

@@ -29,6 +29,23 @@ class NotificationController extends Controller
         ];
     }
 
+    public function actionRead($id){
+        $model = $this->findModel($id);
+        $model->status='1';
+        $model->save();
+        if (!Yii::$app->request->isAjax) {
+            $this->redirect(['notification/index']);
+        }
+    }
+    public function actionUnread($id){
+        $model = $this->findModel($id);
+        $model->status='0';
+        $model->save();
+        if (!Yii::$app->request->isAjax) {
+            $this->redirect(['notification/index']);
+        }
+    }
+    
     /**
      * Lists all Notification models.
      * @return mixed

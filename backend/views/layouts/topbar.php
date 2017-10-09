@@ -65,7 +65,7 @@ $listOfUnreadNotification = \common\models\Notification::find()
                                     
                                     ?>
                                     <li>
-                                        <a href="index.php?r=<?= $notification->path ?>" class="clearfix">
+                                        <a id="notificationid_<?= $notification->id ?>" href="index.php?r=<?= $notification->path ?>" class="clearfix">
                                             <img src="<?= (($notificationUserModel->userProfile->profile_pic_id == 0) ? Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'] : common\models\DocAttach::getNotificationImage($notificationUserModel->userProfile->profile_pic_id, Yii::getAlias('@web') . '/uploads/resume/'.$notificationUserModel->id)) ?>" class="msg-photo" alt="Ahmad's Avatar" />
                                             <span class="msg-body">
                                                 <span class="msg-title">
@@ -124,3 +124,15 @@ $listOfUnreadNotification = \common\models\Notification::find()
         <!-- /section:basics/navbar.dropdown -->
     </div><!-- /.navbar-container -->
 </div>
+<?php
+$this->registerJs("
+    $('document').ready(function(){ 
+        $('a[id^=notificationid_]').click(function(){
+            var notificationid = this.id;
+            var notificationid = notificationid.substring(notificationid.indexOf('_') + 1);
+            
+            $.get('index.php?r=notification/read',{id:notificationid});
+        });
+    });
+", \yii\web\View::POS_END);
+?>
