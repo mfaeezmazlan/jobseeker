@@ -43,8 +43,10 @@ use Yii;
 class UserProfile extends \common\models\GenericWeb {
 
     public $file;
-    public $min_salary,$max_salary;
+    public $min_salary, $max_salary;
     public $score;
+    public $percentage;
+
     /**
      * @inheritdoc
      */
@@ -59,7 +61,7 @@ class UserProfile extends \common\models\GenericWeb {
         return [
             [['user_id', 'address_id', 'profile_pic_id', 'first_name'], 'required'],
             [['user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by', 'working_experience', 'company_profile_id'], 'integer'],
-            [['skills', 'language', 'leadership_experience', 'date_of_birth', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['percentage','skills', 'language', 'leadership_experience', 'date_of_birth', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['expected_salary', 'min_salary', 'max_salary', 'score'], 'number'],
             [['file'], 'file'],
             [['nric', 'mobile_no', 'home_no'], 'string', 'max' => 50],
@@ -92,6 +94,7 @@ class UserProfile extends \common\models\GenericWeb {
             'language' => Yii::t('app', 'Language'),
             'gender' => Yii::t('app', 'Gender'),
             'file' => Yii::t('app', 'Resume'),
+            'percentage' => Yii::t('app', 'Percentage'),
             'area_of_education' => Yii::t('app', 'Area Of Education'),
             'date_of_birth' => Yii::t('app', 'Date Of Birth'),
             'marital_status' => Yii::t('app', 'Marital Status'),
@@ -126,16 +129,57 @@ class UserProfile extends \common\models\GenericWeb {
     public function getUser() {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
-    
-    public function getFullName(){
+
+    public function getFullName() {
         return $this->first_name . " " . $this->last_name;
     }
-    
-    public function getCompany(){
+
+    public function getCompany() {
         return $this->hasOne(CompanyProfile::className(), ['id' => 'company_profile_id']);
     }
-    
+
     public function getDoc() {
         return $this->hasMany(UserDoc::className(), ['user_id' => 'user_id']);
     }
+
+    public function getCriteriaPercentage() {
+        $score = 0;
+        if ($this->qualification == Yii::$app->session->get('qualificationSearch') && Yii::$app->session->get('qualificationSearch') != '')
+            $score++;
+        if ($this->previous_job_field == Yii::$app->session->get('previousJobFieldSearch') && Yii::$app->session->get('previousJobFieldSearch') != '')
+            $score++;
+        if ($this->working_experience == Yii::$app->session->get('workingExperienceSearch') && Yii::$app->session->get('workingExperienceSearch') != '')
+            $score++;
+
+        if ($this->skills != '' || $this->skills != null) {
+            $arr1 = explode(',', $this->skills);
+            $arr2 = explode(',', Yii::$app->session->get('skillsSearch'));
+            $intersect = array_intersect($arr1, $arr2);
+            $score = $score + count($intersect);
+        }
+
+        if ($this->language != '' || $this->language != null) {
+            $arr1 = explode(',', $this->language);
+            $arr2 = explode(',', Yii::$app->session->get('languageSearch'));
+            $intersect = array_intersect($arr1, $arr2);
+            $score = $score + count($intersect);
+        }
+
+        if ($this->leadership_experience != '' || $this->leadership_experience != null) {
+            $arr1 = explode(',', $this->leadership_experience);
+            $arr2 = explode(',', Yii::$app->session->get('leadershipExpSearch'));
+            $intersect = array_intersect($arr1, $arr2);
+            $score = $score + count($intersect);
+        }
+
+        $totalSearch = Yii::$app->session->get('totalSearch');
+        if ($totalSearch == 0) {
+            $this->percentage = '100%';
+            return $this->percentage;
+        } else {
+            $this->percentage = number_format((($score / Yii::$app->session->get('totalSearch')) * 100), 2) . "%";
+            return $this->percentage;
+        }
+    }
+
 }

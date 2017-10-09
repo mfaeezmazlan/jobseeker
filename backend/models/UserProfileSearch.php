@@ -12,6 +12,8 @@ use common\models\UserProfile;
  */
 class UserProfileSearch extends UserProfile {
 
+    public $percentage;
+
     /**
      * @inheritdoc
      */
@@ -19,7 +21,7 @@ class UserProfileSearch extends UserProfile {
         return [
             [['id', 'user_id', 'address_id', 'profile_pic_id', 'created_by', 'updated_by', 'deleted_by', 'working_experience'], 'integer'],
             [['min_salary', 'max_salary', 'expected_salary'], 'number'],
-            [['first_name', 'qualification', 'skills', 'language', 'previous_job_field', 'leadership_experience', 'date_of_birth', 'last_name', 'mobile_no', 'home_no', 'description', 'isDeleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['percentage', 'first_name', 'qualification', 'skills', 'language', 'previous_job_field', 'leadership_experience', 'date_of_birth', 'last_name', 'mobile_no', 'home_no', 'description', 'isDeleted', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -142,5 +144,4 @@ class UserProfileSearch extends UserProfile {
 
         return $dataProvider;
     }
-
 }

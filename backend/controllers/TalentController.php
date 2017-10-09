@@ -60,7 +60,6 @@ class TalentController extends \backend\components\GenericController {
 
     public function actionSearch() {
         $searchModel = new \backend\models\UserProfileSearch();
-        $dataProvider = $searchModel->searchTalent(Yii::$app->request->queryParams);
 
         if (isset($_GET['UserProfileSearch'])) {
             $totalSearch = 0;
@@ -164,6 +163,7 @@ class TalentController extends \backend\components\GenericController {
                 'pagination' => [
                     'pageSize' => 20,
                 ],
+                'sort' => false,
             ]);
 
             $readAttachment = null;
@@ -183,7 +183,6 @@ class TalentController extends \backend\components\GenericController {
         } else {
             return $this->render('search', [
                         'searchModel' => $searchModel,
-                        'dataProvider' => $dataProvider,
             ]);
         }
     }

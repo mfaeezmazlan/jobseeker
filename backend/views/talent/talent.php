@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
+use fedemotta\datatables\DataTables;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\ReferenceSearch */
@@ -12,7 +12,7 @@ $this->title = Yii::t('app', 'Talent Search');
 $this->params['breadcrumbs'][] = $this->title;
 
 $pathToProfilePic = Yii::$app->urlManager->getBaseUrl() . Yii::$app->params['unknownUserImagePath'];
-if ($winnerModel->profile_pic_id != 0) {
+if ($winnerModel && $winnerModel->profile_pic_id != 0) {
     $pathToProfilePic = Yii::getAlias('@web') . '/uploads/resume/' . $winnerModel->user_id . '/' . $readAttachment->file_name_sys;
 }
 ?>
@@ -105,7 +105,8 @@ if ($winnerModel) {
                                                 ['name' => 'Criteria Lost', 'y' => Yii::$app->session->get('totalSearch') - $highestScore],
                                             ]
                                         ]
-                                    ]
+                                    ],
+                                    'credits' => false,
                                 ]
                             ]);
                             ?>
@@ -125,51 +126,19 @@ if ($winnerModel) {
             <!--<button id="open_search" style="display: none;" class="btn btn-block btn-primary">Search Result (Click to open Search Box)</button>-->
             <div id="talent-grid-view" style="display: block">
                 <?=
-                GridView::widget([
+                DataTables::widget([
                     'dataProvider' => $provider,
+                    'clientOptions' => [
+                        'order' => [[0, 'desc']],
+                    ],
                     'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
+//                        ['class' => 'yii\grid\SerialColumn'],
                         [
-                            'attribute' => 'search_criteria',
-                            'header' => 'Percentage (%)',
+                            'attribute' => 'percentage',
+                            'header' => 'Match Criteria(%)',
                             'format' => 'raw',
-                            'enableSorting' => true,
                             'value' => function($model) {
-                                $score = 0;
-                                if ($model->qualification == Yii::$app->session->get('qualificationSearch') && Yii::$app->session->get('qualificationSearch') != '')
-                                    $score++;
-                                if ($model->previous_job_field == Yii::$app->session->get('previousJobFieldSearch') && Yii::$app->session->get('previousJobFieldSearch') != '')
-                                    $score++;
-                                if ($model->working_experience == Yii::$app->session->get('workingExperienceSearch') && Yii::$app->session->get('workingExperienceSearch') != '')
-                                    $score++;
-
-                                if ($model->skills != '' || $model->skills != null) {
-                                    $arr1 = explode(',', $model->skills);
-                                    $arr2 = explode(',', Yii::$app->session->get('skillsSearch'));
-                                    $intersect = array_intersect($arr1, $arr2);
-                                    $score = $score + count($intersect);
-                                }
-
-                                if ($model->language != '' || $model->language != null) {
-                                    $arr1 = explode(',', $model->language);
-                                    $arr2 = explode(',', Yii::$app->session->get('languageSearch'));
-                                    $intersect = array_intersect($arr1, $arr2);
-                                    $score = $score + count($intersect);
-                                }
-
-                                if ($model->leadership_experience != '' || $model->leadership_experience != null) {
-                                    $arr1 = explode(',', $model->leadership_experience);
-                                    $arr2 = explode(',', Yii::$app->session->get('leadershipExpSearch'));
-                                    $intersect = array_intersect($arr1, $arr2);
-                                    $score = $score + count($intersect);
-                                }
-
-                                $totalSearch = Yii::$app->session->get('totalSearch');
-                                if ($totalSearch == 0) {
-                                    return '100%';
-                                } else {
-                                    return number_format((($score / Yii::$app->session->get('totalSearch')) * 100), 2) . "%";
-                                }
+                                return $model->getCriteriaPercentage();
                             }
                         ],
                         [
@@ -178,6 +147,12 @@ if ($winnerModel) {
                             'format' => 'raw',
                             'value' => function($model) {
                                 return Html::a($model->first_name . " " . $model->last_name, ['user-profile/view-profile', 'id' => $model->user_id]);
+                            }
+                        ],
+                        [
+                            'attribute' => 'qualification',
+                            'value' => function($model) {
+                                return common\models\Reference::getDesc('qualification', $model->qualification);
                             }
                         ],
                         [
