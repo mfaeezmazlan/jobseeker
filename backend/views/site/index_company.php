@@ -47,16 +47,26 @@ $this->title = 'AMH Reality Enterprise';
         <?php
         echo Highcharts::widget([
             'options' => [
-                'chart' => ['type' => 'bar'],
-                'title' => ['text' => 'Total User'],
-                'xAxis' => [
-                    'categories' => ['Admin', 'Employer', 'Job Seeker']
+                'chart' => [
+                    'plotBackgroundColor' => null,
+                    'plotBorderWidth' => null,
+                    'plotShadow' => false,
+                    'type' => 'pie',
                 ],
-                'yAxis' => [
-                    'title' => ['text' => 'Number of users']
+                'title' => ['text' => 'Total User by Roles'],
+                'tooltip' => [
+//                    'pointFormat' => '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    'pointFormat' => '{series.name}: <b>{point.y}</b>'
                 ],
                 'series' => [
-                    ['name' => 'Total', 'data' => [$totalUserAdmin, $totalUserCompany, $totalUser]],
+                    [
+                        'name' => 'Total User',
+                        'data' => [
+                            ['name' => 'Admin', 'y' => $totalUserAdmin],
+                            ['name' => 'Employer', 'y' => $totalUserCompany],
+                            ['name' => 'Jobseeker', 'y' => $totalUser],
+                        ]
+                    ]
                 ],
                 'credits' => false,
             ]
