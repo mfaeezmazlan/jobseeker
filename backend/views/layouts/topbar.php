@@ -49,13 +49,13 @@ $listOfUnreadNotification = \common\models\Notification::find()
             <ul class="nav ace-nav">
                 <li class="green">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+                        <i class="ace-icon fa fa-bell icon-animated-vertical"></i>
                         <span class="badge badge-success"><?= count($listOfUnreadNotification) ?></span>
                     </a>
                     <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
                         <li class="dropdown-header">
-                            <i class="ace-icon fa fa-envelope-o"></i>
-                            <?= count($listOfUnreadNotification) ?> Unread Messages
+                            <i class="ace-icon fa fa-bell-o"></i>
+                            <?= count($listOfUnreadNotification) ?> Unread Notifications
                         </li>
                         <li class="dropdown-content">
                             <ul class="dropdown-menu dropdown-navbar">
@@ -86,7 +86,7 @@ $listOfUnreadNotification = \common\models\Notification::find()
                         </li>
                         <li class="dropdown-footer">
                             <a href="index.php?r=notification/index">
-                                See all messages
+                                See all notifications
                                 <i class="ace-icon fa fa-arrow-right"></i>
                             </a>
                         </li>

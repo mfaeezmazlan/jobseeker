@@ -62,8 +62,7 @@ $this->title = 'AMH Reality Enterprise';
                     [
                         'name' => 'Total User',
                         'data' => [
-                            ['name' => 'Admin', 'y' => $totalUserAdmin],
-                            ['name' => 'Employer', 'y' => $totalUserCompany],
+                            ['name' => 'Staff', 'y' => $totalUserCompany],
                             ['name' => 'Jobseeker', 'y' => $totalUser],
                         ]
                     ]
