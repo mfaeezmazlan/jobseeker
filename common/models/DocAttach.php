@@ -40,7 +40,7 @@ class DocAttach extends \common\models\GenericWeb {
             [['doc_title', 'file_name'], 'required'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['file'], 'file'],
+            [['file'], 'file', 'extensions' => 'pdf', 'wrongExtension' => 'PDF file only'],
             [['doc_title', 'file_name', 'file_name_sys'], 'string', 'max' => 100],
             [['file_type'], 'string', 'max' => 50],
             [['remarks'], 'string', 'max' => 255],

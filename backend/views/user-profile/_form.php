@@ -182,7 +182,7 @@ $counter = 0;
                                 <?= $form->field($model, 'description')->textarea(['maxlength' => true, 'rows' => '5']) ?>
                                 <?php
                                 if ($readAttachment)
-                                    echo $form->field($modelAttachment, 'file', ['template' => '{label}{input} Current File: <font color="#478fca">' . Html::a($readAttachment->file_name, ['user-profile/download-attachment', 'id' => $readAttachment->id, 'user_id' => $model->user_id]) . '</font>'])->fileInput();
+                                    echo $form->field($modelAttachment, 'file', ['template' => '{label}{input}{error} Current File: <font color="#478fca">' . Html::a($readAttachment->file_name, ['user-profile/download-attachment', 'id' => $readAttachment->id, 'user_id' => $model->user_id]) . '</font>'])->fileInput();
                                 else
                                     echo $form->field($modelAttachment, 'file')->fileInput();
                                 ?>

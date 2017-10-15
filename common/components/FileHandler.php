@@ -28,7 +28,7 @@ class FileHandler {
 
         $modelAttachment->doc_title = $modelAttachment->file->name;
         $modelAttachment->file->saveAs("$path/" . Yii::$app->user->id . "_" . date('d-m-Y_H_i_s') . "." . $modelAttachment->file->extension);
-
+        $modelAttachment->file = "$path/" . Yii::$app->user->id . "_" . date('d-m-Y_H_i_s') . "." . $modelAttachment->file->extension;
         if ($modelAttachment->save()) {
             $modelUserDoc = new UserDoc();
             $modelUserDoc->user_id = $userId;
