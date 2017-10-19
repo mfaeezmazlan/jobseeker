@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-use backend\models\User;
+use backend\models\User as BackendUser;
 
 class GenericWeb extends \yii\db\ActiveRecord {
 
@@ -11,7 +11,7 @@ class GenericWeb extends \yii\db\ActiveRecord {
         if (Yii::$app->user->isGuest) {
             if (parent::beforeSave($insert)) {
                 if (!defined('STDIN')) {
-                    $user = User::find()->where("username='guest'")->one();
+                    $user = BackendUser::find()->where("username='guest'")->one();
                 }
                 if ($this->isNewRecord) {
                     $this->updated_at = $this->created_at = date('Y-m-d H:i:s');
@@ -54,7 +54,7 @@ class GenericWeb extends \yii\db\ActiveRecord {
         } else {
             if (parent::beforeSave($insert)) {
                 if (!defined('STDIN')) {
-                    $user = User::find()->where("username='" . Yii::$app->user->identity->username . "'")->one();
+                    $user = BackendUser::find()->where("username='" . Yii::$app->user->identity->username . "'")->one();
                 }
                 if ($this->isNewRecord) {
                     $this->updated_at = $this->created_at = date('Y-m-d H:i:s');

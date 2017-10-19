@@ -111,6 +111,7 @@ class UserProfileController extends \backend\components\GenericController {
         $model = $this->findModel(Yii::$app->user->id);
         $modelAddress = $model->address;
         $modelAttachment = new \common\models\DocAttach();
+        $modelAttachment->scenario = 'updateResume';
         $readAttachment = null;
         if ($modelUserDoc = \common\models\UserDoc::find()->where(['user_id' => Yii::$app->user->identity->id])->orderBy(['id' => SORT_DESC])->one()) {
             $readAttachment = \common\models\DocAttach::findOne($modelUserDoc->doc_attach_id);
@@ -190,6 +191,7 @@ class UserProfileController extends \backend\components\GenericController {
     public function actionUpdateProfilePic() {
         $modelUserProfile = $this->findModel(Yii::$app->user->id);
         $modelAttachment = new \common\models\DocAttach();
+        $modelAttachment->scenario = 'updateProfilePic';
         foreach ($_FILES as $cat => $file) {
             $filetype = $file['type']['file'];
         }
@@ -206,6 +208,7 @@ class UserProfileController extends \backend\components\GenericController {
 
         $modelAttachment->doc_title = $modelAttachment->file->name;
         $modelAttachment->file->saveAs("$path/" . $modelUserProfile->user_id . "_" . date('d-m-Y_H_i_s') . "." . $modelAttachment->file->extension);
+        $modelAttachment->file = "$path/" . Yii::$app->user->id . "_" . date('d-m-Y_H_i_s') . "." . $modelAttachment->file->extension;
         if ($modelAttachment->save()) {
             $modelUserProfile->profile_pic_id = $modelAttachment->id;
             $modelUserProfile->save();
