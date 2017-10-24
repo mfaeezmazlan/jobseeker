@@ -65,22 +65,22 @@ class JobListController extends \backend\components\GenericController {
         $modelJobApplication = new \common\models\JobApplication();
         $modelJobApplication->job_list_id = $id;
         $modelJobApplication->user_id = Yii::$app->user->identity->id;
-        if($modelJobApplication->save()){
+        if ($modelJobApplication->save()) {
             $from = $modelJobApplication->user_id;
             $list_of_to = JobList::find()
-                    ->select(['d.id','job_list.position'])
-                    ->innerJoin('job_application b','job_list.id=b.job_list_id')
-                    ->innerJoin('company_profile c','job_list.company_id=c.id')
-                    ->innerJoin('user d','c.user_id=d.id')
+                    ->select(['d.id', 'job_list.position'])
+                    ->innerJoin('job_application b', 'job_list.id=b.job_list_id')
+                    ->innerJoin('company_profile c', 'job_list.company_id=c.id')
+                    ->innerJoin('user d', 'c.user_id=d.id')
                     ->where(['job_list.id' => $modelJobApplication->job_list_id])
                     ->all();
-            
-            foreach ($list_of_to as $to){
+
+            foreach ($list_of_to as $to) {
                 $notificationModel = new \common\models\Notification();
                 $notificationModel->from = $from;
                 $notificationModel->to = $to->id;
                 $notificationModel->message = "I am applying a job as a " . $to->position . " at your company.";
-                $notificationModel->path = "job-list/view&id=".$id;
+                $notificationModel->path = "job-list/view&id=" . $id;
                 $notificationModel->save();
             }
         }
@@ -98,7 +98,7 @@ class JobListController extends \backend\components\GenericController {
             'query' => \common\models\JobApplication::find()
                     ->innerJoin('job_list a', 'a.id=job_application.job_list_id')
                     ->where(['a.company_id' => $companyModel->id, 'job_application.job_list_id' => $id])
-                    ->orderBy(['job_application.created_at' => SORT_DESC,'job_application.status' => SORT_ASC]),
+                    ->orderBy(['job_application.created_at' => SORT_DESC, 'job_application.status' => SORT_ASC]),
             'pagination' => [
                 'pageSize' => 20,
             ],
@@ -192,29 +192,59 @@ class JobListController extends \backend\components\GenericController {
     public function actionAcceptApplication($id) {
         $jobApplicationModel = \common\models\JobApplication::findOne($id);
         $jobApplicationModel->status = 2;
-        if($jobApplicationModel->save()){
+        if ($jobApplicationModel->save()) {
             $notificationModel = new \common\models\Notification();
             $notificationModel->from = Yii::$app->user->id;
             $notificationModel->to = $jobApplicationModel->user_id;
             $notificationModel->message = 'Congratulations!! You have been selected to join us.';
-            $notificationModel->path = 'job-list/view-application&id='.$jobApplicationModel->job_list_id;
+            $notificationModel->path = 'job-list/view-application&id=' . $jobApplicationModel->job_list_id;
             $notificationModel->save();
         }
-        $this->redirect(['job-list/view', 'id' => $jobApplicationModel->job_list_id]);
+        return $this->redirect(['job-list/view', 'id' => $jobApplicationModel->job_list_id]);
     }
 
     public function actionRejectApplication($id) {
         $jobApplicationModel = \common\models\JobApplication::findOne($id);
         $jobApplicationModel->status = 1;
-        if($jobApplicationModel->save()){
+        if ($jobApplicationModel->save()) {
             $notificationModel = new \common\models\Notification();
             $notificationModel->from = Yii::$app->user->id;
             $notificationModel->to = $jobApplicationModel->user_id;
             $notificationModel->message = "We are sorry as your qualification did not meet our expectation.";
-            $notificationModel->path = 'job-list/view-application&id='.$jobApplicationModel->job_list_id;
+            $notificationModel->path = 'job-list/view-application&id=' . $jobApplicationModel->job_list_id;
             $notificationModel->save();
         }
-        $this->redirect(['job-list/view', 'id' => $jobApplicationModel->job_list_id]);
+        return $this->redirect(['job-list/view', 'id' => $jobApplicationModel->job_list_id]);
+    }
+
+    public function actionOfferApplication($id) {
+        $jobApplicationModel = new \common\models\JobApplication();
+
+        $jobApplicationModel->user_id = $id;
+
+        if ($jobApplicationModel->load(Yii::$app->request->post()) && $jobApplicationModel->validate()) {
+            if ($check = \common\models\JobApplication::find()->where(['job_list_id' => $jobApplicationModel->job_list_id, 'user_id' => $jobApplicationModel->user_id])->one()) {
+                Yii::$app->session['flash_msg'] = "This person have submit a request for this job position, kindly check this request.";
+                Yii::$app->session['flash_type'] = "warning";
+            } else {
+                $jobApplicationModel->status = 3;
+                if ($jobApplicationModel->save()) {
+                    $notificationModel = new \common\models\Notification();
+                    $notificationModel->from = Yii::$app->user->id;
+                    $notificationModel->to = $jobApplicationModel->user_id;
+                    $notificationModel->message = "Congratulations you have been offered to join us.";
+                    $notificationModel->path = 'job-list/view-application&id=' . $jobApplicationModel->job_list_id;
+                    $notificationModel->save();
+                    Yii::$app->session['flash_msg'] = "You hace successfully offered this job.";
+                    Yii::$app->session['flash_type'] = "success";
+                }
+            }
+            return $this->redirect(['job-list/index']);
+        }
+
+        return $this->render('offerApplication', [
+                    'jobApplicationModel' => $jobApplicationModel
+        ]);
     }
 
 }

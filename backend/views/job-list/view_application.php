@@ -31,6 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         case 2:
                             echo "<i class='fa fa-check-circle-o green'></i> Congratulations!! You have been selected to join us.";
                             break;
+                        case 3:
+                            echo "<i class='fa fa-check-circle green'></i> Congratulations!! You have been offered to join us directly because of your talent.";
+                            break;
                     }
                 }
                 else{

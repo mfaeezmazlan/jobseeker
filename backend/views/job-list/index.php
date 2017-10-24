@@ -52,11 +52,35 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'position',
                     [
+                        'attribute' => 'Accepted Application',
+                        'headerOptions' => ['style' => 'width:150px'],
+                        'contentOptions' => ['style' => 'text-align: right'],
+                        'value' => function($model) {
+                            return count(common\models\JobApplication::find()->where(['job_list_id' => $model->id, 'status' => 2])->all());
+                        }
+                    ],
+                    [
+                        'attribute' => 'Rejected Application',
+                        'headerOptions' => ['style' => 'width:150px'],
+                        'contentOptions' => ['style' => 'text-align: right'],
+                        'value' => function($model) {
+                            return count(common\models\JobApplication::find()->where(['job_list_id' => $model->id, 'status' => 1])->all());
+                        }
+                    ],
+                    [
                         'attribute' => 'Pending Application',
                         'headerOptions' => ['style' => 'width:150px'],
                         'contentOptions' => ['style' => 'text-align: right'],
                         'value' => function($model) {
                             return count(common\models\JobApplication::find()->where(['job_list_id' => $model->id, 'status' => 0])->all());
+                        }
+                    ],
+                    [
+                        'attribute' => 'Total Application',
+                        'headerOptions' => ['style' => 'width:150px'],
+                        'contentOptions' => ['style' => 'text-align: right'],
+                        'value' => function($model) {
+                            return count(common\models\JobApplication::find()->where(['job_list_id' => $model->id])->all());
                         }
                     ],
                     ['class' => 'yii\grid\ActionColumn', 'headerOptions' => ['style' => 'width:75px'], 'header' => 'Action'],

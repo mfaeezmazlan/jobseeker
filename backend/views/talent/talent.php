@@ -200,7 +200,7 @@ if ($winnerModel) {
                             'class' => 'yii\grid\ActionColumn',
                             'headerOptions' => ['style' => 'width:75px'],
                             'header' => 'Action',
-                            'template' => '{download_resume} {reject} {accept}',
+                            'template' => '{download_resume} {accept}',
                             'buttons' => [
                                 'download_resume' => function ($url, $model) {
                                     $user_doc = common\models\UserDoc::find()->where(['user_id' => $model->user_id])->orderBy(['id' => SORT_DESC])->one();
@@ -209,11 +209,11 @@ if ($winnerModel) {
                                     else
                                         return Html::a('<i class="fa fa-download dark"></i>', '#', ['data-pjax' => '0', 'title' => 'Resume not submitted yet']);
                                 },
-                                'reject' => function ($url, $model) {
-                                    return Html::a('<i class="fa fa-times red"></i>', ['job-list/view-application', 'id' => $model->id], ['data-pjax' => '0', 'title' => 'Reject']);
-                                },
+//                                'reject' => function ($url, $model) {
+//                                    return Html::a('<i class="fa fa-times red"></i>', ['job-list/view-application', 'id' => $model->id], ['data-pjax' => '0', 'title' => 'Reject']);
+//                                },
                                 'accept' => function ($url, $model) {
-                                    return Html::a('<i class="fa fa-check green"></i>', ['job-list/view-application', 'id' => $model->id], ['data-pjax' => '0', 'title' => 'Accept']);
+                                    return Html::a('<i class="fa fa-check green"></i>', ['job-list/offer-application', 'id' => $model->user_id], ['data-pjax' => '0', 'title' => 'Accept']);
                                 }
                             ]
                         ],
